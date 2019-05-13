@@ -1,0 +1,32 @@
+\usepackage[subpreambles=true]{standalone}
+\usepackage{import}
+\usepackage{iftex}
+\usepackage{geometry}
+\usepackage{fancybox}
+
+\ifPDFTeX
+	\usepackage[utf8]{vntex}
+\fi
+
+\ifXeTeX
+	\usepackage{fontspec}
+	\setromanfont{Times New Roman}
+	\setsansfont{Arial}
+	\setmonofont[Ligatures=TeX]{Courier New}
+\fi
+
+\geometry{
+	a4paper,
+	top=3cm,
+	bottom=3.5cm,
+	left=3.5cm,
+	right=2cm
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{10pt}
+% \linespread{1.25}
+
+\author{Huỳnh Quang Dự}
+\title{TÌM HIỂU MÃ HÓA DỰA TRÊN ĐỊNH DANH VÀ ỨNG~DỤNG}
+\date{Tháng 5, 2019}
