@@ -1,8 +1,11 @@
 \documentclass[class=article, crop=false]{standalone}
-\usepackage{preamble}
-\usepackage{fancybox}
+\usepackage{../preamble}
 
 \begin{document}
+	% Specific lengths in this document
+	\import{../}{default_lengths.tex}
+	\linespread{1}
+	%
 	\begin{titlepage}
 		\thisfancypage{%
 		\fbox}{}
@@ -25,4 +28,7 @@
 			KHÓA 2014 - 2018
 		\end{center}
 	\end{titlepage}
+	%
+	% Reset default lengths
+	\import{../}{default_lengths.tex}
 \end{document}

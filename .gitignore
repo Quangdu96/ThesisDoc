@@ -1,5 +1,4 @@
 *.aux
-*.docx
 *.fdb_latexmk
 *.fls
 *.gz
@@ -7,5 +6,3 @@
 *.pdf
 New Folder
 @@out=main.sta
-2365.tex
-12345.tex

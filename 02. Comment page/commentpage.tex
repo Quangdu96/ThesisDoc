@@ -1,10 +1,11 @@
 \documentclass[class=article, crop=false]{standalone}
-\usepackage{preamble}
-\usepackage{fancybox}
-\usepackage{forloop}
-\newcounter{ct}
+\usepackage{../preamble}
 
 \begin{document}
+	% Specific lengths in this document
+	\import{../}{default_lengths.tex}
+	\setlength{\parindent}{0.2cm}
+	%
 	% Supervisor's comment
 	\thisfancypage{%
 		% \setlength{\fboxsep}{0.2in}%
@@ -18,10 +19,10 @@
 		NHẬN XÉT CỦA GIÁO VIÊN HƯỚNG DẪN \\[\baselineskip]
 	\end{center}
 	%
-	\setlength{\parindent}{0.2cm}
-	\fontsize{13pt}{17pt}\selectfont\rmfamily
+	\fontsize{13pt}{15.6pt}\selectfont\rmfamily
 	\par\makebox[15cm]{\dotfill}\\
-	\forloop{ct}{0}{\value{ct} < 26}{
+	\newcounter{ct}
+	\forloop{ct}{0}{\value{ct} < 21}{
 		\indent\makebox[15cm]{\dotfill}\\
 	}
 	%
@@ -49,10 +50,9 @@
 		NHẬN XÉT CỦA GIÁO VIÊN PHẢN BIỆN \\[\baselineskip]
 	\end{center}
 	%
-	\setlength{\parindent}{0.2cm}
-	\fontsize{13pt}{17pt}\selectfont\rmfamily
+	\fontsize{13pt}{15.6pt}\selectfont\rmfamily
 	\par\makebox[15cm]{\dotfill}\\
-	\forloop{ct}{0}{\value{ct} < 26}{
+	\forloop{ct}{0}{\value{ct} < 21}{
 		\indent\makebox[15cm]{\dotfill}\\
 	}
 	\indent Khóa luận đáp ứng yêu cầu của Khóa luận cử nhân CNTT.
@@ -67,4 +67,7 @@
 			[Ký tên và ghi rõ họ tên]
 		\end{tabular}		
 	\end{flushright}
+	%
+	% Reset default lengths
+	\import{../}{default_lengths.tex}
 \end{document}
