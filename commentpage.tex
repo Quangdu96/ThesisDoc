@@ -1,0 +1,70 @@
+\documentclass[class=article, crop=false]{standalone}
+\usepackage{preamble}
+\usepackage{fancybox}
+\usepackage{forloop}
+\newcounter{ct}
+
+\begin{document}
+	% Supervisor's comment
+	\thisfancypage{%
+		% \setlength{\fboxsep}{0.2in}%
+		\fbox
+	}{}
+	\thispagestyle{empty}
+	%
+	\begin{center}
+		\leavevmode \\
+		\fontsize{12pt}{14.4pt}\selectfont\bfseries
+		NHẬN XÉT CỦA GIÁO VIÊN HƯỚNG DẪN \\[\baselineskip]
+	\end{center}
+	%
+	\setlength{\parindent}{0.2cm}
+	\fontsize{13pt}{17pt}\selectfont\rmfamily
+	\par\makebox[15cm]{\dotfill}\\
+	\forloop{ct}{0}{\value{ct} < 26}{
+		\indent\makebox[15cm]{\dotfill}\\
+	}
+	%
+	\begin{flushright}
+		\begin{tabular}{c}
+			TPHCM, ngày\makebox[1cm]{\dotfill}
+			tháng\makebox[1cm]{\dotfill}
+			năm\makebox[1cm]{\dotfill} \\
+			Giáo viên hướng dẫn \\
+
+			[Ký tên và ghi rõ họ tên]
+		\end{tabular}		
+	\end{flushright}
+	\newpage
+	%
+	% Reviewer's comment
+	\thisfancypage{%
+		\fbox
+	}{}
+	\thispagestyle{empty}
+	%
+	\begin{center}
+		\leavevmode \\
+		\fontsize{12pt}{14.4pt}\selectfont\bfseries
+		NHẬN XÉT CỦA GIÁO VIÊN PHẢN BIỆN \\[\baselineskip]
+	\end{center}
+	%
+	\setlength{\parindent}{0.2cm}
+	\fontsize{13pt}{17pt}\selectfont\rmfamily
+	\par\makebox[15cm]{\dotfill}\\
+	\forloop{ct}{0}{\value{ct} < 26}{
+		\indent\makebox[15cm]{\dotfill}\\
+	}
+	\indent Khóa luận đáp ứng yêu cầu của Khóa luận cử nhân CNTT.
+	%
+	\begin{flushright}
+		\begin{tabular}{c}
+			TPHCM, ngày\makebox[1cm]{\dotfill}
+			tháng\makebox[1cm]{\dotfill}
+			năm\makebox[1cm]{\dotfill} \\
+			Giáo viên phản biện \\
+
+			[Ký tên và ghi rõ họ tên]
+		\end{tabular}		
+	\end{flushright}
+\end{document}

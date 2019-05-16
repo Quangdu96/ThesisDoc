@@ -1,5 +1,8 @@
 \standalonepreambles
 \subpreamble{titlepage.tex}
-\usepackage {preamble}
+\usepackage {preamble}\usepackage {fancybox}
+\endsubpreamble
+\subpreamble{commentpage.tex}
+\usepackage {preamble}\usepackage {fancybox}\usepackage {forloop}\newcounter {ct}
 \endsubpreamble
 \endstandalonepreambles
