@@ -4,5 +4,6 @@
 *.gz
 *.log
 *.pdf
+*.synctex*
 New Folder
 @@out=main.sta
