@@ -6,9 +6,13 @@
 \usepackage{forloop}
 \usepackage{tabu}
 \usepackage{longtable}
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+\usepackage[nottoc]{tocbibind}
+% \usepackage{hyperref}
 
 \ifPDFTeX
 	\usepackage[utf8]{vntex}
+	\usepackage{mathptmx}
 \fi
 
 \ifXeTeX
@@ -39,3 +43,6 @@
 \renewcommand*{\Large}{
 	\fontsize{16pt}{19.2pt}\selectfont
 }
+
+\newcommand*{\rootPath}{D:/WORK/Thesis/Thesis}
+\addbibresource{\rootPath/bibliography.bib}
