@@ -4,10 +4,10 @@
 \usepackage{geometry}
 \usepackage{fancybox}
 \usepackage{forloop}
-\usepackage{tabu}
-\usepackage{longtable}
+\usepackage{tabu, longtable}
 \usepackage[backend=biber, style=alphabetic]{biblatex}
 \usepackage[nottoc]{tocbibind}
+\usepackage{amsmath, amsthm, amssymb}
 % \usepackage{hyperref}
 
 \ifPDFTeX
@@ -46,3 +46,12 @@
 
 \newcommand*{\rootPath}{D:/WORK/Thesis/Thesis}
 \addbibresource{\rootPath/bibliography.bib}
+
+\newtheorem{theorem}{Định lý}[section]
+\newtheorem{proposition}[theorem]{Mệnh đề}
+\newtheorem{lemma}[theorem]{Bổ đề}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Định nghĩa}
+\newtheorem{example}[theorem]{Ví dụ}
+\theoremstyle{remark}
+\newtheorem*{remark}{Nhận xét}
