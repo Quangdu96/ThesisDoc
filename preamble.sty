@@ -12,7 +12,7 @@
 
 \ifPDFTeX
 	\usepackage[utf8]{vntex}
-	\usepackage{mathptmx}
+	% \usepackage{mathptmx}
 \fi
 
 \ifXeTeX
@@ -34,6 +34,9 @@
 \title{TÌM HIỂU MÃ HÓA DỰA TRÊN ĐỊNH DANH VÀ ỨNG~DỤNG}
 \date{Tháng 5, 2019}
 
+\renewcommand*{\small}{
+	\fontsize{10pt}{12pt}\selectfont
+}
 \renewcommand*{\normalsize}{
 	\fontsize{13pt}{15.6pt}\selectfont
 }
@@ -47,11 +50,18 @@
 \newcommand*{\rootPath}{D:/WORK/Thesis/Thesis}
 \addbibresource{\rootPath/bibliography.bib}
 
-\newtheorem{theorem}{Định lý}[section]
+\newtheorem{theorem}{Định lý}[chapter]
 \newtheorem{proposition}[theorem]{Mệnh đề}
 \newtheorem{lemma}[theorem]{Bổ đề}
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Định nghĩa}
 \newtheorem{example}[theorem]{Ví dụ}
+\newtheorem*{dl}{Discrete Logarithm (DL)}
+\newtheorem*{cdh}{Computational Diffie-Hellman (C-DH)}
+\newtheorem*{ddh}{Decisional Diffie-Hellman (D-DH)}
+\newtheorem*{cbdh}{Computational Bilinear Diffie-Hellman (C-BDH)}
+\newtheorem*{dbdh}{Decisional Bilinear Diffie-Hellman (D-BDH)}
+\newtheorem*{cbdhe}{Computational Bilinear Diffie-Hellman Exponent (C-BDHE)}
+\newtheorem*{dbdhe}{Decisional Bilinear Diffie-Hellman Exponent (D-BDHE)}
 \theoremstyle{remark}
 \newtheorem*{remark}{Nhận xét}

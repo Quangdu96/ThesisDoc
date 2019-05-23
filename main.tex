@@ -12,8 +12,6 @@
 	%
 	\tableofcontents % 05
 	\newpage\pagenumbering{arabic}
-	\renewcommand{\listfigurename}{\itshape Danh sách hình vẽ}
-	\renewcommand{\listtablename}{\itshape Danh sách bảng}
 	\listoffigures % 06
 	\listoftables % 07
 	\newpage
@@ -28,9 +26,10 @@
 	\import{"15. Chapter 05"/}{chapter05.tex}
 	\import{"16. Chapter 06"/}{chapter06.tex}
 	\import{"17. Chapter 07"/}{chapter07.tex}
+	
 	%
+	\addcontentsline{toc}{chapter}{Tài liệu tham khảo}
 	\printbibliography
-	% \addcontentsline{toc}{chapter}{\bibliographyname}
 	
 	
 \end{document}
