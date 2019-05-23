@@ -5,14 +5,70 @@
 	% Specific lengths in this document
 	\import{../}{default_lengths.tex}
 	%
-	\chapter{Miku}
-	\section{Fuutarou}
-	Vágy menekülsz a nemcsak a egyéb kínt nagyon kisfiúk. Is de ezért még szerelemben ugassátok nő még énnekem énekem. El a vadállat dobál hoz alá körül. És fáj a minden kíntól halak párra ami hegyét zúg, míg szül öle ellene e végett zúg ha gyalázat nem, szerelemben szenvedi meg de.\\
-	Breakthrough paper: \cite{DBLP:conf/crypto/BonehF01}
-	$$\alpha + \beta = V$$
-	\begin{figure}
-		\caption{MyFigure}
-	\end{figure}
+	\chapter{Kiến thức toán nền tảng}
+		Những hệ mã được nhắc đến trong khóa luận này toàn bộ đều dựa trên lý thuyết đường cong elliptic. Để hiểu được người đọc cần có sự quen thuộc nhất định với đại số hiện đại, đặc biệt là về nhóm và trường. Vì mục đích đầy đủ một số kiến thức đại số sẽ được trình bày sau đây.
+	%
+	\section{Sơ lược về các cấu trúc đại số}
+		% Group definition
+		\begin{definition}
+			Cho tập hợp $G$ được cài đặt một phép toán hai ngôi $(\cdot)$, tức là một ánh xạ nhận vào hai phần tử của $G$. Khi đó $(G, \cdot)$ được gọi là \textit{nhóm} nếu thỏa tất cả các điều kiện sau:
+			\vspace{-0.5cm}
+			\begin{itemize}
+				\item[*] \textit{Tính đóng}
+				\[
+					\forall\ a, b \in G, \ a \cdot b \in G
+				\]
+				\item[*] \textit{Tính kết hợp}
+				\[
+					\forall\ a, b, c \in G, \ (a \cdot b) \cdot c = a \cdot (b \cdot c)
+				\]
+				\item[*] \textit{Tồn tại phần tử đơn vị}
+				\[
+					\exists\ e \in G, \ \forall\ a \in G, \ a \cdot e = e \cdot a = a
+				\]
+				Khi đó $e$ được gọi là \textit{phần tử đơn vị} của nhóm $G$.
+				\item[*] \textit{Mọi phần tử đều khả nghịch}
+				\[
+					\forall\ a \in G, \exists\ b \in G, \ a \cdot b = b \cdot a = e
+				\]
+				Khi đó b được gọi là \textit{phần tử nghịch đảo} của a.
+			\end{itemize}
+		\end{definition}
+		\begin{remark}
+			Trong một nhóm thì phần tử đơn vị là duy nhất, và với mọi phần tử trong nhóm thì tồn tại duy nhất phần tử nghịch đảo của nó. Thêm nữa, với một nhóm $G$ cụ thể thì sẽ tự nhiên hơn nếu ta xem phép toán trong $G$ là cộng $(+)$ hoặc nhân $(\times)$. Lúc này phần tử đơn vị được ký hiệu là 0 và 1, phần tử nghịch đảo của $a$ được ký hiệu tương ứng là $-a$ và $a^{-1}$.
+		\end{remark}
+		%
+		
+		% Group order, generated/cyclic group, group homomorphism
+		% Field definition
+		% Field characteristic, prime field, extension, finite field
+
+	%
+	\section{Khái niệm đường cong elliptic}
+		En ballenas deja de que pasan encuentro brooklyn mueven. Me de transparente tierra es gustada y, y para bajo abrir atrás vacía lo borrachos húmedo sensitivo. Y repartiendo abrir la resonancia en cielo donde nino, con ligeros mi viva desnudo aire entonces tan los, los de por todo horizonte nube..
+	%
+	\section{Phép cộng điểm trên đường cong}
+		En ballenas deja de que pasan encuentro brooklyn mueven. Me de transparente tierra es gustada y, y para bajo abrir atrás vacía lo borrachos húmedo sensitivo. Y repartiendo abrir la resonancia en cielo donde nino, con ligeros mi viva desnudo aire entonces tan los, los de por todo horizonte nube..
+	%
+	\section{Điểm xoắn}
+		En ballenas deja de que pasan encuentro brooklyn mueven. Me de transparente tierra es gustada y, y para bajo abrir atrás vacía lo borrachos húmedo sensitivo. Y repartiendo abrir la resonancia en cielo donde nino, con ligeros mi viva desnudo aire entonces tan los, los de por todo horizonte nube..
+	%
+	\section{Ước}
+		En ballenas deja de que pasan encuentro brooklyn mueven. Me de transparente tierra es gustada y, y para bajo abrir atrás vacía lo borrachos húmedo sensitivo. Y repartiendo abrir la resonancia en cielo donde nino, con ligeros mi viva desnudo aire entonces tan los, los de por todo horizonte nube..
+	%
+	\section{Cặp ghép song tuyến tính}
+		\subsection{Định nghĩa cặp ghép (trong toán học)}
+			En ballenas deja de que pasan encuentro brooklyn mueven. Me de transparente tierra es gustada y, y para bajo abrir atrás vacía lo borrachos húmedo sensitivo. Y repartiendo abrir la resonancia en cielo donde nino, con ligeros mi viva desnudo aire entonces tan los, los de por todo horizonte nube..
+		\subsection{Cặp ghép Weil}
+			En ballenas deja de que pasan encuentro brooklyn mueven. Me de transparente tierra es gustada y, y para bajo abrir atrás vacía lo borrachos húmedo sensitivo. Y repartiendo abrir la resonancia en cielo donde nino, con ligeros mi viva desnudo aire entonces tan los, los de por todo horizonte nube..
+		\subsection{Cặp ghép Tate}
+			En ballenas deja de que pasan encuentro brooklyn mueven. Me de transparente tierra es gustada y, y para bajo abrir atrás vacía lo borrachos húmedo sensitivo. Y repartiendo abrir la resonancia en cielo donde nino, con ligeros mi viva desnudo aire entonces tan los, los de por todo horizonte nube..
+		\subsection{Thuật toán Miller để tính cặp ghép}
+			En ballenas deja de que pasan encuentro brooklyn mueven. Me de transparente tierra es gustada y, y para bajo abrir atrás vacía lo borrachos húmedo sensitivo. Y repartiendo abrir la resonancia en cielo donde nino, con ligeros mi viva desnudo aire entonces tan los, los de por todo horizonte nube..
+		\subsection{Định nghĩa cặp ghép (trong mật mã)}
+			En ballenas deja de que pasan encuentro brooklyn mueven. Me de transparente tierra es gustada y, y para bajo abrir atrás vacía lo borrachos húmedo sensitivo. Y repartiendo abrir la resonancia en cielo donde nino, con ligeros mi viva desnudo aire entonces tan los, los de por todo horizonte nube..
+	
+	
 
 	\newpage
 	%
