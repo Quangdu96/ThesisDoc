@@ -22,7 +22,8 @@
 		% Note on delegation history independence
 	%
 	\section{Một số tính năng cao cấp có thể có trong một hệ IBE}
-		\subsection{Cơ chế sinh khóa có ngưỡng phi tương tác (non-interactive threshold key delegation)}
+		\subsection{Cơ chế sinh khóa có ngưỡng phi tương tác}
+			% non-interactive threshold key delegation
 			Vágy menekülsz a nemcsak a egyéb kínt nagyon kisfiúk. Is de ezért még szerelemben ugassátok nő még énnekem énekem. El a vadállat dobál hoz alá körül. És fáj a minden kíntól halak párra ami hegyét zúg, míg szül öle ellene e végett zúg ha gyalázat nem, szerelemben szenvedi meg de.
 		\subsection{Giới hạn số cấp sinh khóa trong HIBE}
 			Vágy menekülsz a nemcsak a egyéb kínt nagyon kisfiúk. Is de ezért még szerelemben ugassátok nő még énnekem énekem. El a vadállat dobál hoz alá körül. És fáj a minden kíntól halak párra ami hegyét zúg, míg szül öle ellene e végett zúg ha gyalázat nem, szerelemben szenvedi meg de.
@@ -128,43 +129,53 @@
 		Độ hiệu quả sẽ được đánh giá chi tiết ở chương 5.
 		\newpage
 		\small
-		\begin{longtabu}{| >{\bfseries\centering}p{2cm} | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] |}
-			\tabucline[1pt]-
-			\everyrow{\tabucline[1pt]-}
-			%
+		\begin{longtabu}{| >{\bfseries\centering}p{2cm} X[c] X[c] X[c] X[c] X[c] X[c] X[c] |}
+			\tabucline[4pt]-
+			% \everyrow{\tabucline[1pt]-}
 			Tiêu chí &
-			\bfseries BF +FO (2001) &
-			\bfseries SK +FO (2003) &
+			\bfseries BF +FO \newline\newline (2001) &
+			\bfseries SK +FO \newline\newline (2003) &
 			\bfseries BB\textsubscript{1} +BMW (2004) &
-			\bfseries BB\textsubscript{2} +BK (2004) &
+			\bfseries BB\textsubscript{2} +BK \newline\newline (2004) &
 			\bfseries Waters +BMW (2005) &
 			\bfseries BBG +BMW (2005) &
 			\bfseries Gentry \newline\newline (2006) \\
 			%
+			\tabucline[2pt]-
 			\multicolumn{8}{| p{\textwidth} |}{
 				\bfseries\centering
 				Tính an toàn
 			} \\
+			\tabucline[1pt]-
 			Chọn ID mục tiêu & Sau & Sau & Trước & Trước & Sau & Trước & Sau \\
+			\tabucline[1pt]-
 			Mức an toàn & IND-ID-CCA & IND-ID-CCA & IND-sID-CCA & IND-sID-CCA & IND-ID-CCA & IND-sID-CCA & IND-ID-CCA \\
+			\tabucline[1pt]-
 			Mô hình & Random oracle & Random oracle & Chuẩn & Chuẩn & Chuẩn & Chuẩn & Chuẩn \\
 			%
+			\tabucline[2pt]-
 			\multicolumn{8}{| p{\textwidth} |}{
 				\bfseries\centering
 				Phép quy dẫn
 			} \\
+			\tabucline[1pt]-
 			Giả định & CBDH & CBDHI & DBDH & DBDHI* & DBDH & DBDHE & DBDHE** \\
 			%
+			\tabucline[2pt]-
 			\multicolumn{8}{| p{\textwidth} |}{
 				\bfseries\centering
 				Tính năng bổ sung
 			} \\
+			\tabucline[1pt]-
 			HIBE & \checkmark & & \checkmark & & \checkmark & \checkmark & \\
+			\tabucline[1pt]-
 			Sinh khóa ngưỡng phi tương tác & \checkmark & & \checkmark & & \checkmark & \checkmark & \\
+			\tabucline[1pt]-
 			Giới hạn cấp sinh khóa & & & & & & \checkmark & \\
+			\tabucline[1pt]-
 			Ẩn danh & & & & & & & \checkmark \\
-			%
-			\everyrow{}
+			\tabucline[4pt]-
+			% \everyrow{}
 			\caption{So sánh các hệ IBE}
 		\end{longtabu}
 		\normalsize
