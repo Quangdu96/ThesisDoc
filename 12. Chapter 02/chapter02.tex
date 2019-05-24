@@ -131,7 +131,7 @@
 		\small
 		\begin{longtabu}{| >{\bfseries\centering}p{2cm} X[c] X[c] X[c] X[c] X[c] X[c] X[c] |}
 			\tabucline[4pt]-
-			% \everyrow{\tabucline[1pt]-}
+			\everyrow{\tabucline[1pt]-}
 			Tiêu chí &
 			\bfseries BF +FO \newline\newline (2001) &
 			\bfseries SK +FO \newline\newline (2003) &
@@ -141,41 +141,33 @@
 			\bfseries BBG +BMW (2005) &
 			\bfseries Gentry \newline\newline (2006) \\
 			%
-			\tabucline[2pt]-
+			\tabucline[1pt]-
 			\multicolumn{8}{| p{\textwidth} |}{
 				\bfseries\centering
 				Tính an toàn
 			} \\
-			\tabucline[1pt]-
 			Chọn ID mục tiêu & Sau & Sau & Trước & Trước & Sau & Trước & Sau \\
-			\tabucline[1pt]-
 			Mức an toàn & IND-ID-CCA & IND-ID-CCA & IND-sID-CCA & IND-sID-CCA & IND-ID-CCA & IND-sID-CCA & IND-ID-CCA \\
-			\tabucline[1pt]-
 			Mô hình & Random oracle & Random oracle & Chuẩn & Chuẩn & Chuẩn & Chuẩn & Chuẩn \\
 			%
-			\tabucline[2pt]-
+			\tabucline[1pt]-
 			\multicolumn{8}{| p{\textwidth} |}{
 				\bfseries\centering
 				Phép quy dẫn
 			} \\
-			\tabucline[1pt]-
 			Giả định & CBDH & CBDHI & DBDH & DBDHI* & DBDH & DBDHE & DBDHE** \\
 			%
-			\tabucline[2pt]-
+			\tabucline[1pt]-
 			\multicolumn{8}{| p{\textwidth} |}{
 				\bfseries\centering
 				Tính năng bổ sung
 			} \\
-			\tabucline[1pt]-
 			HIBE & \checkmark & & \checkmark & & \checkmark & \checkmark & \\
-			\tabucline[1pt]-
 			Sinh khóa ngưỡng phi tương tác & \checkmark & & \checkmark & & \checkmark & \checkmark & \\
-			\tabucline[1pt]-
 			Giới hạn cấp sinh khóa & & & & & & \checkmark & \\
-			\tabucline[1pt]-
 			Ẩn danh & & & & & & & \checkmark \\
-			\tabucline[4pt]-
-			% \everyrow{}
+			\everyrow{}
+			\tabucline[3pt]-
 			\caption{So sánh các hệ IBE}
 		\end{longtabu}
 		\normalsize
