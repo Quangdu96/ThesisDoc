@@ -1,0 +1,169 @@
+\begin{longtabu}{| >{\bfseries\centering}p{2cm} | >{\bfseries\centering}p{0.5cm} | X[c] X[c] X[c] X[c] |}
+	\caption{So sánh độ hiệu quả giữa các hệ HIBE} \\
+	\tabucline[4pt]-
+	\multicolumn{2}{| c |}{} &
+	\bfseries BF / GS \newline &
+	\bfseries BB\textsubscript{1} &
+	\bfseries Waters &
+	\bfseries BBG \\
+	\tabucline[2pt]-
+	\endfirsthead
+	%
+	\tabucline[4pt]-
+	\multicolumn{2}{| c |}{} &
+	\bfseries BF/GS \newline &
+	\bfseries BB\textsubscript{1} &
+	\bfseries Waters &
+	\bfseries BBG \\
+	\tabucline[2pt]-
+	\endhead
+	%
+	\multicolumn{6}{| p{\textwidth} |}{
+		\bfseries\centering
+		Số phép tính trong thuật toán thiết lập (Setup)
+	} \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Nhân} \newline & $G_1$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Lũy thừa} \newline & $G_1$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	Cặp ghép \newline & - & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[2pt]-
+	\multicolumn{6}{| p{\textwidth} |}{
+		\bfseries\centering
+		Số phép tính trong thuật toán sinh khóa từ nốt gốc (SecretKeyGen)
+	} \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Nhân} \newline & $G_1$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Lũy thừa} \newline & $G_1$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	Cặp ghép \newline & - & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[2pt]-
+	\multicolumn{6}{| p{\textwidth} |}{
+		\bfseries\centering
+		Số phép tính trong thuật toán sinh khóa từ nốt giữa (SecretKeyDelegate)
+	} \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Nhân} \newline & $G_1$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Lũy thừa} \newline & $G_1$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	Cặp ghép \newline & - & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[2pt]-
+	\multicolumn{6}{| p{\textwidth} |}{
+		\bfseries\centering
+		Số phép tính trong thuật toán mã hóa (Encrypt)
+	} \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Nhân} \newline & $G_1$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Lũy thừa} \newline & $G_1$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	Cặp ghép \newline & - & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[2pt]-
+	\multicolumn{6}{| p{\textwidth} |}{
+		\bfseries\centering
+		Số phép tính trong thuật toán giải mã (Decrypt)
+	} \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Nhân} \newline & $G_1$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Lũy thừa} \newline & $G_1$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	Cặp ghép \newline & - & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[2pt]-
+	\multicolumn{6}{| p{\textwidth} |}{
+		\bfseries\centering
+		Kích thước (số phần tử trong nhóm)
+	} \\
+	%
+	\tabucline[1pt]-
+	\multirowcell{4}{Tham số \\ công khai} \newline & $\mathbb{Z}_p$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_1$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	\multirowcell{4}{Khóa \\ bí mật \\ của ID} \newline & $\mathbb{Z}_p$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_1$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[1pt]-
+	\multirow{4}{*}{Bản mã} \newline & $\mathbb{Z}_p$ & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_1$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_2$ \newline & 1 & 2 & 3 & 4 \\
+	% \tabucline[1pt]{2-9}
+	& $G_T$ \newline & 1 & 2 & 3 & 4 \\
+	%
+	\tabucline[3pt]-
+\end{longtabu}
