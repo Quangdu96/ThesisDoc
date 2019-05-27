@@ -1,0 +1,45 @@
+\tabulinesep=0.5\baselineskip
+\small
+\begin{longtabu}{| >{\bfseries\centering}p{2cm} X[c] X[c] X[c] X[c] X[c] X[c] X[c] |}
+	\captionsetup{font=normalsize}
+	\caption{So sánh các hệ IBE} \\
+	\tabucline[4pt]-
+	\everyrow{\tabucline[1pt]-}
+	Tiêu chí &
+	\bfseries BF 					\newline + FO 	\newline (2001) &
+	\bfseries SK 					\newline + FO 	\newline (2003) &
+	\bfseries BB\textsubscript{1} 	\newline + BMW 	\newline (2004) &
+	\bfseries BB\textsubscript{2} 	\newline + BK 	\newline (2004) &
+	\bfseries Waters 				\newline + BMW 	\newline (2005) &
+	\bfseries BBG 					\newline + BMW 	\newline (2005) &
+	\bfseries Gentry 				\newline		\newline (2006) \\
+	%
+	\tabucline[1pt]-
+	\multicolumn{8}{| p{\textwidth} |}{
+		\bfseries\centering
+		Tính an toàn
+	} \\
+	Chọn ID mục tiêu 	& Sau 			& Sau 			& Trước 		& Trước 		& Sau 			& Trước 		& Sau 			\\
+	Mức an toàn 		& IND-ID-CCA 	& IND-ID-CCA 	& IND-sID-CCA 	& IND-sID-CCA 	& IND-ID-CCA 	& IND-sID-CCA 	& IND-ID-CCA 	\\
+	Mô hình 			& Random oracle & Random oracle & Chuẩn 		& Chuẩn 		& Chuẩn 		& Chuẩn 		& Chuẩn 		\\
+	%
+	\tabucline[1pt]-
+	\multicolumn{8}{| p{\textwidth} |}{
+		\bfseries\centering
+		Phép quy dẫn
+	} \\
+	Giả định 			& CBDH 			& CBDHI 		& DBDH 			& DBDHI* 		& DBDH 			& DBDHE 		& DBDHE** 		\\
+	%
+	\tabucline[1pt]-
+	\multicolumn{8}{| p{\textwidth} |}{
+		\bfseries\centering
+		Tính năng bổ sung
+	} \\
+	HIBE 							& \checkmark 	& & \checkmark 	& & \checkmark 	& \checkmark 	& 				\\
+	Sinh khóa ngưỡng phi tương tác 	& \checkmark 	& & \checkmark 	& & \checkmark 	& \checkmark 	& 				\\
+	Giới hạn cấp sinh khóa 			& 				& & 			& & 			& \checkmark 	& 				\\
+	Ẩn danh 						& 				& & 			& & 			& 				& \checkmark 	\\
+	\everyrow{}
+	\tabucline[3pt]-
+\end{longtabu}
+\normalsize
