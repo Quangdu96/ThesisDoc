@@ -53,7 +53,7 @@
 	\section{Khái niệm mã hóa dựa trên định danh phân cấp}
 		Trong PKI, để giảm tải cho CA gốc thì họ đưa vào thêm CA và xây dựng một kiến trúc cây giữa các CA. Trong đó CA ở nốt cha cấp chứng chỉ số cho CA ở nốt con và CA cấp dưới cùng cấp chứng chỉ số cho người dùng. Và cũng tự nhiên khi ta muốn xây dựng một kiến trúc tương tự cho hệ IBE.
 
-		Khái niệm \textit{mã hóa dựa trên định danh phân cấp} (hierarchical identity-based encryption, từ đây gọi tắt là HIBE) được Horwitz và Lynn \cite{DBLP:conf/eurocrypt/HorwitzL02} đưa ra năm 2002, trong đó nêu ra định nghĩa hình thức và mô hình an toàn của HIBE. Trong hệ HIBE, trừ PKG gốc thì mỗi chủ thể bên dưới nó (gồm các PKG trung gian và người dùng) đều có một \textit{định danh nguyên thủy} (primitive identity). Định danh nguyên thủy của các chủ thể trực thuộc cùng một PKG (gốc hoặc trung gian) phải đôi một phân biệt. Xem PKG gốc là cấp $0$ trong cây, định danh của một chủ thể ở cấp $k \ (k > 0)$ là một bộ gồm $k$ định danh nguyên thủy của $k - 1$ chủ thể tổ tiên và chính chủ thể đó, theo thứ tự từ trên xuống. Chú ý là PKG gốc không cần có định danh hay định danh nguyên thủy, và một định danh xác định duy nhất một chủ thể trong hệ thống. Ta thấy rằng khái niệm định danh trong IBE tương ứng với định danh nguyên thủy trong HIBE. Thông thường khi khởi tạo một hệ HIBE ta phải chỉ định số cấp tối đa cho phép trong hệ (chiều dài tối đa của định danh). Một số hệ HIBE cho phép PKG gốc có thể tăng số cấp tối đa ở thời điểm sau khởi tạo.
+		Khái niệm \textit{mã hóa dựa trên định danh phân cấp} (hierarchical identity-based encryption, từ đây gọi tắt là HIBE) được Horwitz và Lynn \cite{DBLP:conf/eurocrypt/HorwitzL02} đưa ra năm 2002, trong đó nêu ra định nghĩa hình thức và mô hình an toàn của HIBE. Trong hệ HIBE, trừ PKG gốc thì mỗi chủ thể bên dưới nó (gồm các PKG trung gian và người dùng) đều có một \textit{định danh nguyên thủy} (primitive identity). Định danh nguyên thủy của các chủ thể trực thuộc cùng một PKG (gốc hoặc trung gian) phải đôi một phân biệt. Xem PKG gốc là cấp $0$ trong cây, định danh của một chủ thể ở cấp $k \ (k > 0)$ là một bộ gồm $k$ định danh nguyên thủy của $k - 1$ chủ thể tổ tiên và chính chủ thể đó, theo thứ tự từ trên xuống. Chú ý là PKG gốc không cần có định danh hay định danh nguyên thủy, và một định danh xác định duy nhất một chủ thể trong hệ thống. Ta thấy rằng khái niệm định danh trong IBE tương ứng với định danh nguyên thủy trong HIBE. Thông thường khi khởi tạo một hệ HIBE ta phải chỉ định \textit{số cấp tối đa} cho phép trong hệ (chiều dài tối đa của định danh). Một số hệ HIBE cho phép PKG gốc có thể tăng số cấp tối đa ở thời điểm sau khởi tạo.
 		
 		Ví dụ, xem Nhà nước Việt Nam là PKG gốc, ở mỗi địa phương thuộc mỗi cấp hành chính có một PKG trung gian. Trường Đại học Khoa học Tự nhiên TPHCM có địa chỉ cơ sở chính là "227 Đường Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh". Vậy định danh nguyên thủy của trường là "227 Đường Nguyễn Văn Cừ" và định danh của trường là ("Thành phố Hồ Chí Minh", "Quận 5", "Phường 4", "227 Đường Nguyễn Văn Cừ"). Trường là nốt cấp 4 trong cây HIBE này.
 		%
@@ -120,81 +120,261 @@
 			Cơ chế này hoạt động được là nhờ tất cả người dùng đều thống nhất chung một định dạng của định danh. Khóa bí mật của định danh chỉ hiệu lực trong một chu kỳ. Nếu khóa của Bob bị lộ thì thiệt hại sẽ nhỏ (tất cả tin gửi trong một chu kỳ) và Bob cũng không cần đổi email. Ta luôn có thể tăng giảm độ mịn thời gian tùy thuộc vào ứng dụng. Trong cơ chế này PKG không cần lưu một cơ sở dữ liệu những khóa bị thu hồi. Vì vậy Alice không cần truy vấn PKG về tình trạng khóa của Bob, đảm bảo được tính riêng tư cho hai người. Thêm nữa, cơ chế này cho phép Alice có thể gửi tin đến tương lai, tức là Alice mã hóa thông điệp bằng định danh của Bob gắn với nhãn thời gian ở tương lai. Nếu PKG vận hành đúng thì đến đúng thời điểm Bob mới có thể giải mã. Cơ chế hoạt động này đơn giản chỉ là một chiến lược đánh đổi sự an toàn lấy sự hiệu quả cho nên vẫn có những lỗ hổng. Ta vẫn chưa biết được là có giải pháp vẹn toàn nào cho vấn đề này không.
 	%
 	\newpage
-	\section{Định nghĩa hình thức}
+	\section{Định nghĩa hình thức của IBE và HIBE}
 		\begin{definition}[IBE]
-			Một hệ IBE là...
+			Một lược đồ mã hóa dựa trên định danh là một bộ gồm bốn thuật toán \textsf{Setup, SecretKeyGen, Encrypt, Decrypt}. Trong đó:
+			%
+			\vspace{-0.5cm}
+			\begin{itemize}
+				\item[] {\sffamily\bfseries Setup($\lambda$)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: Tham số an toàn $\lambda \in \mathbb{N^*}$
+					\item[\textbullet] \textit{Output}: Bộ tham số công khai $params$ và khóa bí mật chủ $msk$ \\
+					Bộ tham số công khai có thể bao gồm thêm mô tả của các cấu trúc đại số được sử dụng và các không gian của bản rõ, bản mã và định danh. PKG công bố $params$ và giữ lại $msk$.
+				\end{itemize}
+				\item[] {\sffamily\bfseries SecretKeyGen(params, msk, ID)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: $params$, $msk$ và định danh để sinh khóa $ID$
+					\item[\textbullet] \textit{Output}: Khóa bí mật $sk_{ID}$
+				\end{itemize}
+				\item[] {\sffamily\bfseries Encrypt(params, ID, M)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: $params$, định danh để mã hóa $ID$ và thông điệp $M$
+					\item[\textbullet] \textit{Output}: Bản mã $C$
+				\end{itemize}
+				\item[] {\sffamily\bfseries Decrypt(params, sk\textsubscript{ID}, C)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: $params$, $sk_{ID}$ và $C$
+					\item[\textbullet] \textit{Output}: $M$
+				\end{itemize}
+			\end{itemize}
+			%
+			\vspace{-\baselineskip}\indent\indent
+			Thuật toán \textsf{Setup} và \textsf{SecretKeyGen} được thực thi bởi PKG, thuật toán \textsf{Encrypt} và \textsf{Decrypt} được thực thi bởi người dùng. Trừ thuật toán \textsf{Decrypt} là đơn định (deterministic), các thuật toán còn lại là ngẫu nhiên (randomized). \\ \indent
+			Lược đồ phải đảm bảo tính đúng đắn, nghĩa là với mọi thông điệp $M$:
+			\vspace{-\baselineskip}
+			\begin{center}
+				Nếu \hspace{1ex} \textsf{Encrypt}$(params,\ ID,\ M) = C$ \hspace{1ex} thì \hspace{1ex} \textsf{Decrypt}$(params,\ sk_{ID},\ C) = M$
+			\end{center}
 		\end{definition}
+		%
+		\newpage
 		\begin{definition}[HIBE]
-			Một hệ HIBE là...
+			Một lược đồ mã hóa dựa trên định danh phân cấp là một bộ gồm năm thuật toán \textsf{Setup, SecretKeyGen, Derive, Encrypt, Decrypt}. Trong đó:
+			%
+			\vspace{-0.5cm}
+			\begin{itemize}
+				\item[] {\sffamily\bfseries Setup($\lambda$, $\ell$)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: Tham số an toàn $\lambda$ và số cấp tối đa của hệ $\ell \ (\lambda, \ell \in \mathbb{N^*})$
+					\item[\textbullet] \textit{Output}: Bộ tham số công khai $params$ và khóa bí mật chủ $msk$ \\
+					PKG gốc công bố $params$ và giữ lại $msk$.
+				\end{itemize}
+				\item[] {\sffamily\bfseries SecretKeyGen(params, msk, ID)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: $params$, $msk$ và định danh để sinh khóa $ID$
+					\item[\textbullet] \textit{Output}: Khóa bí mật $sk_{ID}$
+				\end{itemize}
+				\item[] {\sffamily\bfseries Derive(params, sk\textsubscript{ID}, ID$'$)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: $params$, khóa bí mật sk\textsubscript{ID} của định danh $ID$ và định danh để sinh khóa $ID'$ \\
+					Trong đó $ID = (I_1, I_2, ... ,I_k)$ và $ID' = (I_1, I_2, ... ,I_k, I_{k + 1})$ với $I_j \ (1 \leq j \leq k + 1)$ là các định danh nguyên thủy. $ID$ và $ID'$ tương ứng là định danh ở cấp $k$ và $k + 1$ trong hệ (với $1 \leq k < l$).
+					\item[\textbullet] \textit{Output}: Khóa bí mật $sk_{ID'}$
+				\end{itemize}
+				\item[] {\sffamily\bfseries Encrypt(params, ID, M)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: $params$, định danh để mã hóa $ID$ và thông điệp $M$
+					\item[\textbullet] \textit{Output}: Bản mã $C$
+				\end{itemize}
+				\item[] {\sffamily\bfseries Decrypt(params, sk\textsubscript{ID}, C)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: $params$, $sk_{ID}$ và $C$
+					\item[\textbullet] \textit{Output}: $M$
+				\end{itemize}
+			\end{itemize}
+			%
+			\vspace{-\baselineskip}\indent\indent
+			Thuật toán \textsf{Setup} và \textsf{SecretKeyGen} được thực thi bởi PKG gốc, thuật toán \textsf{Derive} được thực thi bởi PKG trung gian, thuật toán \textsf{Encrypt} và \textsf{Decrypt} được thực thi bởi người dùng. Trừ thuật toán \textsf{Decrypt} là đơn định (deterministic), các thuật toán còn lại là ngẫu nhiên (randomized). \\ \indent
+			Lược đồ phải đảm bảo tính đúng đắn, nghĩa là với mọi thông điệp $M$:
+			\vspace{-\baselineskip}
+			\begin{center}
+				Nếu \hspace{1ex} \textsf{Encrypt}$(params,\ ID,\ M) = C$ \hspace{1ex} thì \hspace{1ex} \textsf{Decrypt}$(params,\ sk_{ID},\ C) = M$
+			\end{center}
+			\vspace{-\baselineskip}
+			bất kể khóa $sk_{ID}$ được sinh từ thuật toán \textsf{SecretKeyGen} hay \textsf{Derive}.
 		\end{definition}
+		%
+		\begin{remark}
+			Với một số giá trị đặc biệt của $\ell$ thì lược đồ HIBE có sự tương đồng với những lược đồ mật mã khác:
+			\vspace{-0.5cm}
+			\begin{itemize}
+				\item[--] $\ell = 0$: Nếu ta nới lỏng định nghĩa cho phép $\ell = 0$, mã hóa với định danh rỗng và giả mã bằng khóa bí mật chủ thì lúc này lược đồ HIBE hoạt động gần như hệt lược đồ mã hóa khóa công khai. Trong đó $params$ và $msk$ tương ứng là khóa công khai và khóa riêng tư. Và không chỉ ở khía cạnh trừu tượng, nhiều lược đồ HIBE cụ thể khi cho số cấp tối đa về 0 thì ta có ngay một lược đồ mã hóa khóa công khai hoạt động tốt và an toàn.
+				\item[--] $\ell = 1$: Chính là định nghĩa của IBE.
+			\end{itemize}
+		\end{remark}
 	%
 	\section{Khái niệm an toàn}
-		% Introduce provable security
-		Vágy menekülsz a nemcsak a egyéb kínt nagyon kisfiúk. Is de ezért még szerelemben ugassátok nő még énnekem énekem. El a vadállat dobál hoz alá körül. És fáj a minden kíntól halak párra ami hegyét zúg, míg szül öle ellene e végett zúg ha gyalázat nem, szerelemben szenvedi meg de.
+		Trong nghiên cứu mật mã tiền hiện đại, một lược đồ mật mã vẫn được xem là an toàn nếu chưa ai phát hiện ra cách tấn công nào hữu hiệu với nó. Tuy nhiên như vậy thì ta không thể biết thực sự có tồn tại cách tấn công hay không. Đến thế giới mật mã hiện đại, độ an toàn của một lược đồ phải được \emph{chứng minh} dựa trên một giả định nào đó mà được tin là đúng. Từ một tính chất được mong muốn trong một lược đồ (chẳng hạn tính bí mật), các nhà mật mã học chặt chẽ hóa tính chất này thành một trò chơi an toàn giữa người thách thức (challenger) và người tấn công (adversary). Trò chơi này liên quan mật thiết đến lược đồ. Và độ an toàn của lược đồ được định nghĩa dựa trên lợi thế (khả năng thắng trò chơi) của người tấn công. Để tiện khi gọi, cộng đồng nghiên cứu thống nhất tên gọi và ký hiệu viết tắt cho những tính chất/trò chơi này. Ví dụ như tính \textit{an toàn ngữ nghĩa} (semantic security) của một hệ mã có tên gọi tiếng Anh đầy dủ là ``(Ciphertexts) Indistinguishability under Chosen Plaintext Attack'' và viết tắt là ``IND-CPA''. \\ \indent
+		Trước hết ta cần định nghĩa sau để phát biểu các trò chơi an toàn:
+		%
+		\begin{definition}
+			Hàm $f: \mathbb{R^+} \rightarrow \mathbb{R}$ được gọi là \textit{không đáng kể} nếu với mọi $c > 0$, tồn tại một số $x_0 > 0$ sao cho với mọi $x > x_0$
+			\[
+				|f(x)| < \frac{1}{x^c}
+			\]
+			Phát biểu tương đương, $f(x) \in o(x^{-c})$ với mọi $c > 0$.
+		\end{definition}
+		\vspace{-\baselineskip}
+		Sau đây một số trò chơi an toàn sẽ được trình bày cụ thể.
+		%
 		\subsection{Trong IBE}
-			\begin{definition}[IND-ID-CPA]
-				Xét trò chơi sau...
-				Ta nói một hệ IBE là an toàn IND-ID-CPA...
+			\begin{game}{IND-ID-CCA}{Ciphertexts Indistinguishability under Adaptive Identity Chosen Ciphertext Attack}
+				Xét trò chơi sau giữa người thách thức \challenger và người tấn công \adversary:
+				\vspace{-1.8\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textbf{Thiết lập:} \challenger chọn tham số an toàn $\lambda$ rồi chạy thuật toán \textsf{Setup}, sau đó đưa cho \adversary tham số công khai $params$, giữ lại khóa bí mật chủ $msk$.
+					% 
+					\item[] \textbf{Pha 1:} \adversary được thực hiện các truy vấn $q_1, q_2, ..., q_m$, trong đó $q_i$ là một trong hai loại truy vấn sau:
+					\begin{itemize}
+						\item[--] Truy vấn khóa bí mật của định danh $\langle ID_i \rangle$: \challenger chạy thuật toán \textsf{SecretKeyGen} để sinh khóa bí mật $sk_{ID_i}$ tương ứng với $ID_i$. \challenger phản hồi $sk_{ID_i}$ cho \adversary .
+						\item[--] Truy vấn giải mã $\langle ID_i, C_i \rangle$: \challenger chạy thuật toán \textsf{SecretKeyGen} để sinh khóa bí mật $sk_{ID_i}$ tương ứng với $ID_i$, sau đó chạy thuật toán \textsf{Decrypt} trên $C_i$ với khóa $sk_{ID_i}$ để lấy bản rõ. \challenger phản hồi bản rõ kết quả cho \adversary .
+					\end{itemize}
+					Những truy vấn này có thể được thực hiện một cách thích nghi (adaptive), tức là \adversary có thể dựa vào những kết quả truy vấn của $q_1, ..., q_{i - 1}$ để thực hiện $q_i$.
+					%
+					\item[] \textbf{Thử thách:} Khi mà \adversary quyết định kết thúc pha 1 thì \adversary gửi cho \challenger hai bản rõ $M_0, M_1$ có kích thước bằng nhau và một định danh $ID^*$ mà \adversary muốn được thử thách. Ràng buộc duy nhất là $ID^*$ phải không thuộc bất kỳ truy vấn khóa bí mật nào ở pha 1. Sau đó \challenger chọn ngẫu nhiên $b \in \{0, 1\}$ rồi mã hóa $M_b$ bằng thuật toán \textsf{Encrypt} trên định danh $ID^*$. \challenger gửi bản mã kết quả $C$ cho \adversary.
+					%
+					\item[] \textbf{Pha 2:} \adversary được tiếp tục thực hiện các truy vấn $q_{m + 1}, ..., q_{n}$ với $q_i$ là một trong hai loại:
+					\begin{itemize}
+						\item[--] Truy vấn khóa bí mật của định danh $\langle ID_i \rangle$ với ràng buộc $ID_i \neq ID^*$.
+						\item[--] Truy vấn giải mã $\langle ID_i, C_i \rangle$ với ràng buộc $ID_i \neq ID^*$ hoặc $C_i \neq C$.
+					\end{itemize}
+					Tương tự pha 1, \adversary có thể thực hiện truy vấn một cách thích nghi.
+					%
+					\item[] \textbf{Đoán:} Cuối cùng \adversary đưa ra phán đoán $b' \in \{0, 1\}$. \adversary thắng trò chơi này nếu $b' = b$.
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}
+				Ta gọi những người tấn công có quyền hạn như \adversary trong trò chơi trên là \textit{người tấn công IND-ID-CCA}. Định nghĩa lợi thế của \adversary để tấn công hệ IBE $\mathcal{E}$ = (\textsf{Setup, SecretKeyGen, Encrypt, Decrypt}) là một hàm theo tham số an toàn $\lambda$ như sau:
+				\[
+					\text{Adv}_{\mathcal{E}, \mathcal{A}}(\lambda) = \abs{\text{Pr}(b' = b) - \frac{1}{2}}
+				\]
+			\end{game}
+			%
+			\begin{definition}\label{cca_def}
+				Cho lược đồ mã hóa dựa trên định danh \scheme và người tấn công IND-ID-CCA \adversary với thời gian tấn công bị chặn bởi $t$ và thực hiện nhiều nhất $q_{id}$ truy vấn khóa, $q_c$ truy vấn giải mã, trong đó $t, q_{id}, q_c$ là hàm theo tham số an toàn. \scheme được gọi là có mức an toàn $(t, q_{id}, q_c)$-IND-ID-CCA nếu $\text{Adv}_{\mathcal{E}, \mathcal{A}}$ là hàm không đáng kể.
 			\end{definition}
-			\begin{definition}[IND-ID-CCA]
-				Xét trò chơi sau...
-				Ta nói một hệ IBE là an toàn IND-ID-CCA...
+			%
+			\begin{game}{IND-ID-CPA}{Ciphertexts Indistinguishability under Adaptive Identity Chosen Plaintext Attack}
+				Hầu hết tương tự trò chơi IND-ID-CCA, chỉ khác ở chỗ người tấn công không được phép thực hiện truy vấn giải mã ở pha 1 và 2.
+			\end{game}
+			%
+			\begin{definition}\label{cpa_def}
+				Ta nói lược đồ \scheme có mức an toàn $(t, q_{id})$-IND-ID-CPA nếu \scheme có mức an toàn $(t, q_{id}, 0)$-IND-ID-CCA.
 			\end{definition}
-			% Note on selective-ID version
+			%
+			\begin{game}{IND-sID-CPA/CCA}{Ciphertexts Indistinguishability under Selective Identity Chosen Plaintext/Ciphertext Attack}
+				Ta thay đổi trò chơi IND-ID-CCA như sau: \\[0.2\baselineskip] \indent
+				Người tấn công \adversary phải công bố định danh mục tiêu $ID^*$ từ đầu trò chơi (trước pha thiết lập) thay vì ở pha thử thách. Người thách thức \challenger thực hiện pha thiết lập một cách độc lập với lựa chọn của \adversary (\challenger xem như mình không hề biết $ID^*$). Ở pha 1 \adversary bị ràng buộc không được truy vấn khóa bí mật của $ID^*$, \challenger vẫn được phép truy vấn giải mã trên $ID^*$. Các pha còn lại không đổi. Trò chơi sau thay đổi được gọi là IND-sID-CCA. \\[0.2\baselineskip] \indent
+				Thay đổi tương tự với trò chơi IND-ID-CPA ta được trò chơi IND-sID-CPA. \\ \indent
+				Định nghĩa an toàn IND-sID-CPA/CCA tương tự như định nghĩa \ref{cca_def} và \ref{cpa_def}.
+			\end{game}
+			%
+			\begin{remark}
+				Định nghĩa IND-ID-CCA rất gần với định nghĩa IND-CCA - mức an toàn được xem là chuẩn mực đối với mã hóa không công khai. Chỉ có hai điểm khác là có thêm truy vấn khóa bí mật và người tấn công được chọn khóa công khai (định danh) mục tiêu, thay vì khóa công khai được chọn ngẫu nhiên. Bối cảnh đa người dùng của IBE dẫn đến có nhiều khóa công khai cho người tấn công lựa chọn. Định nghĩa an toàn trong IBE cũng phải mạnh hơn, để trong trường hợp người tấn công có trong tay khóa bí mật của một bộ phận người dùng thì phần người dùng còn lại của hệ thống vẫn được đảm bảo an toàn.
+			\end{remark}
+		%
 		\subsection{Trong HIBE}
-			\begin{definition}[IND-ID-CCA]
-				Xét trò chơi sau...
-				Ta nói một hệ IBE là an toàn IND-ID-CCA...
+			\begin{definition}
+				Cho hai định danh $ID$ và $ID'$, trong đó $ID = (I_1, I_2, ..., I_n)$. $ID'$ được gọi là một \textit{tiền tố} của $ID$ nếu tồn tại số nguyên dương $m \leq n$ sao cho $ID' = (I_1, ..., I_m)$.
 			\end{definition}
-			% Note on selective-ID and CPA version
-			% Note on delegation history independence
+			\begin{game}{IND-sID-CCA}{Ciphertexts Indistinguishability under Selective Identity Chosen Ciphertext Attack}
+				Xét trò chơi sau giữa người thách thức \challenger và người tấn công \adversary:
+				\vspace{-1.8\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textbf{Khởi đầu:} \adversary công bố định danh muốn tấn công $ID^*$.
+					\item[] \textbf{Thiết lập:} \challenger chọn tham số an toàn $\lambda$, số cấp tối đa $\ell$ rồi chạy thuật toán \textsf{Setup} một cách độc lập với $ID^*$, sau đó đưa cho \adversary tham số công khai $params$, giữ lại khóa bí mật chủ $msk$.
+					% 
+					\item[] \textbf{Pha 1:} \adversary được thực hiện các truy vấn $q_1, q_2, ..., q_m$, trong đó $q_i$ là một trong hai loại truy vấn sau:
+					\begin{itemize}
+						\item[--] Truy vấn khóa bí mật của định danh $\langle ID_i \rangle$ với ràng buộc $ID_i$ không là tiền tố của $ID^*$: \challenger chạy thuật toán \textsf{SecretKeyGen} để sinh khóa bí mật $sk_{ID_i}$ tương ứng với $ID_i$. \challenger phản hồi $sk_{ID_i}$ cho \adversary .
+						\item[--] Truy vấn giải mã $\langle ID_i, C_i \rangle$: \challenger chạy thuật toán \textsf{SecretKeyGen} để sinh khóa bí mật $sk_{ID_i}$ tương ứng với $ID_i$, sau đó chạy thuật toán \textsf{Decrypt} trên $C_i$ với khóa $sk_{ID_i}$ để lấy bản rõ. \challenger phản hồi bản rõ kết quả cho \adversary .
+					\end{itemize}
+					Những truy vấn này có thể được thực hiện một cách thích nghi (adaptive), tức là \adversary có thể dựa vào những kết quả truy vấn của $q_1, ..., q_{i - 1}$ để thực hiện $q_i$.
+					%
+					\item[] \textbf{Thử thách:} Khi mà \adversary quyết định kết thúc pha 1 thì \adversary gửi cho \challenger hai bản rõ $M_0, M_1$ có kích thước bằng nhau mà \adversary muốn được thử thách. Sau đó \challenger chọn ngẫu nhiên $b \in \{0, 1\}$ rồi mã hóa $M_b$ bằng thuật toán \textsf{Encrypt} trên định danh $ID^*$. \challenger gửi bản mã kết quả $C$ cho \adversary.
+					%
+					\item[] \textbf{Pha 2:} \adversary được tiếp tục thực hiện các truy vấn $q_{m + 1}, ..., q_{n}$ với $q_i$ là một trong hai loại:
+					\begin{itemize}
+						\item[--] Truy vấn khóa bí mật của định danh $\langle ID_i \rangle$ với ràng buộc $ID_i$ không là tiền tố của $ID^*$.
+						\item[--] Truy vấn giải mã $\langle ID_i, C_i \rangle$ với ràng buộc $ID_i$ không là tiền tố của $ID^*$ hoặc $C_i \neq C$.
+					\end{itemize}
+					Tương tự pha 1, \adversary có thể thực hiện truy vấn một cách thích nghi.
+					%
+					\item[] \textbf{Đoán:} Cuối cùng \adversary đưa ra phán đoán $b' \in \{0, 1\}$. \adversary thắng trò chơi này nếu $b' = b$.
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}
+				Định nghĩa lợi thế của \adversary để tấn công hệ HIBE $\mathcal{E}$ = (\textsf{Setup, SecretKeyGen, Derive, Encrypt, Decrypt}) là một hàm theo tham số an toàn $\lambda$ như sau:
+				\[
+					\text{Adv}_{\mathcal{E}, \mathcal{A}}(\lambda) = \abs{\text{Pr}(b' = b) - \frac{1}{2}}
+				\]
+			\end{game}
+			%
+			\begin{definition}\label{cca_def}
+				Cho lược đồ mã hóa dựa trên định danh phân cấp \scheme có số cấp tối đa $\ell$ và người tấn công IND-sID-CCA \adversary với thời gian tấn công bị chặn bởi $t$ và thực hiện nhiều nhất $q_{id}$ truy vấn khóa, $q_c$ truy vấn giải mã, trong đó $t, q_{id}, q_c, \ell$ là hàm theo tham số an toàn. \scheme được gọi là có mức an toàn $(t, q_{id}, q_c, \ell)$-IND-sID-CCA nếu $\text{Adv}_{\mathcal{E}, \mathcal{A}}$ là hàm không đáng kể.
+			\end{definition}
+			%
+			Ta có thể xây dựng trò chơi và định nghĩa an toàn phiên bản CPA và phiên bản chọn định danh mục tiêu sau (adaptive identity) hoàn toàn tương tự như với IBE.
+
+			Thông thường để dễ cho việc chứng minh an toàn, những nhà mật mã học mong muốn xây dựng hệ HIBE có tính chất \textit{độc lập với lịch sử sinh khóa} (delegation history independence). Tính chất này nói rằng khóa bí mật của một định danh không làm lộ quá trình sinh nên khóa đó (khóa được sinh bởi chủ thể tổ tiên nào, bởi thuật toán \textsf{SecretKeyGen} hay thuật toán \textsf{Derive}). Do thuật toán \textsf{SecretKeyGen} và \textsf{Derive} là thuật toán ngẫu nhiên nên có thể có nhiều khóa bí mật hợp lệ ứng với một định danh. Tính độc lập với lịch sử sinh khóa sẽ được thỏa mãn nếu khóa bí mật sinh bởi thuật toán \textsf{SecretKeyGen} và \textsf{Derive} có cùng phân phối xác suất. Vì vậy trong thuật toán \textsf{Derive} có thêm một số bước để tái tạo độ ngẫu nhiên (rerandomize).
+			
 			% Collusion-resistance
-			Một vấn đề nữa về tính an toàn cần được quan tâm là tính \textit{chống cấu kết} (collusion-resistance), tức là những chủ thể bên dưới dù có hợp sức lại với nhau cũng không thể suy ra khóa bí mật của PKG bên trên. Một hệ (H)IBE được gọi là \textit{chống cấu kết hoàn toàn} (fully collusion-resistant) nếu tất cả chủ thể bên dưới cấu kết lại cũng không thể suy ra khóa của PKG; và được gọi là \textit{chống cấu kết một phần} (partial collusion-resistant) nếu số lượng chủ thể cấu kết vượt qua một ngưỡng nào đó thì có thể suy ra được khóa của PKG, dưới ngưỡng đó thì không.
+			Một vấn đề nữa về tính an toàn cần được quan tâm là tính \textit{chống cấu kết} (collusion-resistance), tức là những chủ thể bên dưới dù có hợp sức lại với nhau cũng không thể suy ra khóa bí mật của PKG bên trên. Một hệ (H)IBE được gọi là \textit{chống cấu kết hoàn toàn} (fully collusion-resistant) nếu tất cả chủ thể bên dưới cấu kết lại cũng không thể suy ra khóa của PKG; và được gọi là \textit{chống cấu kết một phần} (partial collusion-resistant) nếu số lượng chủ thể cấu kết vượt qua một ngưỡng nào đó thì có thể suy ra được khóa của PKG, dưới ngưỡng đó thì không. Ở đây sinh viên không trình bày trò chơi an toàn về tính chống cấu kết. Trong những hệ HIBE dựa trên cặp ghép thì tính chất này thường dễ đạt được nhờ kỹ thuật tái tạo độ ngẫu nhiên nói trên.
 	%
 	\section{Những bài toán khó và giả định}
 		Các hệ IBE cho đến thời điểm này đều dựa trên cặp ghép song tuyến tính và thặng dư bình phương, và vài năm gần đây có các hệ dựa trên dàn. Dù vậy số lượng hệ dựa trên cặp ghép vẫn chiếm áp đảo\dots
 		%
-		\begin{dl}
+		\begin{problem}{Discrete Logarithm}{DL}
 			Cho $G$\dots\\
 			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
 
-		\end{dl}
+		\end{problem}
 		%
-		\begin{cdh}
+		\begin{problem}{Computational Diffie-Hellman}{C-DH}
 			Cho $G$\dots\\
 			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
 
-		\end{cdh}
+		\end{problem}
 		%
-		\begin{ddh}
+		\begin{problem}{Decisional Diffie-Hellman}{D-DH}
 			Cho $G$\dots\\
 			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
 
-		\end{ddh}
+		\end{problem}
 		%
-		\begin{cbdh}
+		\begin{problem}{Computational Bilinear Diffie-Hellman}{C-BDH}
 			Cho $G$\dots\\
 			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
 
-		\end{cbdh}
+		\end{problem}
 		%
-		\begin{dbdh}
+		\begin{problem}{Decisional Bilinear Diffie-Hellman}{D-BDH}
 			Cho $G$\dots\\
 			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
 
-		\end{dbdh}
+		\end{problem}
 		%
-		\begin{cbdhe}
+		\begin{problem}{Computational Bilinear Diffie-Hellman Exponent}{C-BDHE}
 			Cho $G$\dots\\
 			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
 
-		\end{cbdhe}
+		\end{problem}
 		%
-		\begin{dbdhe}
+		\begin{problem}{Decisional Bilinear Diffie-Hellman Exponent}{D-BDHE}
 			Cho $G$\dots\\
 			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
 
-		\end{dbdhe}
+		\end{problem}
 		\begin{figure}[h]
 			\caption{Sơ đồ quy dẫn giữa các bài toán}
 		\end{figure}

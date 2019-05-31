@@ -1,16 +1,18 @@
 \usepackage[subpreambles=false]{standalone}
 \usepackage{import}
-\usepackage{iftex}
-\usepackage{geometry}
-\usepackage{titlesec}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+\usepackage{enumitem}
 \usepackage{fancybox}
 \usepackage{forloop}
-\usepackage{tabu, longtable, booktabs, multirow, makecell, caption}
-\usepackage[backend=biber, style=alphabetic]{biblatex}
-\usepackage[nottoc]{tocbibind}
-\usepackage{amsmath, amsthm, amssymb}
+\usepackage{geometry}
 \usepackage{graphicx}
-% \usepackage{hyperref}
+\usepackage{iftex}
+\usepackage{tabu, longtable, booktabs, multirow, makecell, caption}
+\usepackage{titlesec}
+\usepackage[nottoc]{tocbibind}
+\usepackage[unicode]{hyperref}
+\usepackage[numbered]{bookmark}
 
 \ifPDFTeX
 	\usepackage[utf8]{vntex}
@@ -33,7 +35,7 @@
 }
 
 \author{Huỳnh Quang Dự}
-\title{TÌM HIỂU MÃ HÓA DỰA TRÊN ĐỊNH DANH VÀ ỨNG~DỤNG}
+\title{TÌM HIỂU MÃ HÓA DỰA TRÊN ĐỊNH DANH VÀ ỨNG DỤNG}
 \date{Tháng 5, 2019}
 
 \renewcommand*{\small}{
@@ -56,15 +58,28 @@
 \newtheorem{theorem}{Định lý}[chapter]
 \newtheorem{proposition}[theorem]{Mệnh đề}
 \newtheorem{lemma}[theorem]{Bổ đề}
+
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Định nghĩa}
 \newtheorem{example}[theorem]{Ví dụ}
-\newtheorem*{dl}{Discrete Logarithm (DL)}
-\newtheorem*{cdh}{Computational Diffie-Hellman (C-DH)}
-\newtheorem*{ddh}{Decisional Diffie-Hellman (D-DH)}
-\newtheorem*{cbdh}{Computational Bilinear Diffie-Hellman (C-BDH)}
-\newtheorem*{dbdh}{Decisional Bilinear Diffie-Hellman (D-BDH)}
-\newtheorem*{cbdhe}{Computational Bilinear Diffie-Hellman Exponent (C-BDHE)}
-\newtheorem*{dbdhe}{Decisional Bilinear Diffie-Hellman Exponent (D-BDHE)}
+
 \theoremstyle{remark}
 \newtheorem*{remark}{Nhận xét}
+
+\newenvironment{game}[2]{\par\noindent\textbf{#1} (#2). \hspace{1ex}}{}
+\newenvironment{problem}[2]{\par\noindent\textbf{#1 (#2).} \hspace{1ex}}{}
+
+\hypersetup{
+	pdftitle=\@title,
+	pdfauthor=\@author,
+	bookmarks=true,
+	bookmarksopen=true,
+	linkbordercolor={1 1 1},
+	citebordercolor={1 1 1}
+}
+\urlstyle{same}
+
+\newcommand{\adversary}{$\mathcal{A}\ $}
+\newcommand{\challenger}{$\mathcal{C}\ $}
+\newcommand{\scheme}{$\mathcal{E}\ $}
+\newcommand{\abs}[1]{\left| \ #1 \ \right|}
