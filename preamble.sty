@@ -67,7 +67,7 @@
 \newtheorem*{remark}{Nhận xét}
 
 \newenvironment{game}[2]{\par\noindent\textbf{#1} (#2). \hspace{1ex}}{}
-\newenvironment{problem}[2]{\par\noindent\textbf{#1 (#2).} \hspace{1ex}}{}
+\newenvironment{problem}[2]{\par\noindent\textbf{#1 (#2).} \hspace{1ex}}{\par}
 
 \hypersetup{
 	pdftitle=\@title,
@@ -79,6 +79,7 @@
 }
 \urlstyle{same}
 
+\newcommand{\algo}{$\mathcal{A}\ $}
 \newcommand{\adversary}{$\mathcal{A}\ $}
 \newcommand{\challenger}{$\mathcal{C}\ $}
 \newcommand{\scheme}{$\mathcal{E}\ $}

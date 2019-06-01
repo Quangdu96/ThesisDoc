@@ -214,18 +214,7 @@
 		\end{remark}
 	%
 	\section{Khái niệm an toàn}
-		Trong nghiên cứu mật mã tiền hiện đại, một lược đồ mật mã vẫn được xem là an toàn nếu chưa ai phát hiện ra cách tấn công nào hữu hiệu với nó. Tuy nhiên như vậy thì ta không thể biết thực sự có tồn tại cách tấn công hay không. Đến thế giới mật mã hiện đại, độ an toàn của một lược đồ phải được \emph{chứng minh} dựa trên một giả định nào đó mà được tin là đúng. Từ một tính chất được mong muốn trong một lược đồ (chẳng hạn tính bí mật), các nhà mật mã học chặt chẽ hóa tính chất này thành một trò chơi an toàn giữa người thách thức (challenger) và người tấn công (adversary). Trò chơi này liên quan mật thiết đến lược đồ. Và độ an toàn của lược đồ được định nghĩa dựa trên lợi thế (khả năng thắng trò chơi) của người tấn công. Để tiện khi gọi, cộng đồng nghiên cứu thống nhất tên gọi và ký hiệu viết tắt cho những tính chất/trò chơi này. Ví dụ như tính \textit{an toàn ngữ nghĩa} (semantic security) của một hệ mã có tên gọi tiếng Anh đầy dủ là ``(Ciphertexts) Indistinguishability under Chosen Plaintext Attack'' và viết tắt là ``IND-CPA''. \\ \indent
-		Trước hết ta cần định nghĩa sau để phát biểu các trò chơi an toàn:
-		%
-		\begin{definition}
-			Hàm $f: \mathbb{R^+} \rightarrow \mathbb{R}$ được gọi là \textit{không đáng kể} nếu với mọi $c > 0$, tồn tại một số $x_0 > 0$ sao cho với mọi $x > x_0$
-			\[
-				|f(x)| < \frac{1}{x^c}
-			\]
-			Phát biểu tương đương, $f(x) \in o(x^{-c})$ với mọi $c > 0$.
-		\end{definition}
-		\vspace{-\baselineskip}
-		Sau đây một số trò chơi an toàn sẽ được trình bày cụ thể.
+		Trong nghiên cứu mật mã tiền hiện đại, một lược đồ mật mã vẫn được xem là an toàn nếu chưa ai phát hiện ra cách tấn công nào hữu hiệu với nó. Tuy nhiên như vậy thì ta không thể biết thực sự có tồn tại cách tấn công hay không. Đến thế giới mật mã hiện đại, độ an toàn của một lược đồ phải được \emph{chứng minh} dựa trên một giả định nào đó mà được tin là đúng. Từ một tính chất được mong muốn trong một lược đồ (chẳng hạn tính bí mật), các nhà mật mã học chặt chẽ hóa tính chất này thành một trò chơi an toàn giữa người thách thức (challenger) và người tấn công (adversary). Trò chơi này liên quan mật thiết đến lược đồ. Và độ an toàn của lược đồ được định nghĩa dựa trên lợi thế (khả năng thắng trò chơi) của người tấn công. Để tiện khi gọi, cộng đồng nghiên cứu thống nhất tên gọi và ký hiệu viết tắt cho những tính chất/trò chơi này. Ví dụ như tính \textit{an toàn ngữ nghĩa} (semantic security) của một hệ mã có tên gọi tiếng Anh đầy dủ là ``(Ciphertexts) Indistinguishability under Chosen Plaintext Attack'' và viết tắt là ``IND-CPA''. Sau đây một số trò chơi an toàn sẽ được trình bày cụ thể.
 		%
 		\subsection{Trong IBE}
 			\begin{game}{IND-ID-CCA}{Ciphertexts Indistinguishability under Adaptive Identity Chosen Ciphertext Attack}
@@ -254,14 +243,14 @@
 				\end{itemize}
 				%
 				\vspace{-\baselineskip}
-				Ta gọi những người tấn công có quyền hạn như \adversary trong trò chơi trên là \textit{người tấn công IND-ID-CCA}. Định nghĩa lợi thế của \adversary để tấn công hệ IBE $\mathcal{E}$ = (\textsf{Setup, SecretKeyGen, Encrypt, Decrypt}) là một hàm theo tham số an toàn $\lambda$ như sau:
+				Ta gọi những người tấn công có quyền hạn như \adversary trong trò chơi trên là \textit{người tấn công IND-ID-CCA}. Định nghĩa lợi thế của \adversary để tấn công hệ IBE $\mathcal{E}$ = (\textsf{Setup, SecretKeyGen, Encrypt, Decrypt}) như sau:
 				\[
-					\text{Adv}_{\mathcal{E}, \mathcal{A}}(\lambda) = \abs{\text{Pr}(b' = b) - \frac{1}{2}}
+					\text{Adv}_{\mathcal{E}, \mathcal{A}} = \abs{\text{Pr}(b' = b) - \frac{1}{2}}
 				\]
 			\end{game}
 			%
 			\begin{definition}\label{cca_def}
-				Cho lược đồ mã hóa dựa trên định danh \scheme và người tấn công IND-ID-CCA \adversary với thời gian tấn công bị chặn bởi $t$ và thực hiện nhiều nhất $q_{id}$ truy vấn khóa, $q_c$ truy vấn giải mã, trong đó $t, q_{id}, q_c$ là hàm theo tham số an toàn. \scheme được gọi là có mức an toàn $(t, q_{id}, q_c)$-IND-ID-CCA nếu $\text{Adv}_{\mathcal{E}, \mathcal{A}}$ là hàm không đáng kể.
+				Cho lược đồ mã hóa dựa trên định danh \scheme và người tấn công IND-ID-CCA \adversary với thời gian tấn công bị chặn bởi $t$ và thực hiện nhiều nhất $q_{id}$ truy vấn khóa, $q_c$ truy vấn giải mã. \scheme được gọi là có mức an toàn $(t, q_{id}, q_c, \varepsilon)$-IND-ID-CCA nếu $\text{Adv}_{\mathcal{E}, \mathcal{A}} \leq \varepsilon$. Nói cách khác, mọi người tấn công có khả năng như \adversary có lợi thế nhiều nhất là $\varepsilon$ để tấn công \scheme.
 			\end{definition}
 			%
 			\begin{game}{IND-ID-CPA}{Ciphertexts Indistinguishability under Adaptive Identity Chosen Plaintext Attack}
@@ -269,7 +258,7 @@
 			\end{game}
 			%
 			\begin{definition}\label{cpa_def}
-				Ta nói lược đồ \scheme có mức an toàn $(t, q_{id})$-IND-ID-CPA nếu \scheme có mức an toàn $(t, q_{id}, 0)$-IND-ID-CCA.
+				Ta nói lược đồ \scheme có mức an toàn $(t, q_{id}, \varepsilon)$-IND-ID-CPA nếu \scheme có mức an toàn $(t, q_{id}, 0, \varepsilon)$-IND-ID-CCA.
 			\end{definition}
 			%
 			\begin{game}{IND-sID-CPA/CCA}{Ciphertexts Indistinguishability under Selective Identity Chosen Plaintext/Ciphertext Attack}
@@ -314,14 +303,14 @@
 				\end{itemize}
 				%
 				\vspace{-\baselineskip}
-				Định nghĩa lợi thế của \adversary để tấn công hệ HIBE $\mathcal{E}$ = (\textsf{Setup, SecretKeyGen, Derive, Encrypt, Decrypt}) là một hàm theo tham số an toàn $\lambda$ như sau:
+				Định nghĩa lợi thế của \adversary để tấn công hệ HIBE $\mathcal{E}$ = (\textsf{Setup, SecretKeyGen, Derive, Encrypt, Decrypt}) như sau:
 				\[
-					\text{Adv}_{\mathcal{E}, \mathcal{A}}(\lambda) = \abs{\text{Pr}(b' = b) - \frac{1}{2}}
+					\text{Adv}_{\mathcal{E}, \mathcal{A}} = \abs{\text{Pr}(b' = b) - \frac{1}{2}}
 				\]
 			\end{game}
 			%
-			\begin{definition}\label{cca_def}
-				Cho lược đồ mã hóa dựa trên định danh phân cấp \scheme có số cấp tối đa $\ell$ và người tấn công IND-sID-CCA \adversary với thời gian tấn công bị chặn bởi $t$ và thực hiện nhiều nhất $q_{id}$ truy vấn khóa, $q_c$ truy vấn giải mã, trong đó $t, q_{id}, q_c, \ell$ là hàm theo tham số an toàn. \scheme được gọi là có mức an toàn $(t, q_{id}, q_c, \ell)$-IND-sID-CCA nếu $\text{Adv}_{\mathcal{E}, \mathcal{A}}$ là hàm không đáng kể.
+			\begin{definition}
+				Cho lược đồ mã hóa dựa trên định danh phân cấp \scheme có số cấp tối đa $\ell$ và người tấn công IND-sID-CCA \adversary với thời gian tấn công bị chặn bởi $t$ và thực hiện nhiều nhất $q_{id}$ truy vấn khóa, $q_c$ truy vấn giải mã. \scheme được gọi là có mức an toàn $(t, q_{id}, q_c, \ell, \varepsilon)$-IND-sID-CCA nếu $\text{Adv}_{\mathcal{E}, \mathcal{A}} \leq \varepsilon$. Nói cách khác, mọi người tấn công có khả năng như \adversary có lợi thế nhiều nhất là $\varepsilon$ để tấn công \scheme.
 			\end{definition}
 			%
 			Ta có thể xây dựng trò chơi và định nghĩa an toàn phiên bản CPA và phiên bản chọn định danh mục tiêu sau (adaptive identity) hoàn toàn tương tự như với IBE.
@@ -332,50 +321,309 @@
 			Một vấn đề nữa về tính an toàn cần được quan tâm là tính \textit{chống cấu kết} (collusion-resistance), tức là những chủ thể bên dưới dù có hợp sức lại với nhau cũng không thể suy ra khóa bí mật của PKG bên trên. Một hệ (H)IBE được gọi là \textit{chống cấu kết hoàn toàn} (fully collusion-resistant) nếu tất cả chủ thể bên dưới cấu kết lại cũng không thể suy ra khóa của PKG; và được gọi là \textit{chống cấu kết một phần} (partial collusion-resistant) nếu số lượng chủ thể cấu kết vượt qua một ngưỡng nào đó thì có thể suy ra được khóa của PKG, dưới ngưỡng đó thì không. Ở đây sinh viên không trình bày trò chơi an toàn về tính chống cấu kết. Trong những hệ HIBE dựa trên cặp ghép thì tính chất này thường dễ đạt được nhờ kỹ thuật tái tạo độ ngẫu nhiên nói trên.
 	%
 	\section{Những bài toán khó và giả định}
-		Các hệ IBE cho đến thời điểm này đều dựa trên cặp ghép song tuyến tính và thặng dư bình phương, và vài năm gần đây có các hệ dựa trên dàn. Dù vậy số lượng hệ dựa trên cặp ghép vẫn chiếm áp đảo\dots
+		Cho đến thời điểm này toàn bộ các hệ IBE đều dựa trên cặp ghép song tuyến tính, thặng dư bình phương hoặc dàn. Mặc dù hệ IBE xây dựng trên thặng dư bình phương \cite{DBLP:conf/ima/Cocks01} xuất hiện cùng lúc với hệ của Boneh và Franklin \cite{DBLP:conf/crypto/BonehF01} nhưng do độ hiệu quả không cao nên đến giờ vẫn không được chú trọng nghiên cứu. Trong khi đó nghiên cứu IBE trên cặp ghép gần như đã đến mức bão hòa. Vài năm gần đây xuất hiện các hệ dựa trên dàn. Dàn cho thấy được rất nhiều tiềm năng và nhiều nhà mật mã học đang xây dựng lại những kết quả đã đạt được với cặp ghép cho dàn. Dù vậy sinh viên nhìn nhận rằng IBE dựa trên dàn vẫn còn chưa đủ độ chín để tới được ứng dụng và quyết định chọn tìm hiểu IBE dựa trên cặp ghép. \\ \indent
+		Sau đây là định nghĩa cặp ghép được dùng trong mật mã.
+		%
+		\begin{definition}
+			Cho các nhóm nhân $\mathbb{G}_1$, $\mathbb{G}_2$, $\mathbb{G}_T$ thỏa $|\mathbb{G}_1| = |\mathbb{G}_2| = |\mathbb{G}_T| = p$ với $p$ là số nguyên tố. Ánh xạ $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$ được gọi là \textit{cặp ghép (song tuyến tính)} nếu thỏa tất cả tính chất sau:
+			\vspace{-0.5cm}
+			\begin{enumerate}[leftmargin=1.5cm, itemindent=-0.5cm]
+				\item \textit{Song tuyến tính} (bilinear):
+				\[
+					\forall\ a \in \mathbb{G}_1,\ b \in \mathbb{G}_2,\ x, y \in \mathbb{Z}_p \quad \text{ta có} \quad e(a^x, b^y) = e(a, b)^{xy}
+				\]
+				\item \textit{Không suy biến} (non-degenerate):
+				\[
+					\exists\ a \in \mathbb{G}_1,\ b \in \mathbb{G}_2 \quad \text{sao cho} \quad e(a, b) \neq 1
+				\]
+				\item \textit{Khả tính} (computable):
+				Tồn tại một thuật toán hiệu quả (thời gian đa thức) để tính $e(a, b)$ với mọi $a \in \mathbb{G}_1,\ b \in \mathbb{G}_2$.
+			\end{enumerate}
+		\end{definition}
+		%
+		\begin{remark}
+			\leavevmode \vspace{-\baselineskip}
+			\begin{enumerate}[label=(\roman*), leftmargin=1cm]
+				\item Do $\mathbb{G}_1$ (tương ứng $\mathbb{G}_2$, $\mathbb{G}_T$) có cấp là số nguyên tố nên mọi phần tử khác $1$ trong $\mathbb{G}_1$ (tương ứng $\mathbb{G}_2$, $\mathbb{G}_T$) đều là phần tử sinh của nhóm.
+				\item Nếu $a$ và $b$ lần lượt là phần tử sinh của $\mathbb{G}_1$ và $\mathbb{G}_2$ thì ta có $e(a, b)$ là phần tử sinh của $\mathbb{G}_T$.
+			\end{enumerate}
+		\end{remark}
+		%
+		Để chứng minh một lược đồ mật mã thỏa tính chất an toàn chỉ định, thông thường ta phải dựa trên giả định độ khó của một bài toán nào đó. Định lý về độ an toàn của lược đồ thường có dạng như sau: ``Nếu bài toán $\mathcal{P}$ là khó thì lược đồ thỏa tính chất an toàn''. Quá trình chứng minh thường theo chiều ngược lại (phản đảo). Nghĩa là nếu tồn tại một người phá được lược đồ thì bằng quy dẫn (reduction) ta xây dựng được một thuật toán hiệu quả để giải bài toán $\mathcal{P}$.
+		\newpage
+		Tiếp theo sinh viên xin giới thiệu một vài bài toán phổ biến được dùng làm nền tảng độ an toàn cho các lược đồ mật mã. Các bài toán DL, C-DH và D-DH được phát biểu trên cùng giả thiết như sau: \\ \indent
+		Cho $\mathbb{G}$ là nhóm cyclic hữu hạn với $|\mathbb{G}| = n$. \\ \indent
+		Ký hiệu \hspace{1ex} $r \xleftarrow{R} S$ \hspace{1ex} mang ý nghĩa $r$ được chọn ngẫu nhiên theo phân phối đều từ tập S hữu hạn.
 		%
 		\begin{problem}{Discrete Logarithm}{DL}
-			Cho $G$\dots\\
-			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
-
+			Bài toán DL trong $\mathbb{G}$ phát biểu như sau:
+			\vspace{-\baselineskip}
+			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+				\item[] \textit{Input:} $g, g^x$ \\
+				Trong đó: \vspace{-\baselineskip}
+				\begin{align*}
+					g &\xleftarrow{R} \{ a \in \mathbb{G}\ | \ \langle a \rangle = \mathbb{G} \} \\
+					x &\xleftarrow{R} \mathbb{Z}_n
+				\end{align*}
+				\item[] \textit{Output:} $x$
+			\end{itemize}
+			%
+			\vspace{-\baselineskip}\par
+			Lợi thế của thuật toán \algo trong việc giải bài DL trong $\mathbb{G}$ được định nghĩa:
+			\[
+				\text{Adv}_{\mathcal{A}}^{\text{DL}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x \Big) = x \ \bigg]
+			\] \indent
+			Ta nói giả định $(t, \varepsilon)$-DL là đúng trong $\mathbb{G}$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài DL trong $\mathbb{G}$.
 		\end{problem}
 		%
 		\begin{problem}{Computational Diffie-Hellman}{C-DH}
-			Cho $G$\dots\\
-			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
-
+			Bài toán C-DH trong $\mathbb{G}$ phát biểu như sau:
+			\vspace{-\baselineskip}
+			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+				\item[] \textit{Input:} $g, g^x, g^y$ \\
+				Trong đó: \vspace{-\baselineskip}
+				\begin{align*}
+					g 		&\xleftarrow{R} \{ a \in \mathbb{G}\ | \ \langle a \rangle = \mathbb{G} \} \\
+					x, y 	&\xleftarrow{R} \mathbb{Z}_n
+				\end{align*}
+				\item[] \textit{Output:} $g^{xy}$
+			\end{itemize}
+			%
+			\vspace{-\baselineskip}\par
+			Lợi thế của thuật toán \algo trong việc giải bài C-DH trong $\mathbb{G}$ được định nghĩa:
+			\[
+				\text{Adv}_{\mathcal{A}}^{\text{C-DH}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y \Big) = g^{xy} \ \bigg]
+			\] \indent
+			Ta nói giả định $(t, \varepsilon)$-C-DH là đúng trong $\mathbb{G}$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài C-DH trong $\mathbb{G}$.
 		\end{problem}
 		%
+		\newpage
 		\begin{problem}{Decisional Diffie-Hellman}{D-DH}
-			Cho $G$\dots\\
-			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
-
+			Bài toán D-DH trong $\mathbb{G}$ phát biểu như sau:
+			\vspace{-\baselineskip}
+			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+				\item[] \textit{Input:} $g, g^x, g^y, u$ \\
+				Trong đó: \vspace{-\baselineskip}
+				\begin{align*}
+					g 		&\xleftarrow{R} \{ a \in \mathbb{G}\ | \ \langle a \rangle = \mathbb{G} \} 	\\
+					x, y 	&\xleftarrow{R} \mathbb{Z}_n 												\\
+					\sigma 	&\xleftarrow{R} \mathbb{G}													\\
+					b 		&\xleftarrow{R} \{ 0, 1 \}
+				\end{align*}
+				\[
+					u = \begin{cases}
+						\sigma 	&\text{nếu}\quad b = 0 \\
+						g^{xy} 	&\text{nếu}\quad b = 1
+					\end{cases}
+				\]
+				\item[] \textit{Output:}
+				\[
+					\begin{cases}
+						0 &\text{nếu}\quad u \neq g^{xy} \\
+						1 &\text{nếu}\quad u = g^{xy}
+					\end{cases}
+				\]
+			\end{itemize}
+			%
+			\vspace{-\baselineskip}\par
+			Lợi thế của thuật toán \algo trong việc giải bài D-DH trong $\mathbb{G}$ được định nghĩa:
+			\[
+				\text{Adv}_{\mathcal{A}}^{\text{D-DH}} = \Bigg|\ \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, g^{xy} \Big) = 1 \ \bigg] - \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, \sigma \Big) = 1 \ \bigg]\ \Bigg|
+			\] \indent
+			Ta nói giả định $(t, \varepsilon)$-D-DH là đúng trong $\mathbb{G}$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài D-DH trong $\mathbb{G}$.
 		\end{problem}
 		%
-		\begin{problem}{Computational Bilinear Diffie-Hellman}{C-BDH}
-			Cho $G$\dots\\
-			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
+		Các bài toán còn lại được phát biểu trên giả thiết sau: \\ \indent
+		Cho $\mathbb{G}_1$, $\mathbb{G}_2$, $\mathbb{G}_T$ là các nhóm cyclic hữu hạn thỏa $|\mathbb{G}_1| = |\mathbb{G}_2| = |\mathbb{G}_T| = p$ với $p$ là số nguyên tố, cặp ghép $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$.
 
+		\begin{problem}{Computational Bilinear Diffie-Hellman}{C-BDH}
+			Bài toán C-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ phát biểu như sau:
+			\vspace{-\baselineskip}
+			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+				\item[] \textit{Input:} $g, g^x, g^y, h, h^x, h^z$ \\
+				Trong đó: \vspace{-\baselineskip}
+				\begin{align*}
+					g 			&\xleftarrow{R} \mathbb{G}_1^* \quad (\mathbb{G}_1 \setminus \{1\}) \\
+					h 			&\xleftarrow{R} \mathbb{G}_2^* 										\\
+					x, y, z 	&\xleftarrow{R} \mathbb{Z}_p
+				\end{align*}
+				\item[] \textit{Output:} $e(g, h)^{xyz}$
+			\end{itemize}
+			%
+			\vspace{-\baselineskip}\par
+			Lợi thế của thuật toán \algo trong việc giải bài C-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa:
+			\[
+				\text{Adv}_{\mathcal{A}}^{\text{C-BDH}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, h, h^x, h^z \Big) = e(g, h)^{xyz} \ \bigg]
+			\] \indent
+			Ta nói giả định $(t, \varepsilon)$-C-BDH là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài C-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
 		\end{problem}
 		%
 		\begin{problem}{Decisional Bilinear Diffie-Hellman}{D-BDH}
-			Cho $G$\dots\\
-			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
-
+			Bài toán D-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ phát biểu như sau:
+			\vspace{-\baselineskip}
+			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+				\item[] \textit{Input:} $g, g^x, g^y, h, h^x, h^z, u$ \\
+				Trong đó: \vspace{-\baselineskip}
+				\begin{align*}
+					g 			&\xleftarrow{R} \mathbb{G}_1^* 	\\
+					h 			&\xleftarrow{R} \mathbb{G}_2^* 	\\
+					x, y, z 	&\xleftarrow{R} \mathbb{Z}_p 	\\
+					\sigma 		&\xleftarrow{R} \mathbb{G}_T 	\\
+					b 			&\xleftarrow{R} \{ 0, 1 \}
+				\end{align*}
+				\[
+					u = \begin{cases}
+						\sigma 			&\text{nếu}\quad b = 0 \\
+						e(g, h)^{xyz} 	&\text{nếu}\quad b = 1
+					\end{cases}
+				\]
+				\item[] \textit{Output:}
+				\[
+					\begin{cases}
+						0 &\text{nếu}\quad u \neq e(g, h)^{xyz} \\
+						1 &\text{nếu}\quad u = e(g, h)^{xyz}
+					\end{cases}
+				\]
+			\end{itemize}
+			%
+			\vspace{-\baselineskip}\par
+			Lợi thế của thuật toán \algo trong việc giải bài D-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa:
+			\begin{equation*}
+				\begin{split}
+					\text{Adv}_{\mathcal{A}}^{\text{D-BDH}} = \Bigg|\ &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, h, h^x, h^z, e(g, h)^{xyz} \Big) = 1 \ \bigg] \\
+					- &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, h, h^x, h^z, \sigma \Big) = 1 \ \bigg]\ \Bigg|
+				\end{split}
+			\end{equation*} \indent
+			Ta nói giả định $(t, \varepsilon)$-D-BDH là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài D-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
 		\end{problem}
 		%
+		\newpage
 		\begin{problem}{Computational Bilinear Diffie-Hellman Exponent}{C-BDHE}
-			Cho $G$\dots\\
-			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
-
+			Bài toán $\ell$-C-BDHE $(\ell \geq 1)$ trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ phát biểu như sau:
+			\vspace{-\baselineskip}
+			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+				\item[] \textit{Input:} $g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h$ \\
+				Trong đó: \vspace{-\baselineskip}
+				\begin{align*}
+					g 		&\xleftarrow{R} \mathbb{G}_1^* \\
+					h 		&\xleftarrow{R} \mathbb{G}_2^* \\
+					\alpha 	&\xleftarrow{R} \mathbb{Z}_p^*
+				\end{align*}
+				\item[] \textit{Output:} $e(g, h)^{(\alpha^{\ell + 1})}$
+			\end{itemize}
+			%
+			\vspace{-\baselineskip}\par
+			Lợi thế của thuật toán \algo trong việc giải bài $\ell$-C-BDHE trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa:
+			\[
+				\text{Adv}_{\mathcal{A}}^{\text{C-BDHE}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h \Big) = e(g, h)^{(\alpha^{\ell + 1})} \ \bigg]
+			\] \indent
+			Ta nói giả định $(t, \varepsilon, \ell)$-C-BDHE là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-C-BDHE trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
 		\end{problem}
 		%
 		\begin{problem}{Decisional Bilinear Diffie-Hellman Exponent}{D-BDHE}
-			Cho $G$\dots\\
-			Thuật toán $\mathcal{A}$ được gọi là có lợi thế $\varepsilon$ nếu\dots
-
+			Bài toán $\ell$-D-BDHE $(\ell \geq 1)$ trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ phát biểu như sau:
+			\vspace{-\baselineskip}
+			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+				\item[] \textit{Input:} $g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, u$ \\
+				Trong đó: \vspace{-\baselineskip}
+				\begin{align*}
+					g 		&\xleftarrow{R} \mathbb{G}_1^* \\
+					h 		&\xleftarrow{R} \mathbb{G}_2^* \\
+					\alpha 	&\xleftarrow{R} \mathbb{Z}_p^* \\
+					\sigma 	&\xleftarrow{R} \mathbb{G}_T \\
+					b 		&\xleftarrow{R} \{ 0, 1 \}
+				\end{align*}
+				\[
+					u = \begin{cases}
+						\sigma 							&\text{nếu}\quad b = 0 \\
+						e(g, h)^{(\alpha^{\ell + 1})} 	&\text{nếu}\quad b = 1
+					\end{cases}
+				\]
+				\item[] \textit{Output:}
+				\[
+					\begin{cases}
+						0 &\text{nếu}\quad u \neq e(g, h)^{(\alpha^{\ell + 1})} \\
+						1 &\text{nếu}\quad u = e(g, h)^{(\alpha^{\ell + 1})}
+					\end{cases}
+				\] 
+			\end{itemize}
+			%
+			\vspace{-\baselineskip}\par
+			Lợi thế của thuật toán \algo trong việc giải bài $\ell$-D-BDHE trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa:
+			\begin{equation*}
+				\begin{split}
+					\text{Adv}_{\mathcal{A}}^{\text{D-BDHE}} = \Bigg|\ &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, e(g, h)^{(\alpha^{\ell + 1})} \Big) = 1 \ \bigg] \\
+					- &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, \sigma \Big) = 1 \ \bigg]\ \Bigg|
+				\end{split}
+			\end{equation*} \indent
+			Ta nói giả định $(t, \varepsilon, \ell)$-D-BDHE là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-D-BDHE trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
 		\end{problem}
+		%
+		\begin{problem}{Computational Bilinear Diffie-Hellman Inversion}{C-BDHI}
+			Bài toán $\ell$-C-BDHI $(\ell \geq 1)$ trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ phát biểu như sau:
+			\vspace{-\baselineskip}
+			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+				\item[] \textit{Input:} $g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h$ \\
+				Trong đó: \vspace{-\baselineskip}
+				\begin{align*}
+					g 		&\xleftarrow{R} \mathbb{G}_1^* \\
+					h 		&\xleftarrow{R} \mathbb{G}_2^* \\
+					\alpha 	&\xleftarrow{R} \mathbb{Z}_p^*
+				\end{align*}
+				\item[] \textit{Output:} $e(g, h)^{1/\alpha}$
+			\end{itemize}
+			%
+			\vspace{-\baselineskip}\par
+			Lợi thế của thuật toán \algo trong việc giải bài $\ell$-C-BDHI trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa:
+			\[
+				\text{Adv}_{\mathcal{A}}^{\text{C-BDHI}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h \Big) = e(g, h)^{1/\alpha} \ \bigg]
+			\] \indent
+			Ta nói giả định $(t, \varepsilon, \ell)$-C-BDHI là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-C-BDHI trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
+		\end{problem}
+		%
+		\begin{problem}{Decisional Bilinear Diffie-Hellman Inversion}{D-BDHI}
+			Bài toán $\ell$-D-BDHI $(\ell \geq 1)$ trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ phát biểu như sau:
+			\vspace{-\baselineskip}
+			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+				\item[] \textit{Input:} $g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, u$ \\
+				Trong đó: \vspace{-\baselineskip}
+				\begin{align*}
+					g 		&\xleftarrow{R} \mathbb{G}_1^* \\
+					h 		&\xleftarrow{R} \mathbb{G}_2^* \\
+					\alpha 	&\xleftarrow{R} \mathbb{Z}_p^* \\
+					\sigma 	&\xleftarrow{R} \mathbb{G}_T \\
+					b 		&\xleftarrow{R} \{ 0, 1 \}
+				\end{align*}
+				\[
+					u = \begin{cases}
+						\sigma 							&\text{nếu}\quad b = 0 \\
+						e(g, h)^{1/\alpha} 	&\text{nếu}\quad b = 1
+					\end{cases}
+				\]
+				\item[] \textit{Output:}
+				\[
+					\begin{cases}
+						0 &\text{nếu}\quad u \neq e(g, h)^{1/\alpha} \\
+						1 &\text{nếu}\quad u = e(g, h)^{1/\alpha}
+					\end{cases}
+				\] 
+			\end{itemize}
+			%
+			\vspace{-\baselineskip}\par
+			Lợi thế của thuật toán \algo trong việc giải bài $\ell$-D-BDHI trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa:
+			\begin{equation*}
+				\begin{split}
+					\text{Adv}_{\mathcal{A}}^{\text{D-BDHI}} = \Bigg|\ &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, e(g, h)^{1/\alpha} \Big) = 1 \ \bigg] \\
+					- &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, \sigma \Big) = 1 \ \bigg]\ \Bigg|
+				\end{split}
+			\end{equation*} \indent
+			Ta nói giả định $(t, \varepsilon, \ell)$-D-BDHI là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-D-BDHI trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
+		\end{problem}
+		%
 		\begin{figure}[h]
+			\captionsetup{font=normalsize}
+			\includegraphics[width=\textwidth]{computation_problem_reduction.png}
+			\centering
 			\caption{Sơ đồ quy dẫn giữa các bài toán}
 		\end{figure}
 	%
