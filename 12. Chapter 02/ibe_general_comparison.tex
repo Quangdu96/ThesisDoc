@@ -9,7 +9,7 @@
 	\bfseries BF 					\newline + FO 	\newline (2001) &
 	\bfseries SK 					\newline + FO 	\newline (2003) &
 	\bfseries BB\textsubscript{1} 	\newline + BMW 	\newline (2004) &
-	\bfseries BB\textsubscript{2} 	\newline + BK 	\newline (2004) &
+	\bfseries BB\textsubscript{2} 	\newline		\newline (2004) &
 	\bfseries Waters 				\newline + BMW 	\newline (2005) &
 	\bfseries BBG 					\newline + BMW 	\newline (2005) &
 	\bfseries Gentry 				\newline		\newline (2006) \\
@@ -20,7 +20,7 @@
 		Tính an toàn
 	} \\
 	Chọn ID mục tiêu 	& Sau 			& Sau 			& Trước 		& Trước 		& Sau 			& Trước 		& Sau 			\\
-	Mức an toàn 		& IND-ID-CCA 	& IND-ID-CCA 	& IND-sID-CCA 	& IND-sID-CCA 	& IND-ID-CCA 	& IND-sID-CCA 	& IND-ID-CCA 	\\
+	Mức an toàn 		& IND-ID-CCA 	& IND-ID-CCA 	& IND-sID-CCA 	& IND-sID-CPA 	& IND-ID-CCA 	& IND-sID-CCA 	& IND-ID-CCA 	\\
 	Mô hình 			& Random oracle & Random oracle & Chuẩn 		& Chuẩn 		& Chuẩn 		& Chuẩn 		& Chuẩn 		\\
 	%
 	\tabucline[1pt]-
@@ -28,21 +28,23 @@
 		\bfseries\centering
 		Phép quy dẫn
 	} \\
-	Giả định 			& CBDH 			& CBDHI 		& DBDH 			& DBDHI* 		& DBDH 			& DBDHE 		& DBDHE** 		\\
+	Giả định 			& CBDH 			& CBDHI 		& DBDH 			& DBDHI$^{*_1}$ & DBDH 			& DBDHE 		& DBDHE$^{*_2}$ \\
+	Cặp ghép			& Đối xứng 		& Đối xứng 		& Bất đối xứng 	& Bất đối xứng 	& Đối xứng 		& Đối xứng 		& Đối xứng 		\\
 	%
 	\tabucline[1pt]-
 	\multicolumn{8}{| p{\textwidth} |}{
 		\bfseries\centering
 		Tính năng bổ sung
 	} \\
-	HIBE 							& \checkmark * 	& & \checkmark 	& & \checkmark 	& \checkmark 	& 				\\
-	Sinh khóa ngưỡng phi tương tác 	& \checkmark 	& & \checkmark 	& & \checkmark 	& \checkmark 	& 				\\
-	Giới hạn cấp sinh khóa 			& 				& & 			& & 			& \checkmark 	& 				\\
-	Ẩn danh 						& \checkmark **	& & 			& & 			& 				& \checkmark 	\\
+	HIBE 							& \checkmark$^{*_3}$ 	& & \checkmark 	& & \checkmark 	& \checkmark 	& 				\\
+	Sinh khóa ngưỡng phi tương tác 	& \checkmark 			& & \checkmark 	& & \checkmark 	& \checkmark 	& 				\\
+	Giới hạn cấp sinh khóa 			& 						& & 			& & 			& \checkmark 	& 				\\
+	Ẩn danh 						& \checkmark$^{*_4}$ 	& & 			& & 			& 				& \checkmark 	\\
 	\everyrow{}
 	\tabucline[3pt]-
 \end{longtabu}
 \vspace{-\baselineskip}
-* \hspace{1ex}: Phiên bản HIBE của hệ mã BF là hệ mã GS. \\
-\indent ** : Hệ mã BF có tính ẩn danh nhưng hệ mã GS thì không. \\[\baselineskip]
+$^{*_1}$, $^{*_2}$: Biến thể của bài toán tương ứng. \\
+\indent $^{*_3}$: Phiên bản HIBE của hệ mã BF là hệ mã GS. \\
+\indent $^{*_4}$: Hệ mã BF có tính ẩn danh nhưng hệ mã GS thì không. \\[\baselineskip]
 \normalsize
