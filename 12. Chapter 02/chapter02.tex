@@ -42,7 +42,7 @@
 		Trong IBE mọi chuỗi ký tự đều có thể được dùng làm định danh, điều này mở ra rất nhiều kỹ thuật trong thiết kế hệ thống. Những kỹ thuật này sẽ được trình bày ở phần sau. Khác với hệ mã hóa khóa công khai bình thường, hệ IBE cho phép bản mã được tạo ra trước và gửi cho Bob trước cả khi Bob có khóa để giải. Quá trình giải mã có thể còn cần đến cả khóa công khai chủ, khi đó ta ngầm hiểu khóa công khai chủ được gửi kèm với khóa bí mật của Bob khi Bob đăng ký. Vì lý do này mà trong nhiều bài báo khóa công khai chủ còn được gọi là \textit{tham số công khai} (public parameters).
 	%
 	\section{Luận bàn về IBE và PKI}\label{fig:ibe_vs_pki}
-		Phương pháp xác thực giữa các bên trong hệ IBE có thể là bất cứ phương pháp nào được dùng ở các hệ thống khác như mật khẩu, thách thức - phản hồi... Hoặc hệ IBE có thể áp dụng đúng cách mà PKI dựa trên CA hiện giờ đang triển khai như sau: Khóa công khai chủ được phân phát đến người gửi (Alice) giống như cách chứng chỉ số của những CA gốc (root CA) được phân phát, thường là qua các kênh "chính thống" như cài sẵn trong hệ điều hành, trình duyệt web hoặc gặp trực tiếp. PKG và người đăng ký (Bob) xác thực lẫn nhau tương tự như cách giữa CA và server trong PKI khi server đăng ký chứng chỉ số. Ở cấp độ xác thực cao nhất của chứng chỉ số (như chứng chỉ Extended Validation), bắt buộc phải có sự tương tác trực tiếp (không phải từ xa) giữa hai bên. Việc vẫn còn nhu cầu xác thực trong hệ IBE cho thấy rằng IBE vẫn tương tự như PKI, ở chỗ, để đạt được sự an toàn thông tin thì tất yếu phải có những giao tiếp trực tiếp ban đầu làm cơ sở. Những giao tiếp trực tiếp này để đảm bảo thông tin có được là thực sự và chính xác.
+		Phương pháp xác thực giữa các bên trong hệ IBE có thể là bất cứ phương pháp nào được dùng ở các hệ thống khác như mật khẩu, thách thức - phản hồi, v.v.. Hoặc hệ IBE có thể áp dụng đúng cách mà PKI dựa trên CA hiện giờ đang triển khai như sau: Khóa công khai chủ được phân phát đến người gửi (Alice) giống như cách chứng chỉ số của những CA gốc (root CA) được phân phát, thường là qua các kênh "chính thống" như cài sẵn trong hệ điều hành, trình duyệt web hoặc gặp trực tiếp. PKG và người đăng ký (Bob) xác thực lẫn nhau tương tự như cách giữa CA và server trong PKI khi server đăng ký chứng chỉ số. Ở cấp độ xác thực cao nhất của chứng chỉ số (như chứng chỉ Extended Validation), bắt buộc phải có sự tương tác trực tiếp (không phải từ xa) giữa hai bên. Việc vẫn còn nhu cầu xác thực trong hệ IBE cho thấy rằng IBE vẫn tương tự như PKI, ở chỗ, để đạt được sự an toàn thông tin thì tất yếu phải có những giao tiếp trực tiếp ban đầu làm cơ sở. Những giao tiếp trực tiếp này để đảm bảo thông tin có được là thực sự và chính xác.
 		
 		Để thấy sự khác nhau giữa IBE và PKI, vốn sử dụng mã hóa khóa công khai bình thường, ta xét ví dụ sau. Giả sử có một môi trường gồm $n$ người dùng muốn giao tiếp từ xa từng đôi một với nhau. Ở đây ta không đếm những lần giao tiếp giữa người dùng với PKG và giữa người dùng với CA, thực chất là như nhau ở cả hai loại hình. Với hệ IBE, mỗi người đều biết định danh của tất cả người khác nên \emph{không} tốn lần giao tiếp nào. Với mã hóa khóa công khai bình thường, khóa là do mỗi người tự sinh nên mỗi người phải gửi khóa công khai của mình cho từng người khác. Hạ tầng PKI chỉ đảm bảo khóa nhận được là chính chủ. Do đó cần tới $C_n^2 = n(n-1)/2$ lần giao tiếp.
 
@@ -103,12 +103,12 @@
 		\subsection{Phụ thuộc tuyệt đối}
 			Như đã trình bày ở mục \ref{fig:ibe_vs_pki}, tất cả người dùng trong hệ IBE không thể làm gì khác ngoài tin tưởng tuyệt đối vào tính trung thực và tính kiên cố của PKG. Vấn đề này có thể được giảm thiểu một phần nhờ cơ chế sinh khóa có ngưỡng.
 		%
-		\subsection{Giám hộ khóa}
+		\subsection{Giám hộ khóa}\label{subsec:key_escrow}
 			Tính \textit{giám hộ khóa} (key escrow) của một hệ mã nói chung là một khả năng cho phép khóa giải mã phải bị ``giam giữ'', và dưới một số điều kiện nhất định một chủ thể có thẩm quyền có thể suy ra hoặc yêu cầu tiết lộ khóa này. Vì PKG có khả năng sinh ra khóa bí mật của tất cả người dùng nên hệ IBE mặc nhiên sở hữu tính chất này.
 
 			Tính giám hộ khóa là tính chất được mong muốn hay không còn tùy thuộc vào bối cảnh ứng dụng. Với mã hóa, trong một môi trường giao tiếp mà cho phép hạn chế quyền riêng tư của người dùng thì đây là tính chất mong muốn. Ví dụ một người dùng nào đó bị tình nghi phạm tội thì tòa án có thể lệnh cho PKG giải mã những tin nhắn của người dùng đó. Nhưng ngược lại với hệ chữ ký, tính giám hộ khóa lại không được mong muốn chút nào do có nhiều hơn một chủ thể (người dùng và (các) PKG) có khả năng tạo ra chữ ký hợp lệ, dẫn đến mất đi tính \textit{chống thoái thác trách nhiệm} (non-repudiation) của hệ chữ ký.
 
-			Tương tự vấn đề phụ thuộc tuyệt đối vào PKG ở trên, cơ chế sinh khóa có ngưỡng cũng giúp hạn chế vấn đề này.
+			Tương tự vấn đề phụ thuộc tuyệt đối vào PKG ở trên, cơ chế sinh khóa có ngưỡng cũng giúp hạn chế vấn đề này. Ngoài ra, đã có hệ HIBE có thiết kế cho phép với mọi chủ thể dưới PKG gốc, ngoài chủ thể đó ra thì \emph{chỉ} chủ thể cha của chủ thể đó mới có thể sinh ra khóa và giải mã bản mã gửi cho chủ thể đó \cite[mục 6.1]{DBLP:conf/asiacrypt/GentryS02}. Một cách tiếp cận khác là dùng một giao thức trao đổi khóa bình thường (chẳng hạn Diffie-Hellman) kết hợp với một hệ chữ ký dựa trên định danh, bằng cách ký lên nguyên liệu khóa gửi đi. Khóa được sử dụng để giao tiếp lúc này là \textit{khóa phiên} (session key) và khóa này \emph{không bị giám hộ}. Và trừ những chủ thể trên người nhận thì không ai khác có thể thực hiện tấn công man-in-the-middle. Khi đó hệ thống này vận hành và có tính an toàn gần như một PKI. Chi tiết về kỹ thuật này vui lòng xem tại \cite[mục 6.2]{DBLP:conf/asiacrypt/GentryS02}. Nếu tích hợp được tất cả kỹ thuật trên vào một hệ HIBE thì tính giám hộ khóa được hạn chế rất đáng kể.
 		%
 		\subsection{Thu hồi khóa}
 			Với mã hóa khóa công khai bình thường, Alice trước khi gửi tin cho Bob phải kiểm tra rằng dùng khóa công khai của Bob có còn an toàn không. Trong PKI, nếu Bob phát hiện khóa riêng tư của mình bị lộ, Bob sẽ gửi yêu cầu thu hồi (revoke) chứng chỉ (tức khóa công khai) của mình lên CA. Alice chỉ cần hỏi CA (đối tượng hỏi phụ thuộc cách triển khai PKI cụ thể) khóa công khai của Bob có bị thu hồi chưa để quyết định có dùng khóa đó hay không. Điều này làm tăng thêm gánh nặng cho CA.
@@ -119,7 +119,7 @@
 			
 			Cơ chế này hoạt động được là nhờ tất cả người dùng đều thống nhất chung một định dạng của định danh. Khóa bí mật của định danh chỉ hiệu lực trong một chu kỳ. Nếu khóa của Bob bị lộ thì thiệt hại sẽ nhỏ (tất cả tin gửi trong một chu kỳ) và Bob cũng không cần đổi email. Ta luôn có thể tăng giảm độ mịn thời gian tùy thuộc vào ứng dụng. Trong cơ chế này PKG không cần lưu một cơ sở dữ liệu những khóa bị thu hồi. Vì vậy Alice không cần truy vấn PKG về tình trạng khóa của Bob, đảm bảo được tính riêng tư cho hai người. Thêm nữa, cơ chế này cho phép Alice có thể gửi tin đến tương lai, tức là Alice mã hóa thông điệp bằng định danh của Bob gắn với nhãn thời gian ở tương lai. Nếu PKG vận hành đúng thì đến đúng thời điểm Bob mới có thể giải mã. Cơ chế hoạt động này đơn giản chỉ là một chiến lược đánh đổi sự an toàn lấy sự hiệu quả cho nên vẫn có những lỗ hổng. Ta vẫn chưa biết được là có giải pháp vẹn toàn nào cho vấn đề này không.
 	%
-	\newpage
+	% \newpage
 	\section{Định nghĩa hình thức của IBE và HIBE}
 		\begin{definition}[IBE]
 			Một lược đồ mã hóa dựa trên định danh là một bộ gồm bốn thuật toán \textsf{Setup, SecretKeyGen, Encrypt, Decrypt}. Trong đó:
@@ -265,9 +265,10 @@
 				Ta thay đổi trò chơi IND-ID-CCA như sau: \\[0.2\baselineskip] \indent
 				Người tấn công \adversary phải công bố định danh mục tiêu $ID^*$ từ đầu trò chơi (trước pha thiết lập) thay vì ở pha thử thách. Người thách thức \challenger thực hiện pha thiết lập một cách độc lập với lựa chọn của \adversary (\challenger xem như mình không hề biết $ID^*$). Ở pha 1 \adversary bị ràng buộc không được truy vấn khóa bí mật của $ID^*$, \challenger vẫn được phép truy vấn giải mã trên $ID^*$. Các pha còn lại không đổi. Trò chơi sau thay đổi được gọi là IND-sID-CCA. \\[0.2\baselineskip] \indent
 				Thay đổi tương tự với trò chơi IND-ID-CPA ta được trò chơi IND-sID-CPA. \\ \indent
-				Định nghĩa an toàn IND-sID-CPA/CCA tương tự như định nghĩa \ref{def:cca} và \ref{def:cpa}.
+				Định nghĩa an toàn IND-sID-CPA/CCA tương tự như định nghĩa \ref{def:cca} và \ref{def:cpa}. Ta cũng gọi một hệ IBE an toàn trong trò chơi \adversary được quyền chọn định danh mục tiêu ở pha thử thách là \textit{an toàn định danh thích nghi} (adaptive identity secure) hay \textit{an toàn hoàn toàn} (fully secure), và gọi hệ an toàn trong trò chơi \adversary phải công bố trước từ đầu là an toàn định danh chọn lọc (selective identity secure).
 			\end{game}
 			%
+			\vspace{\baselineskip}
 			\begin{remark}
 				Định nghĩa IND-ID-CCA rất gần với định nghĩa IND-CCA - mức an toàn được xem là chuẩn mực đối với mã hóa không công khai. Chỉ có hai điểm khác là có thêm truy vấn khóa bí mật và người tấn công được chọn khóa công khai (định danh) mục tiêu, thay vì khóa công khai được chọn ngẫu nhiên. Bối cảnh đa người dùng của IBE dẫn đến có nhiều khóa công khai cho người tấn công lựa chọn. Định nghĩa an toàn trong IBE cũng phải mạnh hơn, để trong trường hợp người tấn công có trong tay khóa bí mật của một bộ phận người dùng thì phần người dùng còn lại của hệ thống vẫn được đảm bảo an toàn.
 			\end{remark}
@@ -317,7 +318,6 @@
 
 			Thông thường để dễ cho việc chứng minh an toàn, những nhà mật mã học mong muốn xây dựng hệ HIBE có tính chất \textit{độc lập với lịch sử sinh khóa} (delegation history independence). Tính chất này nói rằng khóa bí mật của một định danh không làm lộ quá trình sinh nên khóa đó (khóa được sinh bởi chủ thể tổ tiên nào, bởi thuật toán \textsf{SecretKeyGen} hay thuật toán \textsf{Derive}). Do thuật toán \textsf{SecretKeyGen} và \textsf{Derive} là thuật toán ngẫu nhiên nên có thể có nhiều khóa bí mật hợp lệ ứng với một định danh. Tính độc lập với lịch sử sinh khóa sẽ được thỏa mãn nếu khóa bí mật sinh bởi thuật toán \textsf{SecretKeyGen} và \textsf{Derive} có cùng phân phối xác suất. Vì vậy trong thuật toán \textsf{Derive} có thêm một số bước để tái tạo độ ngẫu nhiên (rerandomize).
 			
-			% Collusion-resistance
 			Một vấn đề nữa về tính an toàn cần được quan tâm là tính \textit{chống cấu kết} (collusion-resistance), tức là những chủ thể bên dưới dù có hợp sức lại với nhau cũng không thể suy ra khóa bí mật của PKG bên trên. Một hệ (H)IBE được gọi là \textit{chống cấu kết hoàn toàn} (fully collusion-resistant) nếu tất cả chủ thể bên dưới cấu kết lại cũng không thể suy ra khóa của PKG; và được gọi là \textit{chống cấu kết một phần} (partial collusion-resistant) nếu số lượng chủ thể cấu kết vượt qua một ngưỡng nào đó thì có thể suy ra được khóa của PKG, dưới ngưỡng đó thì không. Ở đây sinh viên không trình bày trò chơi an toàn về tính chống cấu kết. Trong những hệ HIBE dựa trên cặp ghép thì tính chất này thường dễ đạt được nhờ kỹ thuật tái tạo độ ngẫu nhiên nói trên.
 	%
 	\section{Những bài toán khó và giả định}
@@ -330,11 +330,11 @@
 			\begin{enumerate}[leftmargin=1.5cm, itemindent=-0.5cm]
 				\item \textit{Song tuyến tính} (bilinear):
 				\[
-					\forall\ a \in \mathbb{G}_1,\ b \in \mathbb{G}_2,\ x, y \in \mathbb{Z}_p \quad \text{ta có} \quad e(a^x, b^y) = e(a, b)^{xy}
+					\forall\ a \in \mathbb{G}_1,\ b \in \mathbb{G}_2,\ x, y \in \mathbb{Z}_p \quad \text{ta có} \quad e(a^x, b^y) = e(a, b)^{xy}.
 				\]
 				\item \textit{Không suy biến} (non-degenerate):
 				\[
-					\exists\ a \in \mathbb{G}_1,\ b \in \mathbb{G}_2 \quad \text{sao cho} \quad e(a, b) \neq 1
+					\exists\ a \in \mathbb{G}_1,\ b \in \mathbb{G}_2 \quad \text{sao cho} \quad e(a, b) \neq 1.
 				\]
 				\item \textit{Khả tính} (computable): \\
 				Tồn tại một thuật toán hiệu quả (thời gian đa thức) để tính $e(a, b)$ với mọi $a \in \mathbb{G}_1,\ b \in \mathbb{G}_2$.
@@ -346,7 +346,7 @@
 			\leavevmode \vspace{-\baselineskip}
 			\begin{enumerate}[label=(\roman*), leftmargin=1cm]
 				\item Do $\mathbb{G}_1$ (tương ứng $\mathbb{G}_2$, $\mathbb{G}_T$) có cấp là số nguyên tố nên mọi phần tử khác $1$ trong $\mathbb{G}_1$ (tương ứng $\mathbb{G}_2$, $\mathbb{G}_T$) đều là phần tử sinh của nhóm.
-				\item Nếu $a$ và $b$ lần lượt là phần tử sinh của $\mathbb{G}_1$ và $\mathbb{G}_2$ thì ta có $e(a, b)$ là phần tử sinh của $\mathbb{G}_T$.
+				\item Nếu $a$ và $b$ lần lượt là phần tử sinh của $\mathbb{G}_1$ và $\mathbb{G}_2$ thì ta có $e(a, b)$ là phần tử sinh của $\mathbb{G}_T$. \label{remark:pairing.2}
 			\end{enumerate}
 		\end{remark}
 		%
@@ -686,7 +686,7 @@
 
 		Bài toán càng khó thì lược đồ mật mã xây dựng dựa trên độ khó của nó càng an toàn. Một chứng minh an toàn cho lược đồ thực chất là một phép quy dẫn từ bài toán về lược đồ. Chứng minh nói rằng nếu phá được lược đồ thì giải được bài toán. Vì thế các nhà mật mã học luôn muốn xây dựng lược đồ trên bài toán càng khó càng tốt để lược đồ của mình khó bị phá.
 
-		Hình \ref{fig:computation_reduction} và \ref{fig:decision_reduction} cho thấy mối quan hệ về độ khó giữa các bài toán nêu trên. Bài toán phía đầu mũi tên khó bằng hoặc hơn bài toán phía đuôi mũi tên. Với các bài toán có hai phiên bản tính toán và quyết định thì dễ thấy là nếu giải được phiên bản tính toán thì giải được phiên bản quyết định. Vì vậy hai phiên bản của các bài toán được tách ra ở hai sơ đồ với mục đích dễ nhìn. Tất cả phép quy dẫn trong sơ đồ xin được chấp nhận và không trình bày chi tiết trong khóa luận này.
+		Hình \ref{fig:computation_reduction} và \ref{fig:decision_reduction} bên dưới cho thấy mối quan hệ về độ khó giữa các bài toán nêu trên. Bài toán phía đầu mũi tên khó bằng hoặc hơn bài toán phía đuôi mũi tên. Với các bài toán có hai phiên bản tính toán và quyết định thì dễ thấy là nếu giải được phiên bản tính toán thì giải được phiên bản quyết định. Vì vậy hai phiên bản của các bài toán được tách ra ở hai sơ đồ với mục đích dễ nhìn. Tất cả phép quy dẫn trong sơ đồ xin được chấp nhận và không trình bày chi tiết trong khóa luận này.
 		%
 		\begin{figure}[h] 
 			\captionsetup{font=normalsize}
@@ -719,33 +719,55 @@
 				\[
 					e(g, g)^{xy} = e(g^x, g^y) = e(g, u) = e(g, g^t) = e(g, g)^t.
 				\]
-				Suy ra $t \equiv xy \pmod{p}$. Dẫn đến $u = g^t = g^{xy}$ (để ý rằng $\mathbb{G}$ và $\mathbb{G}_T$ đều là nhóm cyclic cấp $p$).
+				Theo nhận xét \ref{remark:pairing.2} ở trên thì $e(g, g)$ là phần tử sinh của $\mathbb{G}_T$, suy ra $t \equiv xy \pmod{p}$. Dẫn đến $u = g^t = g^{xy}$ (để ý rằng $\mathbb{G}$ và $\mathbb{G}_T$ đều là nhóm cyclic cấp $p$).
 			\end{proof}
 			%
 			\vspace{-\baselineskip}
-			Việc bài toán DDH trong $\mathbb{G}$ không còn khó nữa không những không làm mất nguồn bài toán khó hay làm các lược đồ xây dựng trên cặp ghép suy yếu, mà trái lại lại trở thành một công cụ tốt để thiết kế lược đồ mật mã. Ví dụ ta có thể kiểm tra bản mã có hợp lệ không bằng cách kiểm một bộ 4 (gồm phần tử trong bản mã và dữ liệu đã có) có là bộ Diffie-Hellman hay không. Và quan trọng hơn, bài toán CDH trong $\mathbb{G}$ và DDH trong $\mathbb{G}_T$ (được tin là) vẫn khó dù cho có cặp ghép đối xứng. Vì thế giả định độ khó của những bài toán trên vẫn còn đứng vững.
+			Việc bài toán DDH trong $\mathbb{G}$ không còn khó nữa không những không làm mất nguồn bài toán khó hay làm các lược đồ xây dựng trên cặp ghép suy yếu, mà trái lại lại trở thành một công cụ tốt để thiết kế lược đồ mật mã. Ví dụ ta có thể kiểm tra bản mã có hợp lệ không bằng cách kiểm một bộ bốn (gồm phần tử trong bản mã và dữ liệu đã có) có là bộ Diffie-Hellman hay không. Và quan trọng hơn, bài toán CDH trong $\mathbb{G}$ và DDH trong $\mathbb{G}_T$ (được tin là) vẫn khó dù cho có cặp ghép đối xứng. Vì thế giả định độ khó của những bài toán trên vẫn còn đứng vững.
 		\end{remark}
 	%
 	\section{Tiêu chí đánh giá một hệ IBE}
 		\subsection{Tính an toàn}
-			Vágy menekülsz a nemcsak a egyéb kínt nagyon kisfiúk. Is de ezért még szerelemben ugassátok nő még énnekem énekem. El a vadállat dobál hoz alá körül. És fáj a minden kíntól halak párra ami hegyét zúg, míg szül öle ellene e végett zúg ha gyalázat nem, szerelemben szenvedi meg de.
+			Trong các trò chơi an toàn nêu trên, người tấn công được chọn định danh mục tiêu sau một cách thích nghi (adaptive identity) tất nhiên có nhiều lợi thế hơn người phải chọn trước ngay từ đầu (selective identity). Và tương tự người được truy vấn giải mã (CCA) có lợi thế hơn người không được (CPA). Ta luôn muốn hệ mã phải an toàn trước người tấn công có nhiều sức mạnh và quyền hạn. Do đó mức an toàn chuẩn mực được hướng tới của một hệ (H)IBE là IND-ID-CCA.
+
+			Một khía cạnh quan trọng không kém là hệ mã được chứng minh trong mô hình chuẩn (standard) hay mô hình oracle ngẫu nhiên (random oracle). Trong mô hình oracle ngẫu nhiên, các hàm băm mật mã được lý tưởng hóa thành hàm cho ra giá trị thực sự ngẫu nhiên. Vẫn còn nhiều nghi vấn về việc oracle ngẫu nhiên có thể hiện thực hóa được hay không, từ đó dẫn đến những nghi ngờ rằng một hệ mã an toàn trong mô hình oracle ngẫu nhiên có an toàn ngoài thực tế hay không. Nếu có thể thì một chứng minh an toàn trong mô hình chuẩn luôn được mong muốn hơn. Kết luận, một hệ (H)IBE đạt mức an toàn IND-ID-CCA với chứng minh trong mô hình chuẩn là mục đích tối thượng về tính an toàn của các nhà mật mã học.
+		%
 		\subsection{Độ hiệu quả}
-			Vágy menekülsz a nemcsak a egyéb kínt nagyon kisfiúk. Is de ezért még szerelemben ugassátok nő még énnekem énekem. El a vadállat dobál hoz alá körül. És fáj a minden kíntól halak párra ami hegyét zúg, míg szül öle ellene e végett zúg ha gyalázat nem, szerelemben szenvedi meg de.
+			Với cặp ghép song tuyến tính trên đường cong elliptic (cũng là cặp ghép duy nhất sử dụng được trong mật mã cho đến giờ), chi phí phép tính cặp ghép là nặng hơn hẳn chi phí phép cộng điểm hay phép nhân điểm với số nguyên. Vì vậy, không ít nỗ lực được đầu tư vào việc tối ưu thuật toán tính cặp ghép và tìm đường cong elliptic thuận lợi để tính cặp ghép. Mặt khác, các nhà mật mã học luôn cố gắng hạn chế số lần tính cặp ghép trong lược đồ và tính sẵn nhiều nhất có thể. Xét riêng IBE, những hệ hiệu quả nhất mà sinh viên biết tới không cần tính cặp ghép nào khi sinh khóa, mã hóa và tính cặp ghép tối đa 3 lần khi giải mã, với điều kiện một số cặp ghép được tính sẵn khi thiết lập hệ thống. Lại có những hệ HIBE rất hiệu quả với số lần tính cặp ghép là hằng số (nhỏ), không phụ thuộc vào số cấp tối đa của hệ \cite{DBLP:conf/eurocrypt/BonehBG05}.
+
+			Về không gian, trong một hệ (H)IBE có ba loại dữ liệu phải được vận chuyển và lưu trữ với nhiều bản sao trên toàn hệ thống là bộ tham số công khai, khóa bí mật định danh và bản mã. Khi thiết kế hệ mã, những nhà mật mã học ưu tiên việc giảm kích thước bản mã (hoặc khóa tùy vào ứng dụng). Kích thước các loại dữ liệu trên thường bị phóng đại theo số cấp tối đa trong hệ HIBE. Theo sinh viên biết thì đã có hệ HIBE đạt kích thước bản mã hằng số và hệ khác có kích thước khóa $\mathcal{O}(\sqrt{\ell})$ với $\ell$ là số cấp tối đa \cite{DBLP:conf/eurocrypt/BonehBG05}. Khi so sánh sơ lược độ hiệu quả không gian các hệ (H)IBE trên cặp ghép, các kích thước trên được đếm bằng số phần tử trong các cấu trúc đại số. Tuy nhiên khi triển khai thực tế, ta cần cân nhắc kích thước biểu diễn của một phần tử trong các nhóm để đưa ra lựa chọn các cấu trúc sử dụng và / hoặc áp dụng kỹ thuật làm giảm kích thước (chẳng hạn như băm).
+
+			Với cặp ghép trên đường cong elliptic, trường hợp bất đối xứng cho ta cặp ghép tính toán nhanh hơn, phần tử trong nhóm $\mathbb{G}_1$ nói ở trên có kích thước biểu diễn nhỏ hơn và nhiều lựa chọn họ đường cong phù hợp hơn trường hợp đối xứng. Vì vậy một hệ IBE vận hành và chứng minh an toàn được bằng bài toán trên cặp ghép tổng quát (không yêu cầu tính đối xứng) có thể áp dụng cặp ghép bất đối xứng để có những lợi ích trên hoặc cặp ghép đối xứng với mục đích nào đó khác.
+		%
 		\subsection{Phép quy dẫn}
-			Vágy menekülsz a nemcsak a egyéb kínt nagyon kisfiúk. Is de ezért még szerelemben ugassátok nő még énnekem énekem. El a vadállat dobál hoz alá körül. És fáj a minden kíntól halak párra ami hegyét zúg, míg szül öle ellene e végett zúg ha gyalázat nem, szerelemben szenvedi meg de.
+			Giả sử ta đã chứng minh được phép quy dẫn từ bài toán C-BDH đến hệ IBE \scheme như sau: \\ \indent
+			\textit{
+			Giả sử giả định $(t', \varepsilon')$-C-BDH là đúng trong $(\mathbb{G}, \mathbb{G}_T, e)$. Khi đó hệ IBE \scheme là an toàn $(t, q_{id}, q_c, \varepsilon)$-IND-ID-CCA.}
+			
+			Gần như mọi trường hợp ta luôn có $t \leq t'$ và $\varepsilon \geq \varepsilon'$. Những sự chênh lệch này là mất mát phải đánh đổi trong phép quy dẫn, hiểu đơn giản là những chi phí tính toán phát sinh thêm trong quá trình chứng minh. Và ta mong muốn hai độ chênh lệch này phải càng nhỏ càng tốt. Một phép quy dẫn (hay chứng minh an toàn) được gọi là \textit{chặt} (tight reduction) nếu $t'/t$ và $\varepsilon/\varepsilon'$ đều thuộc $Poly(\lambda)$, với $\lambda$ là tham số an toàn của hệ mã. Nói cách khác, hai tỷ lệ này lớn nhất cũng chỉ được phép là hàm đa thức, nếu ta muốn chứng minh an toàn của hệ mã là đáng tin cậy. Thêm nữa, bài toán được quy dẫn phải khó (tương đối so với các bài khác), tự nhiên (có phát biểu "gọn gàng") và đã được nhiều người đánh giá, tìm cách giải.
+		%
 		\subsection{Những tính năng bổ sung}
-			Vágy menekülsz a nemcsak a egyéb kínt nagyon kisfiúk. Is de ezért még szerelemben ugassátok nő még énnekem énekem. El a vadállat dobál hoz alá körül. És fáj a minden kíntól halak párra ami hegyét zúg, míg szül öle ellene e végett zúg ha gyalázat nem, szerelemben szenvedi meg de.
+			Sau khi đã đạt được tính an toàn, độ hiệu quả và phép quy dẫn như mong muốn trên một hệ IBE, điều tiếp theo các nhà mật mã học hướng tới là bổ sung thêm những tính năng như HIBE, cơ chế sinh khóa ngưỡng phi tương tác, tính ẩn danh người dùng, giới hạn số cấp sinh khóa, v.v. mà vẫn giữ được những ưu điểm sẵn có.
+		
 	%
 	\section{Những công trình liên quan}
-		Hệ IBE đầu tiên của Boneh và Franklin không hỗ trợ HIBE \\[\baselineskip]
-		Độ hiệu quả sẽ được đánh giá chi tiết ở chương 5.
+		% BF, SK, BB1, BB2, Waters, BBG, Gentry.
+		% Bonus: Gentry-Halevi, Lewko-Waters
+		% Transform: FO, CHK, BK, BMW
+		Từ đây sinh viên xin gọi tắt tên các công trình bằng chữ cái đầu trong tên các tác giả. Đây cũng là cách gọi trong cộng đồng nghiên cứu. Sau hệ IBE đầu tiên trên cặp ghép của Boneh và Franklin \cite{DBLP:conf/crypto/BonehF01}, một loạt công trình liên quan đến IBE và cặp ghép ra đời các năm tiếp theo, cho thấy sự quan tâm rất lớn từ cộng đồng. Một hệ IBE đáng chú ý được xây dựng bởi Sakai và Kasahara \cite{DBLP:journals/iacr/SakaiK03} đạt độ hiệu quả rất tốt với duy nhất một lần tính cặp ghép trong toàn hệ (khi giải mã). Độ hiệu quả của hệ SK rất cạnh tranh dù là so sánh với những hệ mới hơn. Do đó đã có những văn bản RFC (Request for Comments) của IETF (Internet Engineering Task Force) \cite{rfc6508, rfc6509} hướng dẫn cách áp dụng hệ SK vào công nghiệp, tuy nhiên vẫn chưa phải là chuẩn internet. Giữa hệ BF và hệ SK có một vài điểm giống nhau là thuật toán sinh khóa là đơn định (mỗi định danh chỉ có duy nhất một khóa hợp lệ), và an toàn IND-ID-CCA trong mô hình oracle ngẫu nhiên. Cũng trong \cite{DBLP:conf/crypto/BonehF01}, hai tác giả cũng mở ra vấn đề xây dựng một hệ IBE an toàn trong mô hình chuẩn. Sau đó, các nhà mật mã học nhận ra rằng ngẫu nhiên hóa thuật toán sinh khóa là điều kiện cần để có một hệ IBE an toàn trong mô hình chuẩn. Vì lý do đó các hệ IBE ra đời sau đều có thuật toán sinh khóa ngẫu nhiên và thực sự có chứng minh an toàn trong mô hình chuẩn. Tiêu biểu phải kể đến hai hệ IBE của Boneh và Boyen (gọi là BB\textsubscript{1}và BB\textsubscript{2}) \cite{DBLP:journals/joc/BonehB11}, hệ IBE của Waters \cite{DBLP:conf/eurocrypt/Waters05}, của Boneh, Boyen và Goh \cite{DBLP:conf/eurocrypt/BonehBG05}, và của Gentry \cite{DBLP:conf/eurocrypt/Gentry06}, với các mức an toàn đạt được khác nhau. Trong đó các hệ BB$_1$, Waters và BBG rất gần nhau về mặt đại số và có thể xây dựng các hệ HIBE lai (hybrid) dựa trên các hệ này, chi tiết xem tại \cite[mục 4.2]{DBLP:conf/eurocrypt/BonehBG05}.
+
+		Về phía hệ phân cấp, cùng năm với đề xuất HIBE của Horwitz và Lynn \cite{DBLP:conf/eurocrypt/HorwitzL02}, Gentry và Silverberg \cite{DBLP:conf/asiacrypt/GentryS02} đã công bố một hệ HIBE là mở rộng của hệ BF. Hệ GS có tính năng rất tốt (và hiếm) là hạn chế được sự giám hộ khóa (đã nói ở mục \ref{subsec:key_escrow}), tuy nhiên tính hiệu quả là không cao và cũng như hệ BF, dùng tới oracle ngẫu nhiên để chứng minh an toàn. Hệ mã BB$_1$, Waters và BBG có thể mở rộng lên HIBE và hiệu quả hơn hệ GS.
+
+		Trừ hệ mã của Gentry thì tất cả hệ (H)IBE nêu trên ban đầu đều chỉ đạt mức an toàn CPA. Và một số trong đó có thể áp dụng phép biến đổi để đạt CCA. Biến đổi Fujisaki-Okamoto \cite{DBLP:conf/crypto/FujisakiO99} có thể được áp dụng với hệ BF và SK để đạt mức an toàn IND-ID-CCA trong mô hình oracle ngẫu nhiên. Canetti, Halevi và Katz \cite{DBLP:conf/eurocrypt/CanettiHK04} đã đưa ra phương pháp xây dựng một hệ mã hóa khóa công khai an toàn IND-CCA không cần oracle ngẫu nhiên từ một hệ IBE an toàn IND-sID-CPA trong mô hình chuẩn bất kỳ kết hợp thêm một hệ chữ ký một lần (one-time signature). Sau đó Boneh và Katz \cite{DBLP:conf/ctrsa/BonehK05} cải tiến độ hiệu quả bằng cách thay chữ ký một lần bằng mã xác thực thông điệp (message authentication code). Mặt khác Boyen, Mei và Waters \cite{DBLP:conf/ccs/BoyenMW05} đưa ra tiếp cận không cần sử dụng thêm bất kỳ mật mã nguyên thủy nào ngoài chính hệ IBE, đổi lại mất đi tính tổng quát là chỉ áp dụng được với hệ BB$_1$, Waters và BBG. Nếu áp dụng với một trong ba hệ mã này, ba biến đổi trên đều cho ta một hệ $\ell$-HIBE an toàn IND-sID-CCA trong mô hình chuẩn từ một hệ $(\ell + 1)$-HIBE với $\ell$ là số cấp tối đa. Bên cạnh đó, Boneh, Boyen và Halevi \cite{DBLP:conf/ctrsa/BonehBH06} cũng đã mở rộng biến đổi Canetti-Halevi-Katz cho tính năng ngưỡng, có thể biến một hệ IBE ngưỡng (threshold IBE) an toàn CPA thành hệ mã hóa khóa công khai ngưỡng an toàn CCA.
+
+		Dựa vào những kết quả nghiên cứu, việc đạt được an toàn CCA có vẻ dễ hơn là đạt được an toàn trong trò chơi định danh chọn sau, và đặc biệt khó khi nói đến HIBE kể cả khi dùng đến oracle ngẫu nhiên. Sở dĩ là do các phép quy dẫn thường bị mất mát một thừa số lũy thừa theo chiều sâu phân cấp $\ell$, và nếu $\ell$ là hàm đa thức theo tham số an toàn $\lambda$ thì phép quy dẫn không còn ý nghĩa. Do đó $\ell$ phải bị giới hạn nhỏ hơn hàm logarit theo $\lambda$ trong các hệ HIBE này. Sinh viên cũng nhấn mạnh rằng đã có một số kết quả xây dựng được hệ HIBE an toàn hoàn toàn \cite{DBLP:conf/tcc/GentryH09, DBLP:conf/crypto/Waters09, DBLP:conf/tcc/LewkoW10, DBLP:journals/jise/HuWXY14}, tuy nhiên các hệ này đều hoặc là quá phức tạp, hoặc thiếu hiệu quả, hoặc dựa trên giả định chưa được nhiều người kiểm chứng. Do đó sinh viên chọn không trình bày các hệ trên trong khóa luận này.
+		
+		Sẽ là không quá khi nói rằng, đích đến cuối cùng của nghiên cứu mã hóa dựa trên định danh là tạo ra một con ``dao Thụy Sỹ'' trong mật mã, là một hệ HIBE an toàn IND-ID-CCA trong mô hình chuẩn, hiệu quả về thời gian, kích thước bản mã, khóa bí mật và tham số công khai hằng số, dựa trên bài toán khó và tự nhiên, cộng thêm các tính năng phụ như không bị giám hộ khóa, ẩn danh, hỗ trợ sinh khóa có ngưỡng ở mọi cấp.
+
+		Kết thúc chương, sinh viên xin trình bày so sánh giữa một số hệ (H)IBE. Độ hiệu quả sẽ được đánh giá chi tiết ở chương \ref{chap:5}. Với độ hiệu quả tốt hơn các hệ HIBE khác do kích thước bản mã hằng số, cộng thêm với việc áp dụng được biến đổi BMW để lên an toàn CCA, hỗ trợ sinh khóa có ngưỡng ở cấp 0, hệ mã BBG rõ ràng có ưu điểm hơn các hệ khác. Vì những lý do trên, sinh viên quyết định chọn hệ mã BBG để trình bày trong khóa luận này.
+		%
 		\newpage
 		\subimport{./}{ibe_general_comparison.tex}
-		%
-		Do đó sinh viên thực hiện quyết định chọn hệ mã Boneh-Boyen-Goh (BBG)\dots \\[\baselineskip]
-		% Open problems + Research direction
-		Vágy menekülsz a nemcsak a egyéb kínt nagyon kisfiúk. Is de ezért még szerelemben ugassátok nő még énnekem énekem. El a vadállat dobál hoz alá körül. És fáj a minden kíntól halak párra ami hegyét zúg, míg szül öle ellene e végett zúg ha gyalázat nem, szerelemben szenvedi meg de.
-	\newpage	
 	%
 	% Reset default lengths
 	\import{../}{default_lengths.tex}
