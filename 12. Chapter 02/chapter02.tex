@@ -178,7 +178,7 @@
 				\item[] {\sffamily\bfseries Derive(params, sk\textsubscript{ID}, ID$'$)}
 				\begin{itemize}
 					\item[\textbullet] \textit{Input}: $params$, khóa bí mật sk\textsubscript{ID} của định danh $ID$ và định danh để sinh khóa $ID'$ \\
-					Trong đó $ID = (I_1, I_2, ... ,I_k)$ và $ID' = (I_1, I_2, ... ,I_k, I_{k + 1})$ với $I_j \ (1 \leq j \leq k + 1)$ là các định danh nguyên thủy. $ID$ và $ID'$ tương ứng là định danh ở cấp $k$ và $k + 1$ trong hệ (với $1 \leq k < l$).
+					Trong đó $ID = (I_1,\ I_2, \dots,\ I_k)$ và $ID' = (I_1,\ I_2, \dots,\ I_k,\ I_{k + 1})$ với $I_j$ là các định danh nguyên thủy $(1 \leq j \leq k + 1)$. $ID$ và $ID'$ tương ứng là định danh ở cấp $k$ và $k + 1$ trong hệ (với $1 \leq k < l$).
 					\item[\textbullet] \textit{Output}: Khóa bí mật $sk_{ID'}$
 				\end{itemize}
 				\item[] {\sffamily\bfseries Encrypt(params, ID, M)}
@@ -742,9 +742,9 @@
 		\subsection{Phép quy dẫn}
 			Giả sử ta đã chứng minh được phép quy dẫn từ bài toán C-BDH đến hệ IBE \scheme như sau: \\ \indent
 			\textit{
-			Giả sử giả định $(t', \varepsilon')$-C-BDH là đúng trong $(\mathbb{G}, \mathbb{G}_T, e)$. Khi đó hệ IBE \scheme là an toàn $(t, q_{id}, q_c, \varepsilon)$-IND-ID-CCA.}
+			Giả sử giả định $(t, \varepsilon)$-C-BDH là đúng trong $(\mathbb{G}, \mathbb{G}_T, e)$. Khi đó hệ IBE \scheme là an toàn $(t', q_{id}, q_c, \varepsilon')$-IND-ID-CCA.}
 			
-			Gần như mọi trường hợp ta luôn có $t \leq t'$ và $\varepsilon \geq \varepsilon'$. Những sự chênh lệch này là mất mát phải đánh đổi trong phép quy dẫn, hiểu đơn giản là những chi phí tính toán phát sinh thêm trong quá trình chứng minh. Và ta mong muốn hai độ chênh lệch này phải càng nhỏ càng tốt. Một phép quy dẫn (hay chứng minh an toàn) được gọi là \textit{chặt} (tight reduction) nếu $t'/t$ và $\varepsilon/\varepsilon'$ đều thuộc $Poly(\lambda)$, với $\lambda$ là tham số an toàn của hệ mã. Nói cách khác, hai tỷ lệ này lớn nhất cũng chỉ được phép là hàm đa thức, nếu ta muốn chứng minh an toàn của hệ mã là đáng tin cậy. Thêm nữa, bài toán được quy dẫn phải khó (tương đối so với các bài khác), tự nhiên (có phát biểu "gọn gàng") và đã được nhiều người đánh giá, tìm cách giải.
+			Gần như mọi trường hợp ta luôn có $t \geq t'$ và $\varepsilon \leq \varepsilon'$. Những sự chênh lệch này là mất mát phải đánh đổi trong phép quy dẫn, hiểu đơn giản là những chi phí tính toán phát sinh thêm trong quá trình chứng minh. Và ta mong muốn hai độ chênh lệch này phải càng nhỏ càng tốt. Một phép quy dẫn (hay chứng minh an toàn) được gọi là \textit{chặt} (tight reduction) nếu $t / t'$ và $\varepsilon' / \varepsilon$ đều thuộc $Poly(\lambda)$, với $\lambda$ là tham số an toàn của hệ mã. Nói cách khác, hai tỷ lệ này lớn nhất cũng chỉ được phép là hàm đa thức, nếu ta muốn chứng minh an toàn của hệ mã là đáng tin cậy. Thêm nữa, bài toán được quy dẫn phải khó (tương đối so với các bài khác), tự nhiên (có phát biểu "gọn gàng") và đã được nhiều người đánh giá, tìm cách giải.
 		%
 		\subsection{Những tính năng bổ sung}
 			Sau khi đã đạt được tính an toàn, độ hiệu quả và phép quy dẫn như mong muốn trên một hệ IBE, điều tiếp theo các nhà mật mã học hướng tới là bổ sung thêm những tính năng như HIBE, cơ chế sinh khóa ngưỡng phi tương tác, tính ẩn danh người dùng, giới hạn số cấp sinh khóa, v.v. mà vẫn giữ được những ưu điểm sẵn có.

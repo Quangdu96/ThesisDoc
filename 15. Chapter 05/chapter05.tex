@@ -7,35 +7,359 @@
 	\tabulinesep=0.5\baselineskip
 	%
 	\chapter{Hệ mã Boneh-Boyen-Goh}\label{chap:5}
-		On days tis he later within, been mine goodly grace tear feud he like, childe change thee a ever yet, and cheer breast pollution all day sadness kiss, change by and loved chaste heralds. Of childe to was of me. Seemed finds harolds happy might run. Into lyres lyres and.
+	Những phiên bản của hệ mã BBG được trình bày trong chương này đã được sinh viên chỉnh sửa và tinh gọn, nhờ tiếp thu ý tưởng từ nhiều bài báo khác nhau. Vì vậy nội dung trình bày không hoàn toàn giống bài báo gốc nhưng ý chính của hệ mã vẫn được giữ. Sinh viên cũng đã kiểm tra là những thay đổi này không làm ảnh hưởng chứng minh an toàn. Việc so sánh độ hiệu quả cũng dựa trên phiên bản chỉnh sửa.
 	%
 	\section{Phiên bản IBE}
-		On days tis he later within, been mine goodly grace tear feud he like, childe change thee a ever yet, and cheer breast pollution all day sadness kiss, change by and loved chaste heralds. Of childe to was of me. Seemed finds harolds happy might run. Into lyres lyres and.
-		\newpage
+		Định danh của hệ IBE này là một phần tử thuộc $\mathbb{Z}_p^*$ với $p$ là số nguyên tố. Bản rõ phải là một phần tử thuộc $\mathbb{G}_T$. Sinh viên bổ sung thêm thuật toán \textsf{SecretKeyVerify} vào hệ mã để cho phép chủ định danh kiểm tra khóa bí mật nhận từ PKG có hợp lệ không.
+		%
+		\vspace{-0.5\baselineskip}
+		\begin{itemize}[leftmargin=1cm, itemindent=-1cm]
+			\item[] {\sffamily\bfseries Setup($\lambda$)} \\
+			Từ tham số an toàn $\lambda$, sinh các nhóm $\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T$ có cấp $p$ phù hợp và cặp ghép $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$. Đặt $\Gamma = (p, \mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$, $\Gamma$ mang thông tin mô tả của ba nhóm và cặp ghép. Chọn ngẫu nhiên $g,\, u_0,\, u_1 \xleftarrow{R} \mathbb{G}_1^*,\ h \xleftarrow{R} \mathbb{G}_2^*,\ \alpha \xleftarrow{R} \mathbb{Z}_p^*$. \\
+			Định nghĩa hàm $H$
+			\begin{align*}
+				H:\quad 	\mathbb{Z}_p^* 	\quad &\rightarrow 	\quad 	\mathbb{G}_1 \\
+							x 				\quad &\mapsto 		\quad 	u_0 \, u_1^x
+			\end{align*}
+			Tính $g\,^\alpha$ và $Z = e(g\,^\alpha, h)$.
+
+			Xuất ra tham số công khai và khóa bí mật chủ
+			\begin{align*}
+				params &= (\Gamma,\ h,\ Z,\ u_0,\ u_1) \in \{\ \Gamma \ \} \times \mathbb{G}_2 \times \mathbb{G}_T \times (\mathbb{G}_1)^2, \\
+				msk &= g\,^\alpha \in \mathbb{G}_1.
+			\end{align*}
+			%
+			\item[] {\sffamily\bfseries SecretKeyGen(params, msk, ID)} \\
+			Chọn ngẫu nhiên $r \xleftarrow{R} \mathbb{Z}_p^*$. Xuất khóa bí mật của định danh $ID \in \mathbb{Z}_p^*$ là
+			\[
+				sk_{ID} = \Big(sk_{ID, 1},\ sk_{ID, 2} \Big) = \Big(g\,^\alpha\, H(ID)^r,\ h^r \Big) = \Big(g\,^\alpha\, (u_0 \, u_1^{ID})^r,\ h^r \Big) \in \mathbb{G}_1 \times \mathbb{G}_2.
+			\]
+			%
+			\item[] {\sffamily\bfseries SecretKeyVerify(params, ID, sk)} \\
+			Để biết $sk = (\mu_1, \mu_2)$ có là một khóa hợp lệ của $ID$ không, ta kiểm tra đẳng thức
+			\[
+				\frac{e \Big(\mu_1,\ h \Big)}{e \Big(H(ID),\ \mu_2 \Big)} \overset{?}{=} Z.
+			\]
+			Nếu đẳng thức đúng trả về hợp lệ và không nếu ngược lại. Điều này đúng là do với mọi $sk_{ID} = (sk_{ID, 1},\ sk_{ID, 2})$ là khóa bí mật hợp lệ của $ID$ thì ta phải có
+			\[
+				\frac{e \Big(sk_{ID, 1},\ h \Big)}{e \Big(H(ID),\ sk_{ID, 2} \Big)} =
+				\frac{e \Big(g\,^\alpha\, H(ID)^r,\ h \Big)}{e \Big(H(ID),\ h^r \Big)} =
+				\frac{e \Big(g\,^\alpha,\ h \Big)\ e \Big(H(ID)^r,\ h \Big)}{e \Big(H(ID),\ h^r \Big)} = Z.
+			\]
+			%
+			\item[] {\sffamily\bfseries Encrypt(params, ID, M)} \\
+			Chọn ngẫu nhiên $s \xleftarrow{R} \mathbb{Z}_p^*$. Từ thông điệp $M \in \mathbb{G}_T$ và định danh $ID \in \mathbb{Z}_p^*$, trả về bản mã
+			\[
+				C = \Big(C_0, C_1, C_2 \Big) = \Big(M \cdot Z\,^s,\ h\,^s, H(ID)^s \Big) = \Big(M \cdot Z\,^s,\ h\,^s, (u_0 \, u_1^{ID})^s \Big).
+			\]
+			Ta có $C \in \mathbb{G}_T \times \mathbb{G}_2 \times \mathbb{G}_1$.
+			%
+			\item[] {\sffamily\bfseries Decrypt(params, sk\textsubscript{ID}, C)} \\
+			Thuật toán trả về bản rõ $M$ bằng cách tính
+			\begin{align*}
+				C_0 \cdot\ \frac{e \Big(C_2,\ sk_{ID, 2} \Big)}{e \Big(sk_{ID, 1},\ C_1 \Big)} &=
+				C_0 \cdot\ \frac{e \Big(H(ID)\,^s,\ h\,^r \Big)}{e \Big(g\,^\alpha\, H(ID)^r,\ h\,^s \Big)} \\ &=
+				C_0 \cdot\ \frac{e \Big(H(ID)\,^s,\ h\,^r \Big)}{e \Big(g\,^\alpha,\ h\,^s \Big)\, e \Big(H(ID)^r,\ h\,^s \Big)} \\ &=
+				C_0 \cdot\ \frac{e \Big(H(ID),\ h \Big)^{rs}}{e \Big(g\,^\alpha,\ h \Big)^s\, e \Big(H(ID),\ h \Big)^{rs}} = M \cdot Z\,^s \cdot \frac{1}{Z\,^s} = M.
+			\end{align*}
+		\end{itemize}
+		%
+		Sau đây là so sánh chi tiết về độ hiệu quả giữa các hệ mã BF, SK, BB$_1$, BB$_2$, Waters, BBG và Gentry.
+		%
 		\subimport{./}{ibe_efficiency_comparison_table.tex}
-		
 	%
 	\section{Phiên bản HIBE}
-		On days tis he later within, been mine goodly grace tear feud he like, childe change thee a ever yet, and cheer breast pollution all day sadness kiss, change by and loved chaste heralds. Of childe to was of me. Seemed finds harolds happy might run. Into lyres lyres and.
-		\newpage
+		Phiên bản HIBE của hệ mã BBG yêu cầu định danh nguyên thủy là phần tử trong $\mathbb{Z}_p^*$ với $p$ là số nguyên tố.
+		%
+		\vspace{-0.5\baselineskip}
+		\begin{itemize}[leftmargin=1cm, itemindent=-1cm]
+			\item[] {\sffamily\bfseries Setup($\lambda$, $\ell$)} \\
+			Từ tham số an toàn $\lambda$, sinh số nguyên tố $p$ và các nhóm $\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T$ có cấp $p$ phù hợp và cặp ghép $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$. Cũng như trên ta đặt $\Gamma = (p, \mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$. \\
+			Từ đầu vào $\ell$ là số cấp tối đa, chọn ngẫu nhiên
+			\[
+				g,\, u_0,\, u_1 \dots, u_\ell \xleftarrow{R} \mathbb{G}_1^*,\ h \xleftarrow{R} \mathbb{G}_2^*,\ \alpha \xleftarrow{R} \mathbb{Z}_p^*.
+			\]
+			Định nghĩa hàm $H_k$ với mọi $1 \leq k \leq \ell$ như sau:
+			\begin{align*}
+				H_k:\quad\quad 	(\mathbb{Z}_p^*)^k 	\quad	 &\rightarrow 	\quad  	\mathbb{G}_1 \\
+								(x_1, \dots, x_k) 	\quad	 &\mapsto 		\quad  	u_0 \, \prod_{i = 1}^k u_i^{x_i} = u_0 \, u_1^{x_1}\dots u_k^{x_k}
+			\end{align*}
+			Để ý rằng $H_{k + 1}(x_1, \dots,\ x_{k + 1}) = H_k(x_1, \dots,\ x_k) \cdot (u_{k + 1})^{x_{k + 1}}$. \\
+			Tính $g\,^\alpha$ và $Z = e(g\,^\alpha, h)$. Xuất ra tham số công khai và khóa bí mật chủ
+			\begin{align*}
+				params &= (\Gamma,\ h,\ Z,\ u_0, \dots, u_\ell) \in \{\ \Gamma \ \} \times \mathbb{G}_2 \times \mathbb{G}_T \times (\mathbb{G}_1)^{\ell + 1}, \\
+				msk &= g\,^\alpha \in \mathbb{G}_1.
+			\end{align*}
+			%
+			\item[] {\sffamily\bfseries SecretKeyGen(params, msk, ID)} \\
+			Đặt $ID = (I_1, \dots, I_k) \in (\mathbb{Z}_p^*)^k$ với $k$ là độ sâu của $ID$ và $I_1, \dots, I_k$ là các định danh nguyên thủy. Chọn ngẫu nhiên $r \xleftarrow{R} \mathbb{Z}_p^*$. Xuất khóa bí mật của định danh $ID$ là $sk_{ID} = \Big(sk_{ID, 1},\ sk_{ID, 2},\ sk_{ID, 3, k + 1}, \dots, sk_{ID, 3, \ell} \Big)$, trong đó:
+			\begin{align*}
+				sk_{ID, 1} &= g\,^\alpha\, H_{k}(ID)^r = g\,^\alpha\, \Big(u_0 \, \prod_{j = 1}^k u_j^{I_j} \Big)^r, \\
+				sk_{ID, 2} &= h^r, \\
+				sk_{ID, 3, j} &= u_j^r \quad\quad\quad (\, j = \overline{k + 1, \ell}\,).
+			\end{align*}
+			Ta có $sk_{ID} \in \mathbb{G}_1 \times \mathbb{G}_2 \times \mathbb{G}_1^{\ell - k}$. Để ý rằng định danh ở cấp càng sâu ($k$ càng lớn) thì khóa bí mật tương ứng càng ngắn.
+			%
+			\item[] {\sffamily\bfseries Derive(params, sk\textsubscript{ID}, ID$'$)} \\
+			Giả sử $ID$ là tiền tố của $ID'$ và $ID, ID'$ có cấp trong hệ HIBE lần lượt là $k, k + 1$ ($k < \ell$). Đặt
+			\begin{flalign*}
+				ID &= (I_1, \dots,\ I_k), &\\
+				ID' &= (I_1, \dots,\ I_k,\ I_{k + 1}), &\\
+				sk_{ID} &=
+				\Big(sk_{ID, 1},\ sk_{ID, 2},\ sk_{ID, 3, k + 1}, \dots, sk_{ID, 3, \ell} \Big) &\\ &=
+				\Big(g\,^\alpha\, H_{k}(ID)^r,\ h^r,\ u_{k + 1}^r, \dots, u_\ell^r \Big) \quad\quad (\text{với}\ r \ \text{nào đó thuộc}\ \mathbb{Z}_p^*).
+			\end{flalign*}
+			Tính khóa bí mật của định danh $ID'$
+			\[
+				sk_{ID'} = \Big(sk_{ID', 1},\ sk_{ID', 2},\ sk_{ID', 3, k + 2}, \dots, sk_{ID', 3, \ell} \Big),
+			\]
+			trong đó:
+			\vspace{-\baselineskip}
+			\begin{align*}
+				sk_{ID', 1} &=
+					sk_{ID, 1} \cdot (sk_{ID, 3, k + 1})^{I_{k + 1}} \\ &=
+					g\,^\alpha\, H_{k}(ID)^r \, (u_{k + 1}^r)^{I_{k + 1}} \\ &=
+					g\,^\alpha\, \Big[ H_{k}(I_1, \dots,\ I_k) \cdot (u_{k + 1})^{I_{k + 1}} \Big]^r \\ &=
+					g\,^\alpha\, H_{k + 1}(ID')^r, \\
+				sk_{ID', 2} &= sk_{ID, 2} = h^r, \\
+				sk_{ID', 3, j} &= sk_{ID, 3, j} = u_j^r \quad\quad\quad (\, j = \overline{k + 2, \ell}\,).
+			\end{align*}
+			Tại đây thuật toán có thể trả về $sk_{ID'}$ do nó đã là một khóa bí mật hợp lệ của $ID'$. Tuy nhiên nếu ta cần tính chất độc lập với lịch sử sinh khóa trong hệ HIBE, thực hiện tái tạo độ ngẫu nhiên là bắt buộc. Thuật toán tiếp tục như sau: \\
+			Lấy ngẫu nhiên $r' \xleftarrow{R} \mathbb{Z}_p$. Tính và gán
+			\begin{align*}
+				sk_{ID', 1} &\leftarrow
+					sk_{ID', 1} \cdot H_{k + 1}(ID')^{r'} =
+					g\,^\alpha\, H_{k + 1}(ID')^{r + r'}, \\
+				sk_{ID', 2} &\leftarrow sk_{ID', 2} \cdot h^{r'} = h^{r + r'}, \\
+				sk_{ID', 3, j} &\leftarrow sk_{ID', 3, j} \cdot u_j^{r'} = u_j^{r + r'} \quad\quad\quad (\, j = \overline{k + 2, \ell}\,).
+			\end{align*}
+			Trả về $sk_{ID}$.
+			%
+			\item[] {\sffamily\bfseries SecretKeyVerify(params, ID, sk)} \\
+			Thuật toán này tương tự phiên bản IBE. Đặt $sk = (\mu_1, \mu_2)$. Với $k$ là độ sâu của $ID$, ta kiểm tra
+			\[
+				\frac{e \Big(\mu_1,\ h \Big)}{e \Big(H_{k}(ID),\ \mu_2 \Big)} \overset{?}{=} Z.
+			\]
+			Nếu đẳng thức đúng trả về hợp lệ và không nếu ngược lại. Tính đúng đắn được giải thích tương tự phiên bản IBE. Phép kiểm này không sử dụng các thành phần còn lại của khóa.
+			%
+			\item[] {\sffamily\bfseries Encrypt(params, ID, M)} \\
+			Chọn ngẫu nhiên $s \xleftarrow{R} \mathbb{Z}_p^*$. Trả về bản mã của thông điệp $M \in \mathbb{G}_T$ trên định danh $ID = (I_1, \dots, I_k) \in (\mathbb{Z}_p^*)^k$ là
+			\[
+				C = \Big(C_0, C_1, C_2 \Big) = \Big(M \cdot Z\,^s,\ h\,^s, H_{k}(ID)^s \Big) = \Big(M \cdot Z\,^s,\ h\,^s, \Big(u_0 \, \prod_{j = 1}^k u_j^{I_j} \Big)^s \Big).
+			\]
+			Ta có $C \in \mathbb{G}_T \times \mathbb{G}_2 \times \mathbb{G}_1$.
+			%
+			\item[] {\sffamily\bfseries Decrypt(params, sk\textsubscript{ID}, C)} \\
+			Tính
+			\begin{align*}
+				C_0 \cdot\ \frac{e \Big(C_2,\ sk_{ID, 2} \Big)}{e \Big(sk_{ID, 1},\ C_1 \Big)} &=
+				C_0 \cdot\ \frac{e \Big(H_{k}(ID)\,^s,\ h\,^r \Big)}{e \Big(g\,^\alpha\, H_{k}(ID)^r,\ h\,^s \Big)} \\ &=
+				C_0 \cdot\ \frac{e \Big(H_{k}(ID)\,^s,\ h\,^r \Big)}{e \Big(g\,^\alpha,\ h\,^s \Big)\, e \Big(H_{k}(ID)^r,\ h\,^s \Big)} \\ &=
+				C_0 \cdot\ \frac{e \Big(H_{k}(ID),\ h \Big)^{rs}}{e \Big(g\,^\alpha,\ h \Big)^s\, e \Big(H_{k}(ID),\ h \Big)^{rs}} \\ &=
+				M \cdot Z\,^s \cdot \frac{1}{Z\,^s} \\
+				&= M.
+			\end{align*}
+			Thuật toán trả về bản rõ $M$.
+		\end{itemize}
+		%
+		Sau đây là định lý về độ an toàn của hệ mã BBG phiên bản vừa rồi. Kế tiếp độ hiệu quả của hệ mã BBG sẽ được so sánh với hệ mã GS, BB$_1$, Waters qua bảng \ref{table:hibe_efficiency_comparison}.
+		\begin{theorem}
+			Với mọi $\ell \geq 1$, nếu giả định $(t, \varepsilon, \ell)$-D-BDHE phiên bản bất đối xứng là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ thì hệ HIBE vừa mô tả đạt mức an toàn $(t', q_{id}, \ell, \varepsilon)$-IND-sID-CPA. Trong đó $t' < t - \Theta\,(\tau\, \ell\, q_{id})$ với $\tau$ là thời gian tối đa của một phép tính lũy thừa trong $\mathbb{G}$.
+		\end{theorem}
+		%
 		\subimport{./}{hibe_efficiency_comparison_table.tex}
 	%
-	\section{Tăng mức an toàn lên IND-ID-CCA}
-		On days tis he later within, been mine goodly grace tear feud he like, childe change thee a ever yet, and cheer breast pollution all day sadness kiss, change by and loved chaste heralds. Of childe to was of me. Seemed finds harolds happy might run. Into lyres lyres and.
-		% State the security theorem
+	\section{Mở rộng hệ mã}
+		\subsection{Tăng mức an toàn lên IND-ID-CCA}
+			
+		%
+		\subsection{Hỗ trợ sinh khóa có ngưỡng phi tương tác}
+			% Thêm 4 thuật toán
+		%
+		\subsection{Cho phép định danh là chuỗi có chiều dài bất kỳ}
+			% thuật ngữ collision-resistant hash function
+		%
+		\subsection{Mã hóa trên bản rõ là chuỗi}
+
+
+	%
+	\newpage
+	\section{Phiên bản hoàn thiện}
+		\begin{itemize}[leftmargin=1cm, itemindent=-1cm]
+			\item[] {\sffamily\bfseries Setup($\lambda$, $\ell$, m, n)} \\
+			Từ tham số an toàn $\lambda$, sinh số nguyên tố $p$ và các nhóm $\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T$ có cấp $p$ phù hợp và cặp ghép $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$. Thiết lập hai hàm
+			\begin{align*}
+				H_{in}: 	\ \{0, 1 \}^* 	\quad \rightarrow \quad \mathbb{Z}_p^* 						\quad \text{và}\quad
+				H_{out}: 	\ \mathbb{G}_T 	\quad \rightarrow \quad \{0, 1 \}^{\lceil \log_2 p \rceil}
+			\end{align*}
+			cùng là hàm băm chống đụng độ có độ an toàn $\lambda$. Cụ thể, $H_{in}$ và $H_{out}$ là hàm SHA-3 với tham số thích hợp. Đặt $\Gamma = (p, \mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e, H_{in}, H_{out})$. \\
+			Từ đầu vào $\ell$ là số cấp tối đa, chọn ngẫu nhiên
+			\[
+				g,\, u_0,\, u_1 \dots, u_{\ell + 1} \xleftarrow{R} \mathbb{G}_1^*,\ h \xleftarrow{R} \mathbb{G}_2^*.
+			\]
+			Định nghĩa hàm $H_k$ với mọi $1 \leq k \leq \ell + 1$ như sau:
+			\begin{align*}
+				H_k:\quad\quad 	(\{0, 1 \}^*)^k 	\quad	 &\rightarrow 	\quad  	\mathbb{G}_1 \\
+								(x_1, \dots, x_k) 	\quad	 &\mapsto 		\quad  	u_0 \, \prod_{i = 1}^k u_i^{H_{in}(x_i)} = u_0 \, u_1^{H_{in}(x_1)}\dots u_k^{H_{in}(x_k)}
+			\end{align*}
+			Để chia sẻ khóa bí mật chủ thành $n$ phần và nếu có đủ $m \leq n$ phần sẽ tạo lại được, lấy ngẫu nhiên $\alpha_0 \xleftarrow{R} \mathbb{Z}_p^*$ và $\alpha_1, \dots, \alpha_{m - 1} \xleftarrow{R} \mathbb{Z}_p$. \\
+			Đặt $f(x) = \alpha_0 + \alpha_1x + \dots + \alpha_{m - 1}x\,^{m - 1}$. Với mọi $0 \leq i \leq n$, tính
+			\[
+				g_i = g^{f(i)},\ Z_i = e \Big(g_i,\ h \Big).
+			\]
+			Xuất ra tham số công khai, các khóa bí mật chủ thành phần và khóa kiểm tra:
+			\begin{align*}
+				params &= (\Gamma,\ h,\ Z_0,\ u_0, \dots, u_{\ell + 1}) \in \{\ \Gamma \ \} \times \mathbb{G}_2 \times \mathbb{G}_T \times (\mathbb{G}_1)^{\ell + 2}, \\
+				pmk_i &= (i,\ g_i) \in \{1, \dots, n \} \times \mathbb{G}_1 \quad (1 \leq i \leq n), \\
+				vk &= (g,\ Z_1, \dots, Z_n) \in \mathbb{G}_1 \times (\mathbb{G}_T)^n.
+			\end{align*}
+			Khóa bí mật chủ trong hệ ở phiên bản này là $msk = g_0 = g^{f(0)} = g^{\alpha_0}$. Tuy nhiên thuật toán không trả về $msk$.
+			%
+			\item[] {\sffamily\bfseries PartialMasterKeyVerify(params, vk, pmk)} \\
+			Đặt $pmk = (i, \mu)$. Kiểm tra tính đúng của đẳng thức
+			\[
+				e \Big(\mu,\ h \Big) \overset{?}{=} Z_i
+			\]
+			rồi trả về kết quả tương ứng. Dễ thấy nếu $\mu$ thực sự bằng $g_i$ thì đẳng thức xảy ra.
+			%
+			\item[] {\sffamily\bfseries PartialSecretKeyGen(params, pmk\textsubscript{i}, ID)} \\
+			Đặt $ID = (I_1, \dots, I_k) \in (\{0, 1 \}^*)^k$ với $k$ là độ sâu của $ID \ (k \leq \ell)$ và $I_1, \dots, I_k$ là các định danh nguyên thủy. Chọn ngẫu nhiên $r_i \xleftarrow{R} \mathbb{Z}_p^*$. Xuất khóa bí mật thành phần thứ $i$ của định danh $ID$ sinh từ khóa bí mật chủ thành phần $pmk_i$ là
+			\[
+				psk_{ID}^{(i)} = \Big(psk_{ID, 1}^{(i)},\ psk_{ID, 2}^{(i)},\ psk_{ID, 3, k + 1}^{(i)}, \dots, psk_{ID, 3, \ell}^{(i)} \Big),
+			\]
+			trong đó:
+			\vspace{-\baselineskip}
+			\begin{align*}
+				psk_{ID, 1}^{(i)} &= g_i\, H_{k}(ID)^{r_i} = g\,^{f(i)}\, \Big(u_0 \, \prod_{j = 1}^k u_j^{H_{in}(I_j)} \Big)^{r_i}, \\
+				psk_{ID, 2}^{(i)} &= h^{r_i}, \\
+				psk_{ID, 3, j}^{(i)} &= u_j^{r_i} \quad\quad\quad (\, j = \overline{k + 1, \ell}\,).
+			\end{align*}
+			Ta có $psk_{ID}^{(i)} \in \mathbb{G}_1 \times \mathbb{G}_2 \times \mathbb{G}_1^{\ell - k}$.
+			%
+			\item[] {\sffamily\bfseries PartialSecretKeyVerify(params, vk, ID, i, psk)} \\
+			Phép kiểm tra này chỉ sử dụng hai thành phần đầu của khóa bí mật thành phần. Gọi $\mu_1, \mu_2$ lần lượt là thành phần thứ nhất và thứ hai của $psk$, gọi $k$ là độ sâu của $ID \ (k \leq \ell)$. Kết quả trả về là tính đúng đắn của đẳng thức sau:
+			\[
+				\frac{e \Big(\mu_1,\ h \Big)}{e \Big(H_{k}(ID),\ \mu_2 \Big)} \overset{?}{=} Z_i \,.
+			\]
+			Phép kiểm đúng là do với mọi $1 \leq j \leq n$ ta có
+			\[
+				\frac{e \Big(psk_{ID, 1}^{(j)},\ h \Big)}{e \Big(H_{k}(ID),\ psk_{ID, 2}^{(j)} \Big)} =
+				\frac{e \Big(g_j\, H_{k}(ID)^{r_j},\ h \Big)}{e \Big(H_{k}(ID),\ h^{r_j} \Big)} =
+				\frac{e \Big(g_j,\ h \Big)\ e \Big(H_{k}(ID)^{r_j},\ h \Big)}{e \Big(H_{k}(ID),\ h^{r_j} \Big)} = Z_j \,.
+			\]
+			%
+			\item[] {\sffamily\bfseries PartialSecretKeyCombine(params, \{psk$_{\textsf{ID}}^{\textsf{(x\textsubscript{1})}}$, \dots, psk$_{\textsf{ID}}^{\textsf{(x\textsubscript{m})}}$\})} \\
+			Gọi $k$ là độ sâu của $ID \ (k \leq \ell)$. Đặt $\Delta = \{x_1, \dots, x_m \}$. Với mọi $i \in \Delta$, tính
+			\[
+				\lambda_i = \prod_{j \in \Delta \setminus \{i\}}\frac{-j}{i - j}
+			\]
+			Đặt $r = \sum_{i \in \Delta} r_i \lambda_i$. Xuất khóa bí mật của định danh $ID$ là
+			\[
+				sk_{ID} = \Big(sk_{ID, 1},\ sk_{ID, 2},\ sk_{ID, 3, k + 1}, \dots, sk_{ID, 3, \ell} \Big),
+			\]
+			trong đó:
+			\begin{align*}
+				sk_{ID, 1} &=
+				\prod_{i \in \Delta} \Big(psk_{ID, 1}^{(i)} \Big)^{\lambda_i} \\ &=
+				\prod_{i \in \Delta} \Big(g_i\, H_{k}(ID)^{r_i} \Big)^{\lambda_i} \\ &=
+				\Big(\prod_{i \in \Delta} g^{f(i) \lambda_i} \Big) \Big(\prod_{i \in \Delta} H_{k}(ID)^{r_i \lambda_i} \Big) \\ &=
+				g^{\sum_{i \in \Delta} f(i) \lambda_i} \cdot H_{k}(ID)^{\sum_{i \in \Delta} r_i \lambda_i}  \\ &=
+				g^{\alpha_0} \cdot H_{k}(ID)^r \\ &=
+				g_0 \cdot H_{k}(ID)^r, \\
+				%
+				sk_{ID, 2} &=
+				\prod_{i \in \Delta} \Big(psk_{ID, 2}^{(i)} \Big)^{\lambda_i} \\ &=
+				\prod_{i \in \Delta} \Big(h^{r_i} \Big)^{\lambda_i} \\ &=
+				h^{\sum_{i \in \Delta} r_i \lambda_i} \\ &=
+				h^r, \\
+				%
+				sk_{ID, 3, j} &=
+				\prod_{i \in \Delta} \Big(psk_{ID, 3, j}^{(i)} \Big)^{\lambda_i} \quad\quad\quad (\, j = \overline{k + 1, \ell}\,) \\ &=
+				\prod_{i \in \Delta} \Big(u_j^{r_i} \Big)^{\lambda_i} \\ &=
+				u_j^{\sum_{i \in \Delta} r_i \lambda_i} \\ &=
+				u_j^r \,.
+			\end{align*}
+
+			Như trước đó, ta cũng có $sk_{ID} \in \mathbb{G}_1 \times \mathbb{G}_2 \times \mathbb{G}_1^{\ell - k}$.
+			%
+			\item[] {\sffamily\bfseries Derive(params, sk\textsubscript{ID}, ID$'$)} \\
+			Thuật toán này tương tự như ở phiên bản HIBE và được trình bày lại vì mục đích đầy đủ. Giả sử $ID$ là tiền tố của $ID'$ và $ID, ID'$ có cấp trong hệ HIBE lần lượt là $k, k + 1$ ($k < \ell$). Đặt
+			\begin{flalign*}
+				ID &= (I_1, \dots,\ I_k), &\\
+				ID' &= (I_1, \dots,\ I_k,\ I_{k + 1}), &\\
+				sk_{ID} &=
+				\Big(sk_{ID, 1},\ sk_{ID, 2},\ sk_{ID, 3, k + 1}, \dots, sk_{ID, 3, \ell} \Big) &\\ &=
+				\Big(g_0\, H_{k}(ID)^r,\ h^r,\ u_{k + 1}^r, \dots, u_\ell^r \Big) \quad\quad (\text{với}\ r \ \text{nào đó thuộc}\ \mathbb{Z}_p^*).
+			\end{flalign*}
+			Tính khóa bí mật của định danh $ID'$
+			\[
+				sk_{ID'} = \Big(sk_{ID', 1},\ sk_{ID', 2},\ sk_{ID', 3, k + 2}, \dots, sk_{ID', 3, \ell} \Big),
+			\]
+			trong đó:
+			\vspace{-\baselineskip}
+			\begin{align*}
+				sk_{ID', 1} &=
+					sk_{ID, 1} \cdot (sk_{ID, 3, k + 1})^{I_{k + 1}} \\ &=
+					g_0\, H_{k}(ID)^r \, (u_{k + 1}^r)^{I_{k + 1}} \\ &=
+					g_0\, \Big[ H_{k}(I_1, \dots,\ I_k) \cdot (u_{k + 1})^{I_{k + 1}} \Big]^r \\ &=
+					g_0\, H_{k + 1}(ID')^r, \\
+				sk_{ID', 2} &= sk_{ID, 2} = h^r, \\
+				sk_{ID', 3, j} &= sk_{ID, 3, j} = u_j^r \quad\quad\quad (\, j = \overline{k + 2, \ell}\,).
+			\end{align*}
+			%
+			Tái tạo độ ngẫu nhiên bằng cách lấy ngẫu nhiên $r' \xleftarrow{R} \mathbb{Z}_p$, sau đó tính và gán
+			\begin{align*}
+				sk_{ID', 1} &\leftarrow
+					sk_{ID', 1} \cdot H_{k + 1}(ID')^{r'} =
+					g_0\, H_{k + 1}(ID')^{r + r'}, \\
+				sk_{ID', 2} &\leftarrow sk_{ID', 2} \cdot h^{r'} = h^{r + r'}, \\
+				sk_{ID', 3, j} &\leftarrow sk_{ID', 3, j} \cdot u_j^{r'} = u_j^{r + r'} \quad\quad\quad (\, j = \overline{k + 2, \ell}\,).
+			\end{align*}
+			Trả về $sk_{ID}$.
+			%
+			\item[] {\sffamily\bfseries SecretKeyVerify(params, ID, sk)} \\
+			Đặt $sk = (\mu_1, \mu_2)$. Gọi $k$ là độ sâu của $ID \ (k \leq \ell)$. Kiểm tra đẳng thức
+			\[
+				\frac{e \Big(\mu_1,\ h \Big)}{e \Big(H_{k}(ID),\ \mu_2 \Big)} \overset{?}{=} Z_0
+			\]
+			rồi trả về kết quả theo cách tương tự như phiên bản IBE và HIBE.
+			%
+			\item[] {\sffamily\bfseries Encrypt(params, ID, M)} \\
+			Thuật toán mã hóa nhận vào bản rõ $M$ là chuỗi nhị phân có chiều dài $\lceil \log_2 p \rceil$. Đặt $ID = (I_1, \dots, I_k) \in (\{0, 1 \}^*)^k \ (k \leq \ell)$. \\
+			Chọn ngẫu nhiên $s \xleftarrow{R} \mathbb{Z}_p^*$. Tính lần lượt các giá trị:
+			\begin{align*}
+				C_0 	&= M \oplus H_{out}(Z\,^s), \\
+				C_1 	&= h\,^s, \\
+				C_2 	&= H_{k}(ID)^s = \Big(u_0 \, \prod_{j = 1}^k u_j^{I_j} \Big)^s, \\
+				\sigma 	&= C_0 \parallel C_1 \parallel C_2 \quad\quad (\text{nối biểu diễn nhị phân của } C_0, C_1, C_2), \\
+				C_3 	&= H_{k + 1}(ID, \sigma)^s = \bigg[\, u_0 \, \Big(\prod_{j = 1}^k u_j^{H_{in}(I_j)} \Big)\, u_{k + 1}^{H_{in}(\sigma)} \, \bigg]^s.
+			\end{align*}
+			
+			Xuất ra bản mã $C = (C_0, C_1, C_2, C_3) \in \{0, 1 \}^{\lceil \log_2 p \rceil} \times \mathbb{G}_2 \times (\mathbb{G}_1)^2$.
+			%
+			\item[] {\sffamily\bfseries Decrypt(params, sk\textsubscript{ID}, C)} \\
+			Trước hết ta tính $\sigma = C_0 \parallel C_1 \parallel C_2$ rồi kiểm tra đẳng thức
+			\[
+				\frac{e \Big(H_{k + 1}(ID, \sigma),\ C_1 \Big)}{e \Big(C_3,\ h \Big)} \overset{?}{=} 1.
+			\]
+			Nếu đẳng thức không thỏa thì $C$ không là một bản mã hợp lệ, khi đó báo lỗi và dừng thuật toán. Trường hợp ngược lại ta giải mã bằng cách tính
+			\begin{align*}
+				C_0 \oplus\ H_{out}\Bigg(\, \frac{e (sk_{ID, 1},\ C_1)}{e (C_2,\ sk_{ID, 2})}\, \Bigg) &=
+				C_0 \oplus\ H_{out}\Bigg(\, \frac{e (g_0\, H_{k}(ID)^r,\ h\,^s)}{e (H_{k}(ID)\,^s,\ h\,^r)}\, \Bigg) \\ &=
+				C_0 \oplus\ H_{out}\Bigg(\, \frac{e (g_0,\ h\,^s)\, e (H_{k}(ID)^r,\ h\,^s)}{e (H_{k}(ID)\,^s,\ h\,^r)}\, \Bigg) \\ &=
+				C_0 \oplus\ H_{out}\Bigg(\, \frac{e (g_0,\ h)^s\, e (H_{k}(ID),\ h)^{rs}}{e (H_{k}(ID),\ h)^{rs}}\, \Bigg) \\ &=
+				\Big(M \oplus H_{out}(Z\,^s) \Big) \oplus H_{out}(Z\,^s) \\
+				&= M.
+			\end{align*}
+			Cuối cùng trả về bản rõ $M$.
+		\end{itemize}
+		%
 		\begin{theorem}
-			Giả sử bài toán q-BDHE là khó\dots
+			Với mọi $\ell \geq 1$, nếu giả định $(t, \varepsilon, \ell + 1)$-D-BDHE phiên bản bất đối xứng là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ thì hệ HIBE vừa mô tả đạt mức an toàn $(t', q_{id}, q_c, \ell, \varepsilon)$-IND-sID-CCA. Trong đó $t' < t - \Theta\,(\tau\, \ell\, q_{id})$ với $\tau$ là thời gian tối đa của một phép tính lũy thừa trong $\mathbb{G}$.
 		\end{theorem}
-		On days tis he later within, been mine goodly grace tear feud he like, childe change thee a ever yet, and cheer breast pollution all day sadness kiss, change by and loved chaste heralds. Of childe to was of me. Seemed finds harolds happy might run. Into lyres lyres and.
-	%
-	\section{Hỗ trợ sinh khóa có ngưỡng phi tương tác}
-		On days tis he later within, been mine goodly grace tear feud he like, childe change thee a ever yet, and cheer breast pollution all day sadness kiss, change by and loved chaste heralds. Of childe to was of me. Seemed finds harolds happy might run. Into lyres lyres and.
-	%
-	\section{Phiên bản đầy đủ}
-		On days tis he later within, been mine goodly grace tear feud he like, childe change thee a ever yet, and cheer breast pollution all day sadness kiss, change by and loved chaste heralds. Of childe to was of me. Seemed finds harolds happy might run. Into lyres lyres and.
 	%
 	\section{Độ hiệu quả thực tế}
-		On days tis he later within, been mine goodly grace tear feud he like, childe change thee a ever yet, and cheer breast pollution all day sadness kiss, change by and loved chaste heralds. Of childe to was of me. Seemed finds harolds happy might run. Into lyres lyres and.
+		
 	
 
 	\newpage
