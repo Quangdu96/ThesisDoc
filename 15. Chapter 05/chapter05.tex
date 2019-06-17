@@ -136,7 +136,7 @@
 			Trả về $sk_{ID}$.
 			%
 			\item[] {\sffamily\bfseries SecretKeyVerify(params, ID, sk)} \\
-			Thuật toán này tương tự phiên bản IBE. Đặt $sk = (\mu_1, \mu_2)$. Với $k$ là độ sâu của $ID$, ta kiểm tra
+			Thuật toán này tương tự phiên bản IBE. Gọi $\mu_1, \mu_2$ lần lượt là thành phần thứ nhất và thứ hai của $sk$, và gọi $k$ là độ sâu của $ID \ (k \leq \ell)$. Ta kiểm tra
 			\[
 				\frac{e \Big(\mu_1,\ h \Big)}{e \Big(H_{k}(ID),\ \mu_2 \Big)} \overset{?}{=} Z.
 			\]
@@ -162,11 +162,12 @@
 			Thuật toán trả về bản rõ $M$.
 		\end{itemize}
 		%
-		Sau đây là định lý về độ an toàn của hệ mã BBG phiên bản vừa rồi. Kế tiếp độ hiệu quả của hệ mã BBG sẽ được so sánh với hệ mã GS, BB$_1$, Waters qua bảng \ref{table:hibe_efficiency_comparison}.
+		Sau đây là định lý về độ an toàn của hệ mã BBG phiên bản vừa rồi. Sinh viên không trình bày chứng minh trong khóa luận này. Chứng minh có thể được tham khảo tại \cite{DBLP:conf/eurocrypt/BonehBG05}. Kế tiếp độ hiệu quả của hệ mã BBG sẽ được so sánh với hệ mã GS, BB$_1$ qua bảng \ref{table:hibe_efficiency_comparison}.
 		\begin{theorem}
 			Với mọi $\ell \geq 1$, nếu giả định $(t, \varepsilon, \ell)$-D-BDHE phiên bản bất đối xứng là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ thì hệ HIBE vừa mô tả đạt mức an toàn $(t', q_{id}, \ell, \varepsilon)$-IND-sID-CPA. Trong đó $t' < t - \Theta\,(\tau\, \ell\, q_{id})$ với $\tau$ là thời gian tối đa của một phép tính lũy thừa trong $\mathbb{G}$.
 		\end{theorem}
 		%
+		\newpage
 		\subimport{./}{hibe_efficiency_comparison_table.tex}
 	%
 	\section{Mở rộng hệ mã}
@@ -237,7 +238,7 @@
 			Ta có $psk_{ID}^{(i)} \in \mathbb{G}_1 \times \mathbb{G}_2 \times \mathbb{G}_1^{\ell - k}$.
 			%
 			\item[] {\sffamily\bfseries PartialSecretKeyVerify(params, vk, ID, i, psk)} \\
-			Phép kiểm tra này chỉ sử dụng hai thành phần đầu của khóa bí mật thành phần. Gọi $\mu_1, \mu_2$ lần lượt là thành phần thứ nhất và thứ hai của $psk$, gọi $k$ là độ sâu của $ID \ (k \leq \ell)$. Kết quả trả về là tính đúng đắn của đẳng thức sau:
+			Phép kiểm tra này chỉ sử dụng hai thành phần đầu của khóa bí mật thành phần. Gọi $\mu_1, \mu_2$ lần lượt là thành phần thứ nhất và thứ hai của $psk$, và gọi $k$ là độ sâu của $ID \ (k \leq \ell)$. Kết quả trả về là tính đúng đắn của đẳng thức sau:
 			\[
 				\frac{e \Big(\mu_1,\ h \Big)}{e \Big(H_{k}(ID),\ \mu_2 \Big)} \overset{?}{=} Z_i \,.
 			\]
@@ -286,7 +287,7 @@
 			Thuật toán này tương tự như ở phiên bản HIBE và được trình bày lại vì mục đích đầy đủ. Giả sử $ID$ là tiền tố của $ID'$ và $ID, ID'$ có cấp trong hệ HIBE lần lượt là $k, k + 1$ ($k < \ell$). Đặt
 			\begin{flalign*}
 				ID &= (I_1, \dots,\ I_k), &\\
-				ID' &= (I_1, \dots,\ I_k,\ I_{k + 1}), &\\
+				ID' &= (I_1, \dots,\ I_k,\ I_{k + 1}) \quad\quad (I_1, \dots, I_{k + 1} \in \{0, 1 \}^*), &\\
 				sk_{ID} &=
 				\Big(sk_{ID, 1},\ sk_{ID, 2},\ sk_{ID, 3, k + 1}, \dots, sk_{ID, 3, \ell} \Big) &\\ &=
 				\Big(g_0\, H_{k}(ID)^r,\ h^r,\ u_{k + 1}^r, \dots, u_\ell^r \Big) \quad\quad (\text{với}\ r \ \text{nào đó thuộc}\ \mathbb{Z}_p^*).
@@ -299,9 +300,9 @@
 			\vspace{-\baselineskip}
 			\begin{align*}
 				sk_{ID', 1} &=
-					sk_{ID, 1} \cdot (sk_{ID, 3, k + 1})^{I_{k + 1}} \\ &=
-					g_0\, H_{k}(ID)^r \, (u_{k + 1}^r)^{I_{k + 1}} \\ &=
-					g_0\, \Big[ H_{k}(I_1, \dots,\ I_k) \cdot (u_{k + 1})^{I_{k + 1}} \Big]^r \\ &=
+					sk_{ID, 1} \cdot (sk_{ID, 3, k + 1})^{H_{in}(I_{k + 1})} \\ &=
+					g_0\, H_{k}(ID)^r \, (u_{k + 1}^r)^{H_{in}(I_{k + 1})} \\ &=
+					g_0\, \Big[ H_{k}(I_1, \dots,\ I_k) \cdot (u_{k + 1})^{H_{in}(I_{k + 1})} \Big]^r \\ &=
 					g_0\, H_{k + 1}(ID')^r, \\
 				sk_{ID', 2} &= sk_{ID, 2} = h^r, \\
 				sk_{ID', 3, j} &= sk_{ID, 3, j} = u_j^r \quad\quad\quad (\, j = \overline{k + 2, \ell}\,).
@@ -318,7 +319,7 @@
 			Trả về $sk_{ID}$.
 			%
 			\item[] {\sffamily\bfseries SecretKeyVerify(params, ID, sk)} \\
-			Đặt $sk = (\mu_1, \mu_2)$. Gọi $k$ là độ sâu của $ID \ (k \leq \ell)$. Kiểm tra đẳng thức
+			Gọi $\mu_1, \mu_2$ lần lượt là thành phần thứ nhất và thứ hai của $sk$, và gọi $k$ là độ sâu của $ID \ (k \leq \ell)$. Kiểm tra đẳng thức
 			\[
 				\frac{e \Big(\mu_1,\ h \Big)}{e \Big(H_{k}(ID),\ \mu_2 \Big)} \overset{?}{=} Z_0
 			\]
@@ -328,9 +329,9 @@
 			Thuật toán mã hóa nhận vào bản rõ $M$ là chuỗi nhị phân có chiều dài $\lceil \log_2 p \rceil$. Đặt $ID = (I_1, \dots, I_k) \in (\{0, 1 \}^*)^k \ (k \leq \ell)$. \\
 			Chọn ngẫu nhiên $s \xleftarrow{R} \mathbb{Z}_p^*$. Tính lần lượt các giá trị:
 			\begin{align*}
-				C_0 	&= M \oplus H_{out}(Z\,^s), \\
+				C_0 	&= M \oplus H_{out}(Z_0^{\ s}), \\
 				C_1 	&= h\,^s, \\
-				C_2 	&= H_{k}(ID)^s = \Big(u_0 \, \prod_{j = 1}^k u_j^{I_j} \Big)^s, \\
+				C_2 	&= H_{k}(ID)^s = \Big(u_0 \, \prod_{j = 1}^k u_j^{H_{in}(I_j)} \Big)^s, \\
 				\sigma 	&= C_0 \parallel C_1 \parallel C_2 \quad\quad (\text{nối biểu diễn nhị phân của } C_0, C_1, C_2), \\
 				C_3 	&= H_{k + 1}(ID, \sigma)^s = \bigg[\, u_0 \, \Big(\prod_{j = 1}^k u_j^{H_{in}(I_j)} \Big)\, u_{k + 1}^{H_{in}(\sigma)} \, \bigg]^s.
 			\end{align*}
@@ -348,18 +349,57 @@
 				C_0 \oplus\ H_{out}\Bigg(\, \frac{e (g_0\, H_{k}(ID)^r,\ h\,^s)}{e (H_{k}(ID)\,^s,\ h\,^r)}\, \Bigg) \\ &=
 				C_0 \oplus\ H_{out}\Bigg(\, \frac{e (g_0,\ h\,^s)\, e (H_{k}(ID)^r,\ h\,^s)}{e (H_{k}(ID)\,^s,\ h\,^r)}\, \Bigg) \\ &=
 				C_0 \oplus\ H_{out}\Bigg(\, \frac{e (g_0,\ h)^s\, e (H_{k}(ID),\ h)^{rs}}{e (H_{k}(ID),\ h)^{rs}}\, \Bigg) \\ &=
-				\Big(M \oplus H_{out}(Z\,^s) \Big) \oplus H_{out}(Z\,^s) \\
+				\Big(M \oplus H_{out}(Z_0^{\ s}) \Big) \oplus H_{out}(Z_0^{\ s}) \\
 				&= M.
 			\end{align*}
 			Cuối cùng trả về bản rõ $M$.
 		\end{itemize}
 		%
-		\begin{theorem}
-			Với mọi $\ell \geq 1$, nếu giả định $(t, \varepsilon, \ell + 1)$-D-BDHE phiên bản bất đối xứng là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ thì hệ HIBE vừa mô tả đạt mức an toàn $(t', q_{id}, q_c, \ell, \varepsilon)$-IND-sID-CCA. Trong đó $t' < t - \Theta\,(\tau\, \ell\, q_{id})$ với $\tau$ là thời gian tối đa của một phép tính lũy thừa trong $\mathbb{G}$.
-		\end{theorem}
+		% \begin{theorem}
+		% 	Với mọi $\ell \geq 1$, nếu giả định $(t, \varepsilon, \ell + 1)$-D-BDHE phiên bản bất đối xứng là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ thì hệ HIBE vừa mô tả đạt mức an toàn $(t', q_{id}, q_c, \ell, \varepsilon)$-IND-sID-CCA. Trong đó $t' < t - \Theta\,(\tau\, \ell\, q_{id})$ với $\tau$ là thời gian tối đa của một phép tính lũy thừa trong $\mathbb{G}$.
+		% \end{theorem}
 	%
+	\newpage
 	\section{Độ hiệu quả thực tế}
 		
+		\begin{itemize}
+			\item[] {\sffamily\bfseries Cấu hình phần cứng}
+			\begin{itemize}
+				\item CPU: Intel Core i5 4210U
+				\item RAM: DDR3 4GB
+			\end{itemize}
+			%
+			\item[] {\sffamily\bfseries Phương pháp thử nghiệm} \\
+			Mỗi thuật toán được thực thi 100 lần và đo thời gian thực thi trung bình, kết hợp với tính kích thước của các dữ liệu trong hệ mã. Bộ tham số thử nghiệm như sau:
+			\begin{itemize}
+				\item Tham số an toàn $\lambda \in \{64,\ 80,\ 128,\ 160 \}$
+				\item Số cấp tối đa $\ell = 20$
+				\item Mức ngưỡng $m = 10$
+				\item Số khóa bí mật chủ thành phần $n = 50$
+				\item Cả hai loại cặp ghép với $\lambda$ là 60 hoặc 80
+				\item Chỉ cặp ghép bất đối xứng với $\lambda$ là 128 hoặc 160
+				\item Chiều dài định danh $k = 1$ cho các thuật toán có sử dụng định danh
+			\end{itemize}
+			Do với cặp ghép bất đối xứng, ta không thể sinh ra các nhóm có kích thước $p$ lớn tùy ý, nên không được phép chọn tham số an toàn tùy ý muốn. Ngược lại một số cặp ghép đối xứng cho phép điều này.
+
+			Cụ thể sinh viên thử nghiệm bằng cách thực thi file "benchmark.exe" trong phần m với các tham số sau:
+			\begin{itemize}
+				\ttfamily
+				\item[] benchmark 64 20 10 50 0 100
+				\item[] benchmark 64 20 10 50 1 100
+				\item[] benchmark 80 20 10 50 0 100
+				\item[] benchmark 80 20 10 50 1 100
+				\item[] benchmark 128 20 10 50 1 100
+				\item[] benchmark 160 20 10 50 1 100
+			\end{itemize}
+			%
+			\newpage
+			\item[] {\sffamily\bfseries Kết quả} \\
+			\subimport{./}{time_benchmark_table.tex}
+			\newpage
+			\subimport{./}{space_benchmark_table.tex}
+
+		\end{itemize}
 	
 
 	\newpage

@@ -1,0 +1,34 @@
+\tabulinesep=0.5\baselineskip
+\small
+\begin{longtabu}{| >{\bfseries\centering}p{2cm} | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] |}
+	\captionsetup{font=normalsize}
+	\caption{Kích thước dữ liệu (đơn vị: byte)} \\
+	\tabucline[4pt]-
+	\multirow{2}{*}{} &
+	\multicolumn{2}{ c |}{\bfseries $\mathbf{\lambda}$ = 64} 	&
+	\multicolumn{2}{ c |}{\bfseries $\mathbf{\lambda}$ = 80} 	&
+	\bfseries $\mathbf{\lambda}$ = 128 	&
+	\bfseries $\mathbf{\lambda}$ = 160 	\\
+	\tabucline[1pt]{2-7}
+	&
+	\bfseries BĐX &
+	\bfseries ĐX &
+	\bfseries BĐX &
+	\bfseries ĐX &
+	\bfseries ĐX &
+	\bfseries ĐX \\
+	\tabucline[2pt]-
+	\everyrow{\tabucline[1pt]-}
+	%
+	Phần tử thuộc $\mathbb{G}_1$ 	& 	34 		& 66 	& 	44 		& 128 	& 	302 	& 	302 	\\
+	Phần tử thuộc $\mathbb{G}_2$ 	& 	102 	& 66 	& 	132 	& 128 	& 	302 	& 	302 	\\
+	Phần tử thuộc $\mathbb{G}_T$ 	& 	102 	& 66 	& 	132 	& 128 	& 	302 	& 	302 	\\
+	Phần tử thuộc $\mathbb{Z}_p$ 	& 	17 		& 17 	& 	21 		& 21 	& 	33 		& 	33 		\\
+	params 		\newline 			& 	956 	& 1588 	& 	1236 	& 3076 	& 	7252 	& 	7252 	\\
+	pmk 		\newline 			& 	38 		& 70 	& 	48 		& 132 	& 	306 	& 	306 	\\
+	vk 			\newline 			& 	5240 	& 3436 	& 	6780 	& 6660 	& 	15708 	& 	15708 	\\
+	sk 			\newline 			& 	790 	& 1394 	& 	1020 	& 2696 	& 	6350 	& 	6350 	\\
+	plaintext 	\newline 			& 	33 		& 33 	& 	33 		& 33 	& 	33 		& 	33 		\\
+	ciphertext 	\newline 			& 	203 	& 231 	& 	253 	& 417 	& 	939 	& 	939 	\\
+	\tabucline[2pt]-
+\end{longtabu}

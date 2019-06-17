@@ -1,0 +1,33 @@
+\tabulinesep=0.5\baselineskip
+\small
+\begin{longtabu}{| >{\bfseries\centering}p{2cm} | X[c] | X[c] | X[c] | X[c] | X[c] | X[c] |}
+	\captionsetup{font=normalsize}
+	\caption{Thời gian thực thi các thuật toán (đơn vị: giây)} \\
+	\tabucline[4pt]-
+	\multirow{2}{*}{} &
+	\multicolumn{2}{ c |}{\bfseries $\mathbf{\lambda}$ = 64} 	&
+	\multicolumn{2}{ c |}{\bfseries $\mathbf{\lambda}$ = 80} 	&
+	\bfseries $\mathbf{\lambda}$ = 128 	&
+	\bfseries $\mathbf{\lambda}$ = 160 	\\
+	\tabucline[1pt]{2-7}
+	&
+	\bfseries BĐX &
+	\bfseries ĐX &
+	\bfseries BĐX &
+	\bfseries ĐX &
+	\bfseries ĐX &
+	\bfseries ĐX \\
+	\tabucline[2pt]-
+	\everyrow{\tabucline[1pt]-}
+	%
+	Setup 						& 	0.633 	& 	0.259 	& 	0.951 	& 	0.620 	& 	3.867 	& 	14.845 	\\
+	Partial MasterKey Verify 	& 	0.130 	& 	0.039 	& 	0.157 	& 	0.052 	& 	0.193 	& 	0.554 	\\
+	Partial SecretKey Gen 		& 	0.135 	& 	0.073 	& 	0.190 	& 	0.131 	& 	0.671 	& 	1.770 	\\
+	Partial SecretKey Verify 	& 	0.128 	& 	0.047 	& 	0.169 	& 	0.060 	& 	0.226 	& 	0.690 	\\
+	Partial SecretKey Combine 	& 	0.272 	& 	0.249 	& 	0.389 	& 	0.438 	& 	2.560 	& 	7.395 	\\
+	Derive 						& 	0.141 	& 	0.092 	& 	0.213 	& 	0.141 	& 	0.683 	& 	1.876 	\\
+	SecretKey Verify 			& 	0.135 	& 	0.053 	& 	0.161 	& 	0.060 	& 	0.244 	& 	0.696 	\\
+	Encrypt 					& 	0.146 	& 	0.050 	& 	0.151 	& 	0.070 	& 	0.284 	& 	0.784 	\\
+	Decrypt 					& 	0.126 	& 	0.056 	& 	0.176 	& 	0.069 	& 	0.295 	& 	1.039 	\\
+	\tabucline[2pt]-
+\end{longtabu}
