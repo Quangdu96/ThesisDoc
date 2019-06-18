@@ -66,8 +66,11 @@
 		%
 		Sau đây là so sánh chi tiết về độ hiệu quả giữa các hệ mã BF, SK, BB$_1$, BB$_2$, Waters, BBG và Gentry.
 		%
-		\subimport{./}{ibe_efficiency_comparison_table.tex}
+		\subimport{./}{ibe_time_comparison_table.tex}
+		\newpage
+		\subimport{./}{ibe_space_comparison_table.tex}
 	%
+	\newpage
 	\section{Phiên bản HIBE}
 		Phiên bản HIBE của hệ mã BBG yêu cầu định danh nguyên thủy là phần tử trong $\mathbb{Z}_p^*$ với $p$ là số nguyên tố.
 		%
@@ -100,6 +103,7 @@
 			\end{align*}
 			Ta có $sk_{ID} \in \mathbb{G}_1 \times \mathbb{G}_2 \times \mathbb{G}_1^{\ell - k}$. Để ý rằng định danh ở cấp càng sâu ($k$ càng lớn) thì khóa bí mật tương ứng càng ngắn.
 			%
+			\newpage
 			\item[] {\sffamily\bfseries Derive(params, sk\textsubscript{ID}, ID$'$)} \\
 			Giả sử $ID$ là tiền tố của $ID'$ và $ID, ID'$ có cấp trong hệ HIBE lần lượt là $k, k + 1$ ($k < \ell$). Đặt
 			\begin{flalign*}
@@ -162,27 +166,89 @@
 			Thuật toán trả về bản rõ $M$.
 		\end{itemize}
 		%
-		Sau đây là định lý về độ an toàn của hệ mã BBG phiên bản vừa rồi. Sinh viên không trình bày chứng minh trong khóa luận này. Chứng minh có thể được tham khảo tại \cite{DBLP:conf/eurocrypt/BonehBG05}. Kế tiếp độ hiệu quả của hệ mã BBG sẽ được so sánh với hệ mã GS, BB$_1$ qua bảng \ref{table:hibe_efficiency_comparison}.
+		Sau đây là định lý về độ an toàn của hệ mã BBG phiên bản vừa rồi. Sinh viên không trình bày chứng minh trong khóa luận này. Chứng minh có thể được tham khảo tại \cite{DBLP:conf/eurocrypt/BonehBG05}. Kế tiếp độ hiệu quả của hệ mã BBG sẽ được so sánh với hệ mã GS, BB$_1$ qua bảng \ref{table:hibe_time_comparison} và \ref{table:hibe_space_comparison}.
 		\begin{theorem}
 			Với mọi $\ell \geq 1$, nếu giả định $(t, \varepsilon, \ell)$-D-BDHE phiên bản bất đối xứng là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ thì hệ HIBE vừa mô tả đạt mức an toàn $(t', q_{id}, \ell, \varepsilon)$-IND-sID-CPA. Trong đó $t' < t - \Theta\,(\tau\, \ell\, q_{id})$ với $\tau$ là thời gian tối đa của một phép tính lũy thừa trong $\mathbb{G}$.
 		\end{theorem}
 		%
 		\newpage
-		\subimport{./}{hibe_efficiency_comparison_table.tex}
+		\subimport{./}{hibe_time_comparison_table.tex}
+		\subimport{./}{hibe_space_comparison_table.tex}
 	%
 	\section{Mở rộng hệ mã}
-		\subsection{Tăng mức an toàn lên IND-ID-CCA}
-			
-		%
-		\subsection{Hỗ trợ sinh khóa có ngưỡng phi tương tác}
-			% Thêm 4 thuật toán
-		%
 		\subsection{Cho phép định danh là chuỗi có chiều dài bất kỳ}
-			% thuật ngữ collision-resistant hash function
+			Ta có thể sử dụng một chuỗi ký tự làm định danh nguyên thủy cho hệ mã bằng cách băm chuỗi đó vào $\mathbb{Z}_p^*$, sau đó dùng giá trị băm như cách hệ mã dùng định danh nguyên thủy trước đó. Theo như \cite[mục 3.1]{DBLP:conf/eurocrypt/BonehBG05}, để đảm bảo giữ được độ an toàn thì hàm băm này phải là \textit{hàm băm kháng đụng độ} (collision-resistant hash function).
+
+			Trong khóa luận này, sinh viên cài đặt cụ thể bằng hàm BLAKE2b \cite{blake2} với chuỗi băm đầu ra có chiều dài bằng $\lceil \log_2 p \rceil$. Phần việc còn lại để nhúng (encode) một chuỗi thuộc $\{0, 1\}^{\lceil \log_2 p \rceil}$ vào $\mathbb{Z}_p$ là đơn giản. Để tiện gọi, kể từ đây hàm băm này được ký hiệu trừu tượng là $H_{in}: 	\ \{0, 1 \}^* \ \rightarrow \ \mathbb{Z}_p^*$ .
 		%
 		\subsection{Mã hóa trên bản rõ là chuỗi}
+			Hai phiên bản trên đều yêu cầu bản mã phải là một phần tử thuộc $\mathbb{G}_T$. Với cặp ghép được hiện thực bằng đường cong elliptic thì $\mathbb{G}_T$ là nhóm các căn bậc $p$ của đơn vị trong trường hữu hạn. Việc xây dựng một đơn ánh tính được cả hai chiều để nhúng một tập các chuỗi (chẳng hạn $\{0, 1\}^n$ với $n$ xấp xỉ $\lceil \log_2 p \rceil$) vào $\mathbb{G}_T$ và trở ngược lại là không đơn giản. Trong phạm vi hiểu biết của mình, sinh viên chưa tìm được ánh xạ nào như vậy, do đó quyết định sử dụng giải pháp khác. Đó là xem hệ IBE như một giao thức trao đổi khóa phục vụ cho mã hóa khóa đối xứng.
 
-
+			Cụ thể, giá trị $Z\,^s$ trong mô tả ở trên là bí mật chung đã được thiết lập mà chỉ người gửi và người nhận biết, nên có thể xem như nguyên liệu tạo khóa đối xứng. Ta thực hiện băm nó thành chuỗi nhị phân có chiều dài bằng bản rõ rồi XOR hai chuỗi. Trong cài đặt, sinh viên dùng BLAKE2 băm $Z\,^s$ thành chuỗi 256 bit. Bản rõ phải ngắn hơn, khi kết hợp với padding sẽ bằng đúng 256 bit. Để tiện lợi ta gọi hàm băm được sử dụng ở đây là $H_{out}: \mathbb{G}_T \ \rightarrow \ \{0, 1 \}^n$.
+			
+			Xin nói thêm rằng sinh viên vẫn chưa chắc chắn về độ an toàn của giải pháp này. Lý do là để chứng minh an toàn được thì $H_{out}$ phải được giả sử là oracle ngẫu nhiên. Một giải pháp khác nữa được sinh viên tin là có độ tin cậy cao hơn là sử dụng \textit{bộ trích xuất ngẫu nhiên} (randomness extractor), ví dụ như ``leftover hash lemma''. Tuy nhiên khi áp dụng vào hệ mã trên cặp ghép thì số bit ngẫu nhiên trích xuất được là không nhiều, dẫn đến kích thước bản rõ bị giảm xuống.
+		%
+		\subsection{Tăng mức an toàn lên IND-ID-CCA}
+			Để có được độ an toàn CCA, biến đổi BMW được áp dụng cho hệ mã BBG. Với số cấp tối đa mong muốn cho hệ HIBE là $\ell$, ta xây dựng hệ BBG có số cấp tối đa $\ell + 1$. Chiều dài định danh tất nhiên phải bị giới hạn không lớn hơn $\ell$. Thêm nữa, khi thiết lập cần chọn một hàm băm kháng đụng độ có thể băm một chuỗi nhị phân bất kỳ thành một phần tử thuộc $\mathbb{Z}_p$. Ở đây ta tái sử dụng hàm $H_{in}$. Khi mã hóa trên định danh $ID$ có chiều dài $k$, trước hết thuật toán vẫn mã hóa như bình thường, tạo ra bộ ba $(C_0, C_1, C_2)$. Gọi $\sigma$ là nối các biểu diễn nhị phân của $C_0, C_1, C_2$. Sau đó, xem $\sigma$ như một định danh nguyên thủy, tính $C_3 = H_{k + 1}(ID, \sigma)^s$ và bản mã $C = (C_0, C_1, C_2, C_3)$.
+			\newpage
+			Định danh nguyên thủy $\sigma$ ở cấp $k + 1$ có tác dụng như một giá trị ``checksum''. Nghĩa là nó cho ta một cách thức kiểm tra tính toàn vẹn và hợp lệ của bản mã, bằng cách kiểm
+			\[
+				\frac{e \Big(H_{k + 1}(ID, \sigma),\ C_1 \Big)}{e \Big(C_3,\ h \Big)} \overset{?}{=} 1.
+			\]
+			Không khó để thấy rằng nếu bản mã toàn vẹn thì đẳng thức thỏa và ngược lại nếu bất kỳ giá trị nào trong $C_0, C_1, C_2, C_3$ bị thay đổi thì đẳng thức sai. Ta có thể chỉnh sửa chứng minh an toàn CCA trong \cite{DBLP:conf/ccs/BoyenMW05} để áp dụng với hệ mã BBG. Chứng minh xin không được trình bày tại đây.
+		%
+		\subsection{Hỗ trợ sinh khóa có ngưỡng phi tương tác}
+			Thuật toán \textsf{Setup} nhận thêm tham số $m, n \ (m \leq n)$, trong đó khóa bí mật chủ sẽ được chia làm $n$ phần và nếu có đủ $m$ phần sẽ tái tạo được. Thuật toán xuất ra $n$ khóa thành phần $pmk_1, \dots, pmk_n$, cộng thêm $vk$ là bộ khóa dùng để kiểm tra tính hợp lệ của khóa bí mật chủ thành phần và khóa bí mật định danh thành phần. Hệ mã được bổ sung thêm bốn thuật toán sau:
+			%
+			\vspace{-0.5cm}
+			\begin{itemize}
+				\item[] {\sffamily\bfseries PartialMasterKeyVerify(params, vk, pmk)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: $params$, $vk$ và khóa bí mật chủ thành phần cần kiểm tra $pmk$
+					\item[\textbullet] \textit{Output}: 1 nếu $pmk$ là khóa bí mật chủ thành phần hợp lệ và 0 nếu ngược lại
+				\end{itemize}
+				%
+				\item[] {\sffamily\bfseries PartialSecretKeyGen(params, pmk\textsubscript{i}, ID)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: $params$, $pmk_i$ và $ID$
+					\item[\textbullet] \textit{Output}: $psk_{ID}^{(i)}$ là khóa bí mật của $ID$ tương ứng với $pmk_i$
+				\end{itemize}
+				%
+				\item[] {\sffamily\bfseries PartialSecretKeyVerify(params, vk, ID, i, psk)}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: $params$, $vk$, $ID$, thứ tự $i \in \{1, \dots, n \}$ và khóa bí mật định danh thành phần cần kiểm $psk$
+					\item[\textbullet] \textit{Output}: 1 nếu $psk$ là khóa bí mật định danh thành phần của $ID$ tương ứng với $pmk_i$ và 0 nếu ngược lại
+				\end{itemize}
+				%
+				\newpage
+				\item[] {\sffamily\bfseries PartialSecretKeyCombine(params, \{psk$_{\textsf{ID}}^{\textsf{(x\textsubscript{1})}}$, \dots, psk$_{\textsf{ID}}^{\textsf{(x\textsubscript{m})}}$\})}
+				\begin{itemize}
+					\item[\textbullet] \textit{Input}: $params$ và tập $m$ khóa bí mật thành phần hợp lệ của $ID$ ở chỉ số $x_1, \dots, x_m \in \{1, \dots, n \}$
+					\item[\textbullet] \textit{Output}: Khóa bí mật định danh $sk_{ID}$ của $ID$
+				\end{itemize}
+			\end{itemize}
+			%
+			Để chia khóa bí mật chủ $g\,^\alpha$ với tham số $m, n$, ở pha thiết lập ta chọn ngẫu nhiên $\alpha_1, \dots, \alpha_{m - 1} \xleftarrow{R} \mathbb{Z}_p$. Để tiện ký hiệu ta đặt $\alpha_0 = \alpha$. Định nghĩa đa thức
+			\[
+				f(x) = \alpha_0 + \alpha_1x + \dots + \alpha_{m - 1}x\,^{m - 1}.
+			\]
+			Tiếp tục ta tính giá trị hàm $f$ tại $n$ giá trị khác nhau. Để đơn giản ta tính $f(i)$ với mọi $1 \leq i \leq n$. \\
+			Với $m$ bộ phân biệt bất kỳ $(x_1, f(x_1)), \dots, (x_m, f(x_m))$, theo nội suy Lagrange thì
+			\[
+				f(x) = \sum_{i = 1}^m \bigg(f(x_i) \prod_{j \neq i}\ \frac{x - x_j}{x_i - x_j} \bigg).
+			\]
+			Đặt $\lambda_i = \bigg(\displaystyle\prod_{j \neq i}\ \frac{-x_j}{x_i - x_j} \bigg)$. Suy ra $\alpha_0 = f(0) = \displaystyle\sum_{i = 1}^m f(x_i)\lambda_i$. Quan sát rằng tất cả $\lambda_i$ đều có thể tính được chỉ với các giá trị $x_1, \dots, x_m$. Hơn nữa ta có
+			\[
+				g\,^{\alpha_0} = g\,^{\sum_{i = 1}^m f(x_i)\lambda_i} = \prod_{i = 1}^m \ g\,^{f(x_i)\lambda_i} = \prod_{i = 1}^m \ \Big(\, g\,^{f(x_i)}\, \Big)^{\lambda_i}.
+			\]
+			Vì vậy cơ chế sinh khóa phi tương tác có thể được triển khai bằng cách cho thực thể thứ $i$ trong $n$ thực thể hội đồng PKG nhận $(i, g^{f(i)})$. Để ý rằng trong hai phiên bản trước thì khóa bí mật chủ $g\,^\alpha$ chỉ đóng góp vào thành phần thứ nhất của khóa bí mật định danh. Xét định danh $ID$ chiều dài $k$. Thành phần thứ nhất của khóa định danh thành phần thứ $i$ của $ID$ lúc này sẽ là $g^{f(i)} H_k(ID)^{r_i}$, với $r_i$ được thực thể thứ $i$ lấy ngẫu nhiên trong $\mathbb{Z}_p^*$. Để đơn giản, ta xem như chủ thể của $ID$ đã có được $(i,\ g^{f(i)} H_k(ID)^{r_i})$ với mọi $1 \leq i \leq m$. Sau đó chủ thể của $ID$ tính tất cả $\lambda_i$ từ 1 đến $m$. \\
+			Đặt $r = \sum_{i = 1}^m r_i \lambda_i$. Ta có
+			\[
+				\prod_{i = 1}^m \ \Big(g^{f(i)} H_k(ID)^{r_i} \Big)^{\lambda_i} =
+				\Big(\prod_{i = 1}^m \ g^{f(i)\lambda_i} \Big) \Big(\prod_{i = 1}^m \ H_k(ID)^{r_i \lambda_i} \Big) =
+				g\,^{\alpha_0} H_k(ID)^{r \lambda_i}.
+			\]
+			Giá trị trên có thể xem là một thành phần thứ nhất hợp lệ được tạo bởi lượng ngẫu nhiên $r$. Các thành phần còn lại trong khóa được tạo gần như tương tự. Vui lòng xem chi tiết bên dưới.
 	%
 	\newpage
 	\section{Phiên bản hoàn thiện}
@@ -193,7 +259,7 @@
 				H_{in}: 	\ \{0, 1 \}^* 	\quad \rightarrow \quad \mathbb{Z}_p^* 						\quad \text{và}\quad
 				H_{out}: 	\ \mathbb{G}_T 	\quad \rightarrow \quad \{0, 1 \}^{\lceil \log_2 p \rceil}
 			\end{align*}
-			cùng là hàm băm chống đụng độ có độ an toàn $\lambda$. Cụ thể, $H_{in}$ và $H_{out}$ là hàm SHA-3 với tham số thích hợp. Đặt $\Gamma = (p, \mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e, H_{in}, H_{out})$. \\
+			cùng là hàm băm chống đụng độ có độ an toàn $\lambda$. Cụ thể, $H_{in}$ và $H_{out}$ là hàm BLAKE2 với tham số thích hợp. Đặt $\Gamma = (p, \mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e, H_{in}, H_{out})$. \\
 			Từ đầu vào $\ell$ là số cấp tối đa, chọn ngẫu nhiên
 			\[
 				g,\, u_0,\, u_1 \dots, u_{\ell + 1} \xleftarrow{R} \mathbb{G}_1^*,\ h \xleftarrow{R} \mathbb{G}_2^*.
@@ -203,7 +269,7 @@
 				H_k:\quad\quad 	(\{0, 1 \}^*)^k 	\quad	 &\rightarrow 	\quad  	\mathbb{G}_1 \\
 								(x_1, \dots, x_k) 	\quad	 &\mapsto 		\quad  	u_0 \, \prod_{i = 1}^k u_i^{H_{in}(x_i)} = u_0 \, u_1^{H_{in}(x_1)}\dots u_k^{H_{in}(x_k)}
 			\end{align*}
-			Để chia sẻ khóa bí mật chủ thành $n$ phần và nếu có đủ $m \leq n$ phần sẽ tạo lại được, lấy ngẫu nhiên $\alpha_0 \xleftarrow{R} \mathbb{Z}_p^*$ và $\alpha_1, \dots, \alpha_{m - 1} \xleftarrow{R} \mathbb{Z}_p$. \\
+			Để chia sẻ khóa bí mật chủ thành $n$ phần và nếu có đủ $m \leq n$ phần sẽ tái tạo được, lấy ngẫu nhiên $\alpha_0 \xleftarrow{R} \mathbb{Z}_p^*$ và $\alpha_1, \dots, \alpha_{m - 1} \xleftarrow{R} \mathbb{Z}_p$. \\
 			Đặt $f(x) = \alpha_0 + \alpha_1x + \dots + \alpha_{m - 1}x\,^{m - 1}$. Với mọi $0 \leq i \leq n$, tính
 			\[
 				g_i = g^{f(i)},\ Z_i = e \Big(g_i,\ h \Big).
@@ -363,7 +429,7 @@
 	\section{Độ hiệu quả thực tế}
 		
 		\begin{itemize}
-			\item[] {\sffamily\bfseries Cấu hình phần cứng}
+			\item[] {\sffamily\bfseries Cấu hình phần cứng thử nghiệm}
 			\begin{itemize}
 				\item CPU: Intel Core i5 4210U
 				\item RAM: DDR3 4GB

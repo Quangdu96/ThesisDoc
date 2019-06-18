@@ -1,7 +1,7 @@
 \tabulinesep=0.5\baselineskip
 \begin{longtabu}{| >{\bfseries\centering}p{2.5cm} | >{\bfseries\centering}p{1cm} | X[c] X[c] X[c] |}
 	\captionsetup{font=normalsize}
-	\caption{So sánh độ hiệu quả giữa các hệ HIBE} \\
+	\caption{So sánh độ hiệu quả thời gian giữa các hệ HIBE}\label{table:hibe_time_comparison} \\
 	\tabucline[4pt]-
 	\multicolumn{2}{| c |}{} 		&
 	\bfseries BF / GS		 		&
@@ -58,7 +58,7 @@
 	%
 	\tabucline[1pt]-
 	\multirow{3}{*}{Lũy thừa}
-	& $G_1$ 			& 	- 	& 	0 		& 	$\ell + 2$ 	\\
+	& $G_1$ 			& 	- 	& 	0 		& 	$\ell + 1$ 	\\
 	\tabucline[1pt]{2-5}
 	& $G_2$ 			& 	- 	& 	$3k$ 	& 	1 			\\
 	\tabucline[1pt]{2-5}
@@ -68,6 +68,10 @@
 	Cặp ghép & - 		& 	- 	& 	0 		& 	0 			\\
 	%
 	\tabucline[2pt]-
+	\multicolumn{5}{| p{\textwidth} |}{} \\
+	\multicolumn{5}{| p{\textwidth} |}{\centering\bfseries\dots} \\
+	\multicolumn{5}{| p{\textwidth} |}{} \\
+	%
 	\multicolumn{5}{| p{\textwidth} |}{
 		\bfseries\centering
 		Số phép tính trong thuật toán sinh khóa từ nốt giữa (Derive)
@@ -118,6 +122,11 @@
 	Cặp ghép & - 		& 	1 			& 	0 			& 	0 			\\
 	%
 	\tabucline[2pt]-
+	\multicolumn{5}{| p{\textwidth} |}{} \\
+	\multicolumn{5}{| p{\textwidth} |}{\centering\bfseries\dots} \\
+	\multicolumn{5}{| p{\textwidth} |}{} \\
+	\multicolumn{5}{| p{\textwidth} |}{} \\
+	%
 	\multicolumn{5}{| p{\textwidth} |}{
 		\bfseries\centering
 		Số phép tính trong thuật toán giải mã (Decrypt)
@@ -142,44 +151,6 @@
 	\tabucline[1pt]-
 	Cặp ghép & - 		& 	$k$ 	& 	$k + 1$ 	& 	2 	\\
 	%
-	\tabucline[2pt]- \\ \\
-	\multicolumn{5}{| p{\textwidth} |}{
-		\bfseries\centering
-		Kích thước (số phần tử trong tập hợp)
-	} \\
-	%
-	\tabucline[1pt]-
-	& $\mathbb{Z}_p$ 	& 	0 			& 	0 			& 	0 				\\
-	\tabucline[1pt]{1-5}
-	\multirowcell{3}{Tham số \\ công khai}
-	& $G_1$ 			& 	0 			& 	$\ell + 2$ 	& 	$\ell + 1$ 		\\
-	\tabucline[1pt]{2-5}
-	& $G_2$ 			& 	2 			& 	$\ell + 2$ 	& 	1 				\\
-	\tabucline[1pt]{2-5}
-	& $G_T$ 			& 	0 			& 	1 			& 	1 				\\
-	%
-	\tabucline[1pt]-
-	\multirowcell{4}{Khóa \\ bí mật \\ của ID}
-	& $\mathbb{Z}_p$ 	& 	0 			& 	0 			& 	0 				\\
-	\tabucline[1pt]{2-5}
-	& $G_1$ 			& 	1 			& 	0 			& 	$\ell - k + 1$ 	\\
-	\tabucline[1pt]{2-5}
-	& $G_2$ 			& 	$k - 1$ 	& 	$k + 1$ 	& 	1 				\\
-	\tabucline[1pt]{2-5}
-	& $G_T$ 			& 	0 			& 	0 			& 	0 				\\
-	%
-	\tabucline[1pt]-
-	\multirow{5}{*}{Bản mã}
-	& $\mathbb{Z}_p$ 	& 	0 			& 	0 			& 	0 				\\
-	\tabucline[1pt]{2-5}
-	& $G_1$ 			& 	$k - 1$ 	& 	$k + 1$ 	& 	1 				\\
-	\tabucline[1pt]{2-5}
-	& $G_2$ 			& 	1 			& 	0 			& 	1 				\\
-	\tabucline[1pt]{2-5}
-	& $G_T$ 			& 	0 			& 	1 			& 	1 				\\
-	\tabucline[1pt]{2-5}
-	& \textmd{Chuỗi} 	& 	1 			& 	0 			& 	0 				\\
-	%
 	\tabucline[3pt]-
-\end{longtabu}\label{table:hibe_efficiency_comparison}
+\end{longtabu}
 $^*$ Hệ mã GS chỉ cho phép sinh khóa qua từng cấp, tức là mọi chủ thể chỉ có thể sinh khóa cho chủ thể con trực tiếp.

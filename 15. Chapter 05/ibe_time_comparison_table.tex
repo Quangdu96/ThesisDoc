@@ -1,0 +1,130 @@
+\tabulinesep=0.5\baselineskip
+\begin{longtabu}{| >{\bfseries\centering}p{2.2cm} | >{\bfseries\centering}p{1cm} | X[c] X[c] X[c] X[c] X[c] X[c] X[c] |}
+	\captionsetup{font=normalsize}
+	\caption{So sánh độ hiệu quả thời gian giữa các hệ IBE} \\
+	\tabucline[4pt]-
+	\multicolumn{2}{| c |}{} 		&
+	\bfseries BF 					&
+	\bfseries SK 					&
+	\bfseries BB\textsubscript{1} 	&
+	\bfseries BB\textsubscript{2} 	&
+	\bfseries Waters 				&
+	\bfseries BBG 					&
+	\bfseries Gentry 				\\
+	\tabucline[2pt]-
+	\endfirsthead
+	%
+	\tabucline[4pt]-
+	\multicolumn{2}{| c |}{} 		&
+	\bfseries BF 					&
+	\bfseries SK 					&
+	\bfseries BB\textsubscript{1} 	&
+	\bfseries BB\textsubscript{2} 	&
+	\bfseries Waters 				&
+	\bfseries BBG 					&
+	\bfseries Gentry 				\\
+	\tabucline[2pt]-
+	\endhead
+	%
+	\multicolumn{9}{| p{\textwidth} |}{
+		\bfseries\centering
+		Số phép tính trong thuật toán thiết lập (Setup)
+	} \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Nhân / chia}
+	& $G_1$ 		& 	0 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	0 	\\
+	\tabucline[1pt]{2-9}
+	& $G_2$ 		& 	0 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	0 	\\
+	\tabucline[1pt]{2-9}
+	& $G_T$ 		& 	0 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	0 	\\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Lũy thừa}
+	& $G_1$ 		& 	0 	& 	1 	& 	2 	& 	2 	& 	1 					& 	1 	& 	1 	\\
+	\tabucline[1pt]{2-9}
+	& $G_2$ 		& 	1 	& 	0 	& 	3 	& 	0 	& 	1 					& 	0 	& 	0 	\\
+	\tabucline[1pt]{2-9}
+	& $G_T$ 		& 	0 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	0 	\\
+	%
+	\tabucline[1pt]-
+	Cặp ghép & - 	& 	0 	& 	1 	& 	1 	& 	1 	& 	1 					& 	1 	& 	4 	\\
+	%
+	\tabucline[2pt]-
+	\multicolumn{9}{| p{\textwidth} |}{
+		\bfseries\centering
+		Số phép tính trong thuật toán sinh khóa (SecretKeyGen)
+	} \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Nhân / chia}
+	& $G_1$ 		& 	0 	& 	0 	& 	0 	& 	0 	& 	$\mathcal{O}(n)^*$ 	& 	2 	& 	0 	\\
+	\tabucline[1pt]{2-9}
+	& $G_2$ 		& 	0 	& 	0 	& 	2 	& 	0 	& 	0 					& 	0 	& 	3 	\\
+	\tabucline[1pt]{2-9}
+	& $G_T$ 		& 	0 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	0 	\\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Lũy thừa}
+	& $G_1$ 		& 	1 	& 	0 	& 	0 	& 	0 	& 	1 					& 	2 	& 	0 	\\
+	\tabucline[1pt]{2-9}
+	& $G_2$ 		& 	0 	& 	1 	& 	3 	& 	2 	& 	1 					& 	1 	& 	6 	\\
+	\tabucline[1pt]{2-9}
+	& $G_T$ 		& 	0 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	0 	\\
+	%
+	\tabucline[1pt]-
+	Cặp ghép & - 	& 	0 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	0 	\\
+	%
+	\tabucline[2pt]-
+	\multicolumn{9}{| p{\textwidth} |}{
+		\bfseries\centering
+		Số phép tính trong thuật toán mã hóa (Encrypt)
+	} \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Nhân / chia}
+	& $G_1$ 		& 	0 	& 	1 	& 	1 	& 	1 	& 	$\mathcal{O}(n)$ 	& 	1 	& 	1 	\\
+	\tabucline[1pt]{2-9}
+	& $G_2$ 		& 	0 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	0 	\\
+	\tabucline[1pt]{2-9}
+	& $G_T$ 		& 	0 	& 	0 	& 	1 	& 	1 	& 	1 					& 	1 	& 	2 	\\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Lũy thừa}
+	& $G_1$ 		& 	0 	& 	2 	& 	3 	& 	3 	& 	1 					& 	2 	& 	2 	\\
+	\tabucline[1pt]{2-9}
+	& $G_2$ 		& 	1 	& 	0 	& 	0 	& 	0 	& 	1 					& 	1 	& 	0 	\\
+	\tabucline[1pt]{2-9}
+	& $G_T$ 		& 	1 	& 	1 	& 	1 	& 	1 	& 	1 					& 	1 	& 	4 	\\
+	%
+	\tabucline[1pt]-
+	Cặp ghép & - 	& 	1 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	0 	\\
+	%
+	\tabucline[2pt]-
+	\multicolumn{9}{| p{\textwidth} |}{
+		\bfseries\centering
+		Số phép tính trong thuật toán giải mã (Decrypt)
+	} \\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Nhân / chia}
+	& $G_1$ 		& 	0 	& 	0 	& 	0 	& 	1 	& 	0 					& 	0 	& 	0 	\\
+	\tabucline[1pt]{2-9}
+	& $G_2$ 		& 	0 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	1 	\\
+	\tabucline[1pt]{2-9}
+	& $G_T$ 		& 	0 	& 	0 	& 	2 	& 	1 	& 	2 					& 	2 	& 	3 	\\
+	%
+	\tabucline[1pt]-
+	\multirow{3}{*}{Lũy thừa}
+	& $G_1$ 		& 	0 	& 	0 	& 	0 	& 	1 	& 	0 					& 	0 	& 	0 	\\
+	\tabucline[1pt]{2-9}
+	& $G_2$ 		& 	0 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	1 	\\
+	\tabucline[1pt]{2-9}
+	& $G_T$ 		& 	0 	& 	0 	& 	0 	& 	0 	& 	0 					& 	0 	& 	2 	\\
+	%
+	\tabucline[1pt]-
+	Cặp ghép & - 	& 	1 	& 	1 	& 	2 	& 	1 	& 	2 					& 	2 	& 	2 	\\
+	%
+	\tabucline[3pt]-
+\end{longtabu}
+$^*$: Trong hệ IBE của Waters, định danh là một chuỗi nhị phân có chiều dài $n$.
