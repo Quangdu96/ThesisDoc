@@ -690,7 +690,7 @@
 		%
 		\begin{figure}[h] 
 			\captionsetup{font=normalsize}
-			\includegraphics[width=\textwidth]{computation_problem_reduction.png}
+			\includegraphics[width=0.85\textwidth]{computation_problem_reduction.png}
 			\centering
 			\caption{Sơ đồ quy dẫn giữa phiên bản tính toán của các bài toán}
 			\label{fig:computation_reduction}
@@ -698,7 +698,7 @@
 		%
 		\begin{figure}[h]
 			\captionsetup{font=normalsize}
-			\includegraphics[width=0.9\textwidth]{decision_problem_reduction.png}
+			\includegraphics[width=0.75\textwidth]{decision_problem_reduction.png}
 			\centering
 			\caption{Sơ đồ quy dẫn giữa phiên bản quyết định của các bài toán}
 			\label{fig:decision_reduction}
@@ -737,7 +737,7 @@
 
 			Về không gian, trong một hệ (H)IBE có ba loại dữ liệu phải được vận chuyển và lưu trữ với nhiều bản sao trên toàn hệ thống là bộ tham số công khai, khóa bí mật định danh và bản mã. Khi thiết kế hệ mã, những nhà mật mã học ưu tiên việc giảm kích thước bản mã (hoặc khóa tùy vào ứng dụng). Kích thước các loại dữ liệu trên thường bị phóng đại theo số cấp tối đa trong hệ HIBE. Theo sinh viên biết thì đã có hệ HIBE đạt kích thước bản mã hằng số và hệ khác có kích thước khóa $\mathcal{O}(\sqrt{\ell})$ với $\ell$ là số cấp tối đa \cite{DBLP:conf/eurocrypt/BonehBG05}. Khi so sánh sơ lược độ hiệu quả không gian các hệ (H)IBE trên cặp ghép, các kích thước trên được đếm bằng số phần tử trong các cấu trúc đại số. Tuy nhiên khi triển khai thực tế, ta cần cân nhắc kích thước biểu diễn của một phần tử trong các nhóm để đưa ra lựa chọn các cấu trúc sử dụng và / hoặc áp dụng kỹ thuật làm giảm kích thước (chẳng hạn như băm).
 
-			Với cặp ghép trên đường cong elliptic, trường hợp bất đối xứng cho ta cặp ghép tính toán nhanh hơn, phần tử trong nhóm $\mathbb{G}_1$ nói ở trên có kích thước biểu diễn nhỏ hơn và nhiều lựa chọn họ đường cong phù hợp hơn trường hợp đối xứng. Vì vậy một hệ IBE vận hành và chứng minh an toàn được bằng bài toán trên cặp ghép tổng quát (không yêu cầu tính đối xứng) có thể áp dụng cặp ghép bất đối xứng để có những lợi ích trên hoặc cặp ghép đối xứng với mục đích nào đó khác.
+			Với cặp ghép trên đường cong elliptic, trường hợp bất đối xứng cho ta cặp ghép với phần tử trong nhóm $\mathbb{G}_1$ nói ở trên có kích thước biểu diễn nhỏ hơn và nhiều lựa chọn họ đường cong phù hợp hơn trường hợp đối xứng. Vì vậy một hệ IBE vận hành và chứng minh an toàn được bằng bài toán trên cặp ghép tổng quát (không yêu cầu tính đối xứng) có thể áp dụng cặp ghép bất đối xứng để có những lợi ích trên hoặc cặp ghép đối xứng với mục đích nào đó khác.
 		%
 		\subsection{Phép quy dẫn}
 			Giả sử ta đã chứng minh được phép quy dẫn từ bài toán C-BDH đến hệ IBE \scheme như sau: \\ \indent

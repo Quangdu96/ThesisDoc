@@ -179,7 +179,7 @@
 		\subsection{Cho phép định danh là chuỗi có chiều dài bất kỳ}
 			Ta có thể sử dụng một chuỗi ký tự làm định danh nguyên thủy cho hệ mã bằng cách băm chuỗi đó vào $\mathbb{Z}_p^*$, sau đó dùng giá trị băm như cách hệ mã dùng định danh nguyên thủy trước đó. Theo như \cite[mục 3.1]{DBLP:conf/eurocrypt/BonehBG05}, để đảm bảo giữ được độ an toàn thì hàm băm này phải là \textit{hàm băm kháng đụng độ} (collision-resistant hash function).
 
-			Trong khóa luận này, sinh viên cài đặt cụ thể bằng hàm BLAKE2b \cite{blake2} với chuỗi băm đầu ra có chiều dài bằng $\lceil \log_2 p \rceil$. Phần việc còn lại để nhúng (encode) một chuỗi thuộc $\{0, 1\}^{\lceil \log_2 p \rceil}$ vào $\mathbb{Z}_p$ là đơn giản. Để tiện gọi, kể từ đây hàm băm này được ký hiệu trừu tượng là $H_{in}: 	\ \{0, 1 \}^* \ \rightarrow \ \mathbb{Z}_p^*$ .
+			Trong khóa luận này, sinh viên cài đặt cụ thể bằng hàm BLAKE2b \cite{DBLP:conf/acns/AumassonNWW13} với chuỗi băm đầu ra có chiều dài bằng $\lceil \log_2 p \rceil$. Phần việc còn lại để nhúng (encode) một chuỗi thuộc $\{0, 1\}^{\lceil \log_2 p \rceil}$ vào $\mathbb{Z}_p$ là đơn giản. Để tiện gọi, kể từ đây hàm băm này được ký hiệu trừu tượng là $H_{in}: 	\ \{0, 1 \}^* \ \rightarrow \ \mathbb{Z}_p^*$ .
 		%
 		\subsection{Mã hóa trên bản rõ là chuỗi}
 			Hai phiên bản trên đều yêu cầu bản mã phải là một phần tử thuộc $\mathbb{G}_T$. Với cặp ghép được hiện thực bằng đường cong elliptic thì $\mathbb{G}_T$ là nhóm các căn bậc $p$ của đơn vị trong trường hữu hạn. Việc xây dựng một đơn ánh tính được cả hai chiều để nhúng một tập các chuỗi (chẳng hạn $\{0, 1\}^n$ với $n$ xấp xỉ $\lceil \log_2 p \rceil$) vào $\mathbb{G}_T$ và trở ngược lại là không đơn giản. Trong phạm vi hiểu biết của mình, sinh viên chưa tìm được ánh xạ nào như vậy, do đó quyết định sử dụng giải pháp khác. Đó là xem hệ IBE như một giao thức trao đổi khóa phục vụ cho mã hóa khóa đối xứng.
@@ -448,7 +448,7 @@
 			\end{itemize}
 			Do với cặp ghép bất đối xứng, ta không thể sinh ra các nhóm có kích thước $p$ lớn tùy ý, nên không được phép chọn tham số an toàn tùy ý muốn. Ngược lại một số cặp ghép đối xứng cho phép điều này.
 
-			Cụ thể sinh viên thử nghiệm bằng cách thực thi file "benchmark.exe" trong phần m với các tham số sau:
+			Cụ thể sinh viên thử nghiệm bằng cách thực thi file "benchmark.exe" trong phần mềm kèm theo với các tham số sau:
 			\begin{itemize}
 				\ttfamily
 				\item[] benchmark 64 20 10 50 0 100
