@@ -5,7 +5,7 @@
 	\pagenumbering{gobble}
 	\import{./}{default_lengths.tex}
 	%
-	\import{"01. Title page"/}{titlepage.tex}
+	% \import{"01. Title page"/}{titlepage.tex}
 	\import{"02. Comment page"/}{commentpage.tex}
 	\import{"03. Acknowledgements"/}{acknowledgements.tex}
 	\import{"04. Synopsis"/}{synopsis.tex}
@@ -24,6 +24,7 @@
 	\import{"08. Abbreviation"/}{abbreviation.tex}
 	\import{"09. Notation"/}{notation.tex}
 	\import{"10. Summary"/}{summary.tex}
+	%
 	\import{"11. Chapter 01"/}{chapter01.tex}
 	\import{"12. Chapter 02"/}{chapter02.tex}
 	% \import{"13. Chapter 03"/}{chapter03.tex}
@@ -31,11 +32,13 @@
 	\import{"15. Chapter 05"/}{chapter05.tex}
 	\import{"16. Chapter 06"/}{chapter06.tex}
 	\import{"17. Chapter 07"/}{chapter07.tex}
-	
 	%
-	\nocite{ben_lynn_phd, pbc, sodium}
-	\addcontentsline{toc}{chapter}{Tài liệu tham khảo}
+	\nocite{ben_lynn_phd}
+	\nocite{pbc}
+	\nocite{sodium}
+	\nocite{Washington:2008:ECN:1388394}
+	\nocite{Martin:2008:IIE:1370962}
+	% \addcontentsline{toc}{chapter}{Tài liệu tham khảo}
 	\printbibliography
-	
-	
+	\newpage
 \end{document}
