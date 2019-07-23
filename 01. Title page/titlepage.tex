@@ -5,9 +5,11 @@
 	% Specific lengths in this document
 	\import{../}{default_lengths.tex}
 	\linespread{1}
+	\setsansfont{Tahoma}
 	%
 	\hypertarget{titlepage}{}
 	\bookmark[dest=titlepage,level=0]{Trang bìa}
+	% Outer cover
 	\begin{titlepage}
 		\thisfancypage{%
 		\fbox}{}
@@ -18,7 +20,29 @@
 			TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN \\
 			KHOA CÔNG NGHỆ THÔNG TIN \\
 			BỘ MÔN CÔNG NGHỆ TRI THỨC \\[2.5cm]
+			\rmfamily\Large
+			HUỲNH QUANG DỰ \\[2.5cm]
+			\sffamily\fontsize{20pt}{30pt}\selectfont
+			TÌM HIỂU MÃ HÓA DỰA TRÊN ĐỊNH~DANH~VÀ ỨNG DỤNG \\[1.5cm]
 			\rmfamily\large
+			KHÓA LUẬN TỐT NGHIỆP CỬ NHÂN CNTT \\[8.5cm]
+			\sffamily\fontsize{13pt}{16.8pt}\selectfont
+			TP.HCM, 2019
+		\end{center}
+	\end{titlepage}
+	%
+	% Inner cover
+	\begin{titlepage}
+		\thisfancypage{%
+		\fbox}{}
+		
+		\begin{center}
+			\leavevmode \\[\baselineskip]
+			\sffamily\fontsize{13pt}{24pt}\selectfont\bfseries
+			TRƯỜNG ĐẠI HỌC KHOA HỌC TỰ NHIÊN \\
+			KHOA CÔNG NGHỆ THÔNG TIN \\
+			BỘ MÔN CÔNG NGHỆ TRI THỨC \\[2.5cm]
+			\rmfamily\Large
 			HUỲNH QUANG DỰ -- 1412114 \\[2.5cm]
 			\sffamily\fontsize{20pt}{30pt}\selectfont
 			TÌM HIỂU MÃ HÓA DỰA TRÊN ĐỊNH~DANH~VÀ ỨNG DỤNG \\[1.5cm]
@@ -27,10 +51,11 @@
 			GIÁO VIÊN HƯỚNG DẪN \\[\baselineskip]
 			\sffamily\fontsize{13pt}{16.8pt}\selectfont
 			TS. LÊ VĂN LUYỆN \\[5cm]
-			KHÓA 2014
+			KHÓA 2014 - 2018
 		\end{center}
 	\end{titlepage}
 	%
 	% Reset default lengths
+	\setsansfont{Latin Modern Sans}
 	\import{../}{default_lengths.tex}
 \end{document}

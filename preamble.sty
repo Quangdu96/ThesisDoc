@@ -8,9 +8,11 @@
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{iftex}
+\usepackage{indentfirst}
 \usepackage{tabu, longtable, booktabs, multirow, makecell, caption}
 \usepackage{titlesec}
 \usepackage[nottoc]{tocbibind}
+% Last packages to be loaded
 \usepackage[unicode]{hyperref}
 \usepackage[numbered]{bookmark}
 
@@ -21,9 +23,9 @@
 
 \ifXeTeX
 	\usepackage{fontspec}
+	\usepackage[vietnamese]{babel}
 	\setromanfont{Times New Roman}
-	\setsansfont{Tahoma}
-	\setmonofont[Ligatures=TeX]{Courier New}
+	\setmonofont[Ligatures=TeX]{Consolas}
 \fi
 
 \geometry{

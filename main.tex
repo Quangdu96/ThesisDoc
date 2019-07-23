@@ -5,7 +5,7 @@
 	\pagenumbering{gobble}
 	\import{./}{default_lengths.tex}
 	%
-	% \import{"01. Title page"/}{titlepage.tex}
+	\import{"01. Title page"/}{titlepage.tex}
 	\import{"02. Comment page"/}{commentpage.tex}
 	\import{"03. Acknowledgements"/}{acknowledgements.tex}
 	\import{"04. Synopsis"/}{synopsis.tex}
@@ -16,7 +16,7 @@
 	\renewcommand{\baselinestretch}{0.5}\normalsize
 	\tableofcontents % 05
 	\renewcommand{\baselinestretch}{1.0}\normalsize
-	\newpage\pagenumbering{arabic}
+	\newpage\pagenumbering{roman}
 	\listoffigures % 06
 	\listoftables % 07
 	\newpage
@@ -25,10 +25,13 @@
 	\import{"09. Notation"/}{notation.tex}
 	\import{"10. Summary"/}{summary.tex}
 	%
+	\pagenumbering{arabic}
 	\import{"11. Chapter 01"/}{chapter01.tex}
 	\import{"12. Chapter 02"/}{chapter02.tex}
+
 	% \import{"13. Chapter 03"/}{chapter03.tex}
 	% \import{"14. Chapter 04"/}{chapter04.tex}
+	
 	\import{"15. Chapter 05"/}{chapter05.tex}
 	\import{"16. Chapter 06"/}{chapter06.tex}
 	\import{"17. Chapter 07"/}{chapter07.tex}

@@ -254,7 +254,7 @@
 	\section{Phiên bản hoàn thiện}
 		\begin{itemize}[leftmargin=1cm, itemindent=-1cm]
 			\item[] {\sffamily\bfseries Setup($\lambda$, $\ell$, m, n)} \\
-			Từ tham số an toàn $\lambda$, sinh số nguyên tố $p$ và các nhóm $\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T$ có cấp $p$ phù hợp và cặp ghép $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$. Thiết lập hai hàm
+			Từ tham số an toàn $\lambda$, sinh số nguyên tố $p$, các nhóm $\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T$ phù hợp cấp $p$ và cặp ghép $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$. Thiết lập hai hàm
 			\begin{align*}
 				H_{in}: 	\ \{0, 1 \}^* 	\quad \rightarrow \quad \mathbb{Z}_p^* 						\quad \text{và}\quad
 				H_{out}: 	\ \mathbb{G}_T 	\quad \rightarrow \quad \{0, 1 \}^{\lceil \log_2 p \rceil}
@@ -318,7 +318,7 @@
 			\item[] {\sffamily\bfseries PartialSecretKeyCombine(params, \{psk$_{\textsf{ID}}^{\textsf{(x\textsubscript{1})}}$, \dots, psk$_{\textsf{ID}}^{\textsf{(x\textsubscript{m})}}$\})} \\
 			Gọi $k$ là độ sâu của $ID \ (k \leq \ell)$. Đặt $\Delta = \{x_1, \dots, x_m \}$. Với mọi $i \in \Delta$, tính
 			\[
-				\lambda_i = \prod_{j \in \Delta \setminus \{i\}}\frac{-j}{i - j}
+				\lambda_i = \prod_{j \in \Delta \setminus \{i\}}\frac{-j}{i - j} \ .
 			\]
 			Đặt $r = \sum_{i \in \Delta} r_i \lambda_i$. Xuất khóa bí mật của định danh $ID$ là
 			\[
@@ -327,24 +327,24 @@
 			trong đó:
 			\begin{align*}
 				sk_{ID, 1} &=
-				\prod_{i \in \Delta} \Big(psk_{ID, 1}^{(i)} \Big)^{\lambda_i} \\ &=
-				\prod_{i \in \Delta} \Big(g_i\, H_{k}(ID)^{r_i} \Big)^{\lambda_i} \\ &=
-				\Big(\prod_{i \in \Delta} g^{f(i) \lambda_i} \Big) \Big(\prod_{i \in \Delta} H_{k}(ID)^{r_i \lambda_i} \Big) \\ &=
-				g^{\sum_{i \in \Delta} f(i) \lambda_i} \cdot H_{k}(ID)^{\sum_{i \in \Delta} r_i \lambda_i}  \\ &=
-				g^{\alpha_0} \cdot H_{k}(ID)^r \\ &=
-				g_0 \cdot H_{k}(ID)^r, \\
+					\prod_{i \in \Delta} \Big(psk_{ID, 1}^{(i)} \Big)^{\lambda_i} \\ &=
+					\prod_{i \in \Delta} \Big(g_i\, H_{k}(ID)^{r_i} \Big)^{\lambda_i} \\ &=
+					\Big(\prod_{i \in \Delta} g^{f(i) \lambda_i} \Big) \Big(\prod_{i \in \Delta} H_{k}(ID)^{r_i \lambda_i} \Big) \\ &=
+					g^{\sum_{i \in \Delta} f(i) \lambda_i} \cdot H_{k}(ID)^{\sum_{i \in \Delta} r_i \lambda_i}  \\ &=
+					g^{\alpha_0} \cdot H_{k}(ID)^r \\ &=
+					g_0 \cdot H_{k}(ID)^r, \\
 				%
 				sk_{ID, 2} &=
-				\prod_{i \in \Delta} \Big(psk_{ID, 2}^{(i)} \Big)^{\lambda_i} \\ &=
-				\prod_{i \in \Delta} \Big(h^{r_i} \Big)^{\lambda_i} \\ &=
-				h^{\sum_{i \in \Delta} r_i \lambda_i} \\ &=
-				h^r, \\
+					\prod_{i \in \Delta} \Big(psk_{ID, 2}^{(i)} \Big)^{\lambda_i} \\ &=
+					\prod_{i \in \Delta} \Big(h^{r_i} \Big)^{\lambda_i} \\ &=
+					h^{\sum_{i \in \Delta} r_i \lambda_i} \\ &=
+					h^r, \\
 				%
 				sk_{ID, 3, j} &=
-				\prod_{i \in \Delta} \Big(psk_{ID, 3, j}^{(i)} \Big)^{\lambda_i} \quad\quad\quad (\, j = \overline{k + 1, \ell}\,) \\ &=
-				\prod_{i \in \Delta} \Big(u_j^{r_i} \Big)^{\lambda_i} \\ &=
-				u_j^{\sum_{i \in \Delta} r_i \lambda_i} \\ &=
-				u_j^r \,.
+					\prod_{i \in \Delta} \Big(psk_{ID, 3, j}^{(i)} \Big)^{\lambda_i} \quad\quad\quad (\, j = \overline{k + 1, \ell}\,) \\ &=
+					\prod_{i \in \Delta} \Big(u_j^{r_i} \Big)^{\lambda_i} \\ &=
+					u_j^{\sum_{i \in \Delta} r_i \lambda_i} \\ &=
+					u_j^r \,.
 			\end{align*}
 
 			Như trước đó, ta cũng có $sk_{ID} \in \mathbb{G}_1 \times \mathbb{G}_2 \times \mathbb{G}_1^{\ell - k}$.
@@ -355,8 +355,8 @@
 				ID &= (I_1, \dots,\ I_k), &\\
 				ID' &= (I_1, \dots,\ I_k,\ I_{k + 1}) \quad\quad (I_1, \dots, I_{k + 1} \in \{0, 1 \}^*), &\\
 				sk_{ID} &=
-				\Big(sk_{ID, 1},\ sk_{ID, 2},\ sk_{ID, 3, k + 1}, \dots, sk_{ID, 3, \ell} \Big) &\\ &=
-				\Big(g_0\, H_{k}(ID)^r,\ h^r,\ u_{k + 1}^r, \dots, u_\ell^r \Big) \quad\quad (\text{với}\ r \ \text{nào đó thuộc}\ \mathbb{Z}_p^*).
+					\Big(sk_{ID, 1},\ sk_{ID, 2},\ sk_{ID, 3, k + 1}, \dots, sk_{ID, 3, \ell} \Big) &\\ &=
+					\Big(g_0\, H_{k}(ID)^r,\ h^r,\ u_{k + 1}^r, \dots, u_\ell^r \Big) \quad\quad (\text{với}\ r \ \text{nào đó thuộc}\ \mathbb{Z}_p^*).
 			\end{flalign*}
 			Tính khóa bí mật của định danh $ID'$
 			\[
@@ -382,7 +382,7 @@
 				sk_{ID', 2} &\leftarrow sk_{ID', 2} \cdot h^{r'} = h^{r + r'}, \\
 				sk_{ID', 3, j} &\leftarrow sk_{ID', 3, j} \cdot u_j^{r'} = u_j^{r + r'} \quad\quad\quad (\, j = \overline{k + 2, \ell}\,).
 			\end{align*}
-			Trả về $sk_{ID}$.
+			Trả về $sk_{ID'}$.
 			%
 			\item[] {\sffamily\bfseries SecretKeyVerify(params, ID, sk)} \\
 			Gọi $\mu_1, \mu_2$ lần lượt là thành phần thứ nhất và thứ hai của $sk$, và gọi $k$ là độ sâu của $ID \ (k \leq \ell)$. Kiểm tra đẳng thức
@@ -426,8 +426,7 @@
 		% \end{theorem}
 	%
 	\newpage
-	\section{Độ hiệu quả thực tế}
-		
+	\section{Độ hiệu quả thực tế}	
 		\begin{itemize}
 			\item[] {\sffamily\bfseries Cấu hình phần cứng thử nghiệm}
 			\begin{itemize}
@@ -464,10 +463,7 @@
 			\subimport{./}{time_benchmark_table.tex}
 			\newpage
 			\subimport{./}{space_benchmark_table.tex}
-
 		\end{itemize}
-	
-
 	\newpage
 	%
 	% Reset default lengths

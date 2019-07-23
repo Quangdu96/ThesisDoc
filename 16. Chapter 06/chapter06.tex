@@ -5,7 +5,7 @@
 	% Specific lengths in this document
 	\import{../}{default_lengths.tex}
 	%
-	\chapter{Ứng dụng của cặp ghép và IBE}\label{chap:6}
+	\chapter{Ứng dụng của cặp ghép và mã hóa dựa trên định danh}\label{chap:6}
 	\section{Ứng dụng lý thuyết}
 		\subsection{Lược đồ mật mã xây dựng từ cặp ghép}
 			Theo báo cáo của Viện Quốc gia về Tiêu chuẩn và Công nghệ Hoa Kỳ (NIST) về mật mã dựa trên cặp ghép vào năm 2015 \cite{nist_report}, những lược đồ mật mã sau đây đã được xây dựng từ cặp ghép song tuyến tính:
@@ -56,21 +56,53 @@
 		\subsection{Email}
 			Gửi email mã hóa là ứng dụng đơn giản nhất của mã hóa dựa trên định danh, bằng cách dùng email làm định danh. Ứng dụng này có thể được mở rộng bằng cách cho một nhóm người chia sẻ chung một định danh và khóa bí mật. Khi đó ta có thể gửi tin phát tán cho nhiều người chỉ với một bản mã.
 
-			Một ví dụ cụ thể, giả sử Ban giám hiệu Trường Đại học Khoa học Tự nhiên muốn triển khai hệ thống email cho cán bộ, giảng viên. Hệ thống này cho phép mỗi cán bộ được đọc tất cả email gửi cho khoa/bộ môn mình thuộc về nhưng không được đọc email của khoa/bộ môn khác. Khi đó trường chỉ cần xây dựng một hệ HIBE có số cấp tối đa 2 có định danh cấp 1 và 2 lần lượt là tên khoa và tên bộ môn, cộng thêm việc ràng buộc email được gửi tới trường phải tuân thủ nguyên tắc dùng định danh. Ban giám hiệu là PKG có thể kiểm soát được mọi thông tin nội bộ. Ban chủ nhiệm mỗi khoa sẽ được cấp khóa bí mật cấp 1 của khoa mình. Ví dụ Ban chủ nhiệm Khoa Công nghệ thông tin sẽ được cấp khóa của định danh ``Khoa Công nghệ thông tin''. Mỗi cán bộ sẽ được cấp hai khóa bí mật cấp 2 tương ứng trên định danh (<Khoa>, \textunderscore) và (<Khoa>, <Bộ môn>), với ``\textunderscore'' trong định danh trước là một chuỗi mặc định nào đó. Ví dụ giảng viên Bộ môn Công nghệ tri thức, Khoa Công nghệ thông tin sẽ được cấp hai khóa bí mật cho hai định danh (``Khoa Công nghệ thông tin'', \textunderscore) và (``Khoa Công nghệ thông tin'', ``Bộ môn Công nghệ tri thức''). Để gửi tin cho toàn bộ Khoa Công nghệ thông tin, ta cần mã hóa bằng định danh (``Khoa Công nghệ thông tin'', \textunderscore).
+			Một ví dụ cụ thể, giả sử Ban giám hiệu Trường Đại học Khoa học Tự nhiên muốn triển khai hệ thống email cho cán bộ, giảng viên. Hệ thống này cho phép mỗi cán bộ được đọc tất cả email gửi cho khoa/bộ môn mình thuộc về nhưng không được đọc email của khoa/bộ môn khác. Khi đó trường chỉ cần xây dựng một hệ HIBE có số cấp tối đa là 3 với định danh cấp 1, 2 và 3 lần lượt là tên khoa, tên bộ môn và tên cán bộ, kết hợp với việc ràng buộc mọi email được gửi tới trường phải tuân thủ nguyên tắc dùng định danh. Ban giám hiệu là PKG có thể kiểm soát được mọi thông tin nội~bộ. Ban chủ nhiệm mỗi khoa sẽ được cấp khóa bí mật cấp 1 của khoa mình. Ví dụ Ban chủ nhiệm Khoa Công nghệ thông tin sẽ được cấp khóa của định danh ``Khoa Công nghệ thông tin''. Mỗi trưởng bộ môn sẽ được cấp khóa bí mật cấp 2 của định danh có dạng (<Khoa>, <Bộ môn>). Ví dụ Trưởng Bộ môn Công nghệ tri thức, Khoa Công nghệ thông tin sẽ được cấp khóa bí mật cho định danh (``Khoa Công nghệ thông tin'', ``Bộ môn Công nghệ tri thức''). Cuối cùng, mỗi cán bộ sẽ được cấp bốn khóa bí mật trên định danh có dạng lần lượt là:
+			%
+			\vspace{-\baselineskip}
+			\begin{itemize}[itemindent=1cm]
+				\item[] ``ALL'',
+				\item[] (<Khoa>, ``ALL''),
+				\item[] (<Khoa>, <Bộ môn>, ``ALL''),
+				\item[] (<Khoa>, <Bộ môn>, <Tên cán bộ>).
+			\end{itemize}
+			\vspace{-\baselineskip}
+			%
+			Ba định danh đầu có thể được xem như là hộp thư chung của toàn trường, khoa và bộ môn. Định danh thứ tư là hộp thư cá nhân.
+			%
+			\begin{figure}[h] 
+				\captionsetup{font=normalsize}
+				\includegraphics[width=\textwidth]{application_email.png}
+				\centering
+				\caption{Ứng dụng IBE vào email}
+			\end{figure}
 
-			Ứng dụng vào quản lý nội bộ tổ chức là cực kỳ phù hợp với (H)IBE do bởi tính giám hộ khóa vốn có. Tuy nhiên một vấn đề khác phát sinh là không ai kể cả PKG có thể kiểm soát được việc chia sẻ khóa bí mật định danh. Ngay sau khi PKG cấp khóa cho một định danh thì người nhận khóa đã có thể rò rỉ trái phép khóa đó cho những người khác vốn không thuộc nhóm chia sẻ định danh. Giải quyết vấn đề này cần sử dụng những kỹ thuật của \textit{truy vết phản bội} (traitor tracing). Người đọc có thể tham khảo ở \cite{DBLP:conf/pkc/AbdallaDMNPS07}.
+			Ứng dụng vào quản lý nội bộ tổ chức là cực kỳ phù hợp với (H)IBE do bởi tính giám hộ khóa vốn có. Tuy nhiên một vấn đề khác phát sinh là không ai kể cả PKG có thể kiểm soát được việc chia sẻ khóa bí mật định danh. Ngay sau khi PKG cấp khóa cho một định danh thì người nhận khóa đã có thể rò rỉ trái phép khóa đó cho những người khác vốn không thuộc nhóm chia sẻ định danh. Giải quyết vấn đề này cần sử dụng những kỹ thuật của \textit{truy vết phản bội} (traitor tracing). Độc giả có thể tham khảo ở \cite{DBLP:conf/pkc/AbdallaDMNPS07}.
 		%
 		\subsection{Sao lưu tự động an toàn}
 			Xét ví dụ sau, một ứng dụng phần mềm có một server A vận hành ứng dụng và một server B thực hiện sao lưu dữ liệu từ server A theo chu kỳ ngày. Người quản trị triển khai cơ chế mã hóa công khai. Khi sao lưu, A mã hóa dữ liệu bằng khóa công khai rồi gửi B. Bằng khóa riêng tư được người quản trị cài đặt cho, B giải mã rồi lưu vào cơ sở dữ liệu. Trong trường hợp một người tấn công nào đó biết được khóa riêng tư và bắt được tất cả dữ liệu giao tiếp của A và B, hắn sẽ biết toàn bộ dữ liệu.
 			
-			Để phòng ngừa khả năng này, người quản trị thay vào đó có thể triển khai một hệ IBE và cài đặt A mã hóa dữ liệu theo định danh là ngày hiện thời. Ở phía B, người quản trị chỉ cài vàoột lượng nhỏ khóa bí mật để giải mã (chẳng hạn số khóa cho một tuần). Người quản trị giữ khóa bí mật chủ và theo chu kỳ cung cấp thêm khóa bí mật định danh cho B. Bằng phương pháp này thiệt hại được giảm xuống đáng kể.
+			Để phòng ngừa khả năng này, người quản trị thay vào đó có thể triển khai một hệ IBE và cài đặt A mã hóa dữ liệu theo định danh là ngày hiện thời. Ở phía B, người quản trị chỉ cài vào một lượng nhỏ khóa bí mật để giải mã (chẳng hạn số khóa cho một tuần). Người quản trị giữ khóa bí mật chủ và theo chu kỳ cung cấp thêm khóa bí mật định danh cho B. Bằng phương pháp này thiệt hại được giảm xuống đáng kể.
+			%
+			\begin{figure}[h] 
+				\captionsetup{font=normalsize}
+				\includegraphics[width=0.7\textwidth]{application_backup.png}
+				\centering
+				\caption{Ứng dụng IBE vào sao lưu dữ liệu}
+			\end{figure}
 
 			Một kỹ thuật để giảm chi phí quản lý của người quản trị là áp dụng hệ mã hóa an toàn trong tương lai nói trên. Khi đó B có thể tự cập nhật khóa và người quản trị không còn cần cấp khóa mới cho B. Tuy nhiên cần chú ý là với bộ khung CHK thì khi khóa của B bị lộ mọi dữ liệu truyền về sau sẽ bị mất an toàn. Vì vậy người quản trị cần có cách phát hiện khi khóa bị lộ để dừng sử dụng khóa và thiết lập lại hệ thống.
 		%
 		\subsection{Giao tiếp hoàn toàn ẩn danh}
 			Với một hệ IBE có tính ẩn danh, ta có thể xây dựng một hệ thống giao tiếp có tính ẩn danh cao và tin cậy. Ví dụ, người quản trị hệ thống triển khai hệ IBE ẩn danh và cấp khóa cho tất cả người dùng. Giả sử Alice và Bob là hai người dùng và Alice muốn gửi tin cho Bob. Khi đó Alice mã hóa thông điệp bằng định danh của Bob và gửi cho tất cả người dùng trong hệ thống. Mỗi người dùng sẽ thử giải mã để biết có phải thông điệp được gửi cho mình không. Và tất nhiên không ai ngoài Bob có thể giải mã được. Nhớ rằng bản mã trong hệ IBE không mang bất cứ thông tin nào của Alice, và với tính ẩn danh của hệ thì bản mã cũng không làm lộ ra Bob là người nhận.
+			%
+			\begin{figure}[h] 
+				\captionsetup{font=normalsize}
+				\includegraphics[width=\textwidth]{application_anonimous.png}
+				\centering
+				\caption{Ứng dụng IBE vào giao tiếp ẩn danh}
+			\end{figure}
 			
-			Thêm vào đó, khác với PKI là khi mỗi lần Alice muốn gửi tin cho Bob, Alice phải truy vấn CA về tình trạng khóa của Bob, dẫn đến lộ thông tin là hai người có giao tiếp với nhau; trong IBE thì Alice không cần bất cứ liên lạc nào với bên ngoài để biết tình trạng khóa của Bob, bằng cách áp dụng kỹ thuật đã trình bày ở mục nhỏ \ref{chap2:sec5:key_revocation}. Kết hợp với việc Alice gửi tin phát tán đến tất cả người dùng, thiết kế hệ thống này hoàn toàn chống được \textit{tấn công phân tích đường truyền} (traffic analysis attack).
+			Thêm vào đó, khác với PKI là khi mỗi lần Alice muốn gửi tin cho Bob, Alice phải truy vấn CA về tình trạng khóa của Bob, dẫn đến lộ thông tin là hai người có giao tiếp với nhau; trong IBE thì Alice không cần bất cứ liên lạc nào với bên ngoài để biết tình trạng khóa của Bob, bằng cách áp dụng kỹ thuật đã trình bày ở mục \ref{chap2:sec5:key_revocation}. Kết hợp với việc Alice gửi tin phát tán đến tất cả người dùng, thiết kế hệ thống này hoàn toàn chống được \textit{tấn công phân tích đường truyền} (traffic analysis attack).
 
 			Một chi tiết kỹ thuật cần nói thêm, trong những hệ IBE ẩn danh thì kể cả chủ sở hữu khóa bí mật để giải cũng không có cách nào kiểm tra một bản mã có phải được gửi đến mình không, ngoại trừ việc giải mã và xem bản rõ thu được có ``bình thường'' không (chẳng hạn như bản rõ phải là ngôn ngữ tự nhiên). Nhưng với không gian bản rõ là các chuỗi ký tự lạ (ví dụ như dữ liệu tiền mã (cryptocurrency)), việc kiểm tra như trên là không thể. Dù vậy ta vẫn có thể giải quyết vấn đề này bằng cách ràng buộc định dạng hoặc áp dụng padding cho bản rõ trước khi mã hóa. Đơn giản nhất ta có thể nối thêm $n$ số 0 vào cuối bản rõ. Với $n$ càng lớn thì xác suất có một quá trình giải mã thất bại mà lại xuất ra bản rõ kết quả có $n$ số 0 ở sau càng thấp.
 		%

@@ -1,0 +1,3 @@
+pdftk main.pdf dump_data output doc_data.txt
+
+pdftk Thesis-in.pdf update_info doc_data.txt output Thesis.pdf
