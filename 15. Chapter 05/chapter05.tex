@@ -165,10 +165,10 @@
 			\end{align*}
 			Thuật toán trả về bản rõ $M$.
 		\end{itemize}
-		%
-		Sau đây là định lý về độ an toàn của hệ mã BBG phiên bản vừa rồi. Sinh viên không trình bày chứng minh trong khóa luận này. Chứng minh có thể được tham khảo tại \cite{DBLP:conf/eurocrypt/BonehBG05}. Kế tiếp độ hiệu quả của hệ mã BBG sẽ được so sánh với hệ mã GS, BB$_1$ qua bảng \ref{table:hibe_time_comparison} và \ref{table:hibe_space_comparison}.
+
+		Hệ mã BBG có thể được cài đặt trên cả hai loại cặp ghép: đối xứng và bất đối xứng. Tùy vào trường hợp mà hệ mã sẽ tương ứng dựa trên giả định D-BDHE phiên bản đối xứng hay bất đối xứng. Sau đây là định lý về độ an toàn của hệ mã BBG. Trên cặp ghép đối xứng, đặt $\mathbb{G} := \mathbb{G}_1 = \mathbb{G}_2$ Sinh viên không trình bày chứng minh trong khóa luận này. Chứng minh có thể được tham khảo tại \cite{DBLP:conf/eurocrypt/BonehBG05}. Kế tiếp độ hiệu quả của hệ mã BBG sẽ được so sánh với hệ mã GS, BB$_1$ qua bảng \ref{table:hibe_time_comparison} và \ref{table:hibe_space_comparison}.
 		\begin{theorem}
-			Với mọi $\ell \geq 1$, nếu giả định $(t, \varepsilon, \ell)$-D-BDHE phiên bản bất đối xứng là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ thì hệ HIBE vừa mô tả đạt mức an toàn $(t', q_{id}, \ell, \varepsilon)$-IND-sID-CPA. Trong đó $t' < t - \Theta\,(\tau\, \ell\, q_{id})$ với $\tau$ là thời gian tối đa của một phép tính lũy thừa trong $\mathbb{G}$.
+			Với mọi $\ell \geq 1$, nếu giả định $(t, \varepsilon, \ell)$-D-BDHE phiên bản đối xứng (tương ứng: bất đối xứng) là đúng trong $(\mathbb{G}, \mathbb{G}_T, e)$ (tương ứng: $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$) thì hệ HIBE vừa mô tả đạt mức an toàn $(t', q_{id}, \ell, \varepsilon)$-IND-sID-CPA. Trong đó $t' < t - \Theta\,(\tau\, \ell\, q_{id})$ với $\tau$ là thời gian tối đa của một phép tính lũy thừa trong $\mathbb{G}$ (tương ứng: $\mathbb{G}_2$).
 		\end{theorem}
 		%
 		\newpage

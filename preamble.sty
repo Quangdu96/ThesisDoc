@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{iftex}
 \usepackage{indentfirst}
+\usepackage{scrextend}		% adjust local margin
 \usepackage{tabu, longtable, booktabs, multirow, makecell, caption}
 \usepackage{titlesec}
 \usepackage[nottoc]{tocbibind}
@@ -71,6 +72,27 @@
 
 \newenvironment{game}[2]{\par\noindent\textbf{#1} (#2). \hspace{1ex}}{}
 \newenvironment{problem}[2]{\par\noindent\textbf{#1 (#2).} \hspace{1ex}}{\par}
+
+\newsavebox{\mybox}
+\newenvironment{supposition}[1]
+{
+	\noindent
+	\begin{lrbox}{\mybox}
+		\begin{minipage}{\textwidth}
+			\vspace{0.2\baselineskip}
+			\hspace{1ex}
+			\textbf{Giả thiết.} (#1)
+			\vspace{0.2\baselineskip}
+			\begin{addmargin}[1cm]{0.5cm}
+}
+{
+			\end{addmargin}
+			\vspace{0.5\baselineskip}
+		\end{minipage}
+	\end{lrbox}
+	\fbox{\usebox{\mybox}}
+	\par
+}
 
 \hypersetup{
 	colorlinks=false,

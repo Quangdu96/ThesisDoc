@@ -349,381 +349,298 @@
 			\end{enumerate}
 		\end{remark}
 		%
-		Để chứng minh một lược đồ mật mã thỏa tính chất an toàn chỉ định, thông thường ta phải dựa trên giả định độ khó của một bài toán nào đó. Định lý về độ an toàn của lược đồ thường có dạng như sau: ``Nếu bài toán $\mathcal{P}$ là khó thì lược đồ thỏa tính chất an toàn''. Quá trình chứng minh thường theo chiều ngược lại (phản đảo). Nghĩa là nếu tồn tại một người phá được lược đồ thì bằng quy dẫn (reduction) ta xây dựng được một thuật toán hiệu quả để giải bài toán $\mathcal{P}$.
+		Để chứng minh một lược đồ mật mã thỏa tính chất an toàn chỉ định, thông thường ta phải dựa trên giả định độ khó của một bài toán nào đó. Định lý về độ an toàn của lược đồ thường có dạng như sau: ``Nếu bài toán $\mathcal{P}$ là khó thì lược đồ thỏa tính chất an~toàn''. Quá trình chứng minh thường theo chiều ngược lại (phản đảo). Nghĩa là nếu tồn tại một người tấn công (thuật toán) phá được lược đồ thì bằng quy dẫn (reduction) ta xây dựng được một thuật toán hiệu quả để giải bài toán $\mathcal{P}$. Bài toán càng khó thì lược đồ mật mã xây dựng dựa trên độ khó của nó càng an toàn. Vì thế các nhà mật mã học luôn muốn xây dựng lược đồ trên bài toán càng khó càng tốt để lược đồ của mình khó bị phá.
 		
-		Tiếp theo sinh viên xin giới thiệu một vài bài toán phổ biến được dùng làm nền tảng độ an toàn cho các lược đồ mật mã. Các bài toán DL, C-DH và D-DH được phát biểu trên cùng giả thiết như sau:
+		Giả sử ta có thuật toán giải bài toán $\mathcal{P}_1$, xem như một hộp đen. Trên đó ta xây dựng được một thuật toán giải bài toán $\mathcal{P}_2$ bằng một số lần gọi hộp đen này đủ ít (chặn trên bởi một hàm đa thức nào đó). Sau đó nếu ta hiện thực hóa được hộp đen này bằng một thuật toán thời gian đa thức giải $\mathcal{P}_1$ thì đồng thời ta cũng nhận được một thuật toán thời gian đa thức giải $\mathcal{P}_2$. Thuật toán giải $\mathcal{P}_2$ từ hộp đen giải $\mathcal{P}_1$ ở trên, nói một cách phi hình thức, chính là một \textit{phép quy dẫn thời gian đa thức} (polynomial-time reduction) từ $\mathcal{P}_2$ về $\mathcal{P}_1$. Song song việc đi tìm thuật toán hiệu quả giải một bài toán nào đó, các nhà khoa học máy tính luôn cố gắng xây dựng phép quy dẫn giữa các bài toán, với mục đích vẽ lên bức tranh toàn cảnh liên hệ độ khó của các bài toán. Nếu giải được $\mathcal{P}_1$ thì xem như ta làm được một công đôi việc -- giải được cả hai. Vì thế cũng có thể xem như rằng việc giải được $\mathcal{P}_1$ ít nhất khó bằng việc giải được $\mathcal{P}_2$. Nói cách khác, $\mathcal{P}_1$ khó giải hơn $\mathcal{P}_2$.
 
-		Cho $\mathbb{G}$ là nhóm cyclic hữu hạn với $|\mathbb{G}| = n$. \\ \indent
-		Ký hiệu \hspace{1ex} $r \xleftarrow{R} S$ \hspace{1ex} mang ý nghĩa $r$ được chọn ngẫu nhiên theo phân phối đều từ tập S hữu hạn.
+		Tiếp theo sinh viên xin giới thiệu một vài bài toán phổ biến được dùng làm nền tảng độ an toàn cho các lược đồ mật mã.
 		%
-		\begin{problem}{Discrete Logarithm}{DL}
-			Bài toán DL trong $\mathbb{G}$ được phát biểu như sau:
-			\vspace{-\baselineskip}
-			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
-				\item[] \textit{Input:} $g, g^x$ \\
-				Trong đó: \vspace{-\baselineskip}
-				\begin{align*}
-					g &\xleftarrow{R} \{ a \in \mathbb{G}\ | \ \langle a \rangle = \mathbb{G} \} \\
-					x &\xleftarrow{R} \mathbb{Z}_n
-				\end{align*}
-				\item[] \textit{Output:} $x$
-			\end{itemize}
+		\subsection{Những bài toán trên một nhóm}
+			\begin{supposition}{cho bài toán DL, C-DH, D-DH}
+				Cho $\mathbb{G}$ là nhóm cyclic hữu hạn với $|\mathbb{G}| = n$.
+			\end{supposition}
 			%
-			\vspace{-\baselineskip}\par
-			Lợi thế của thuật toán \algo trong việc giải bài DL trong $\mathbb{G}$ được định nghĩa là
-			\[
-				\text{Adv}_{\mathcal{A}}^{\text{DL}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x \Big) = x \ \bigg].
-			\] \indent
-			Ta nói giả định $(t, \varepsilon)$-DL là đúng trong $\mathbb{G}$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài DL trong $\mathbb{G}$.
-		\end{problem}
-		%
-		\begin{problem}{Computational Diffie-Hellman}{C-DH}
-			Bài toán C-DH trong $\mathbb{G}$ được phát biểu như sau:
-			\vspace{-\baselineskip}
-			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
-				\item[] \textit{Input:} $g, g^x, g^y$ \\
-				Trong đó: \vspace{-\baselineskip}
-				\begin{align*}
-					g 		&\xleftarrow{R} \{ a \in \mathbb{G}\ | \ \langle a \rangle = \mathbb{G} \} \\
-					x, y 	&\xleftarrow{R} \mathbb{Z}_n
-				\end{align*}
-				\item[] \textit{Output:} $g^{xy}$
-			\end{itemize}
+			Ký hiệu \hspace{1ex} $r \xleftarrow{R} S$ \hspace{1ex} mang ý nghĩa $r$ được chọn ngẫu nhiên theo phân phối đều từ tập S hữu hạn.
 			%
-			\vspace{-\baselineskip}\par
-			Lợi thế của thuật toán \algo trong việc giải bài C-DH trong $\mathbb{G}$ được định nghĩa là
-			\[
-				\text{Adv}_{\mathcal{A}}^{\text{C-DH}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y \Big) = g^{xy} \ \bigg].
-			\] \indent
-			Ta nói giả định $(t, \varepsilon)$-C-DH là đúng trong $\mathbb{G}$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài C-DH trong $\mathbb{G}$.
-		\end{problem}
-		%
-		\begin{problem}{Decisional Diffie-Hellman}{D-DH}
-			Bài toán D-DH trong $\mathbb{G}$ được phát biểu như sau:
-			\vspace{-\baselineskip}
-			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
-				\item[] \textit{Input:} $g, g^x, g^y, u$ \\
-				Trong đó: \vspace{-\baselineskip}
-				\begin{align*}
-					g 		&\xleftarrow{R} \{ a \in \mathbb{G}\ | \ \langle a \rangle = \mathbb{G} \} 	\\
-					x, y 	&\xleftarrow{R} \mathbb{Z}_n 												\\
-					\sigma 	&\xleftarrow{R} \mathbb{G}													\\
-					b 		&\xleftarrow{R} \{ 0, 1 \}
-				\end{align*}
+			\begin{problem}{Discrete Logarithm}{DL}
+				Bài toán DL trong $\mathbb{G}$ được phát biểu như sau:
+				\vspace{-\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textit{Input:} $g, g^x$ \\
+					Trong đó: \vspace{-\baselineskip}
+					\begin{align*}
+						g &\xleftarrow{R} \{ a \in \mathbb{G}\ | \ \langle a \rangle = \mathbb{G} \} \\
+						x &\xleftarrow{R} \mathbb{Z}_n
+					\end{align*}
+					\item[] \textit{Output:} $x$
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}\par
+				Lợi thế của thuật toán \algo trong việc giải bài DL trong $\mathbb{G}$ được định nghĩa là
 				\[
-					u = \begin{cases}
-						\sigma 	&\text{nếu}\quad b = 0 \\
-						g^{xy} 	&\text{nếu}\quad b = 1
-					\end{cases}
-				\]
-				\item[] \textit{Output:}
-				\[
-					\begin{cases}
-						0 &\text{nếu}\quad u \neq g^{xy} \\
-						1 &\text{nếu}\quad u = g^{xy}
-					\end{cases}
-				\]
-			\end{itemize}
+					\text{Adv}_{\mathcal{A}}^{\text{DL}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x \Big) = x \ \bigg].
+				\] \indent
+				Ta nói giả định $(t, \varepsilon)$-DL là đúng trong $\mathbb{G}$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài DL trong $\mathbb{G}$.
+			\end{problem}
 			%
-			\vspace{-\baselineskip}\par
-			Lợi thế của thuật toán \algo trong việc giải bài D-DH trong $\mathbb{G}$ được định nghĩa là
-			\[
-				\text{Adv}_{\mathcal{A}}^{\text{D-DH}} = \Bigg|\ \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, g^{xy} \Big) = 1 \ \bigg] - \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, \sigma \Big) = 1 \ \bigg]\ \Bigg|.
-			\] \indent
-			Ta nói giả định $(t, \varepsilon)$-D-DH là đúng trong $\mathbb{G}$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài D-DH trong $\mathbb{G}$.
-		\end{problem}
+			\begin{problem}{Computational Diffie-Hellman}{C-DH}
+				Bài toán C-DH trong $\mathbb{G}$ được phát biểu như sau:
+				\vspace{-\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textit{Input:} $g, g^x, g^y$ \\
+					Trong đó: \vspace{-\baselineskip}
+					\begin{align*}
+						g 		&\xleftarrow{R} \{ a \in \mathbb{G}\ | \ \langle a \rangle = \mathbb{G} \} \\
+						x, y 	&\xleftarrow{R} \mathbb{Z}_n
+					\end{align*}
+					\item[] \textit{Output:} $g^{xy}$
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}\par
+				Lợi thế của thuật toán \algo trong việc giải bài C-DH trong $\mathbb{G}$ được định nghĩa là
+				\[
+					\text{Adv}_{\mathcal{A}}^{\text{C-DH}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y \Big) = g^{xy} \ \bigg].
+				\] \indent
+				Ta nói giả định $(t, \varepsilon)$-C-DH là đúng trong $\mathbb{G}$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài C-DH trong $\mathbb{G}$.
+			\end{problem}
+			%
+			\begin{problem}{Decisional Diffie-Hellman}{D-DH}
+				Bài toán D-DH trong $\mathbb{G}$ được phát biểu như sau:
+				\vspace{-\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textit{Input:} $g, g^x, g^y, u$ \\
+					Trong đó: \vspace{-\baselineskip}
+					\begin{align*}
+						g 		&\xleftarrow{R} \{ a \in \mathbb{G}\ | \ \langle a \rangle = \mathbb{G} \} 	\\
+						x, y 	&\xleftarrow{R} \mathbb{Z}_n 												\\
+						\sigma 	&\xleftarrow{R} \mathbb{G}													\\
+						b 		&\xleftarrow{R} \{ 0, 1 \}
+					\end{align*}
+					\[
+						u = \begin{cases}
+							\sigma 	&\text{nếu}\quad b = 0 \\
+							g^{xy} 	&\text{nếu}\quad b = 1
+						\end{cases}
+					\]
+					\item[] \textit{Output:}
+					\[
+						\begin{cases}
+							0 &\text{nếu}\quad u \neq g^{xy} \\
+							1 &\text{nếu}\quad u = g^{xy}
+						\end{cases}
+					\]
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}\par
+				Lợi thế của thuật toán \algo trong việc giải bài D-DH trong $\mathbb{G}$ được định nghĩa là
+				\[
+					\text{Adv}_{\mathcal{A}}^{\text{D-DH}} = \Bigg|\ \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, g^{xy} \Big) = 1 \ \bigg] - \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, \sigma \Big) = 1 \ \bigg]\ \Bigg|.
+				\] \indent
+				Ta nói giả định $(t, \varepsilon)$-D-DH là đúng trong $\mathbb{G}$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài D-DH trong $\mathbb{G}$.
+			\end{problem}
 		%
-		Các bài toán còn lại được phát biểu trên giả thiết sau:
+		\subsection{Những bài toán trên cặp ghép đối xứng}
+			\begin{supposition}{cho bài toán BDH, BDHE, BDHI phiên bản đối xứng}
+				Cho $\mathbb{G}$ và $\mathbb{G}_T$ là hai nhóm cyclic hữu hạn thỏa $|\mathbb{G}| = |\mathbb{G}_T| = p$ với $p$ là số nguyên tố, cặp ghép $e: \mathbb{G} \times \mathbb{G} \rightarrow \mathbb{G}_T$.
+			\end{supposition}
+			%
+			\begin{problem}{Computational Bilinear Diffie-Hellman}{C-BDH}
+				Bài toán C-BDH (phiên bản đối xứng) trong $(\mathbb{G}, \mathbb{G}_T, e)$ được phát biểu như sau:
+				\vspace{-\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textit{Input:} $g, g^x, g^y, g^z$ \\
+					Trong đó: \vspace{-\baselineskip}
+					\begin{align*}
+						g 			&\xleftarrow{R} \mathbb{G}^* \quad (\mathbb{G} \setminus \{1\}) \\
+						x, y, z 	&\xleftarrow{R} \mathbb{Z}_p
+					\end{align*}
+					\item[] \textit{Output:} $e(g, g)^{xyz}$
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}\par
+				Lợi thế của thuật toán \algo trong việc giải bài C-BDH trong $(\mathbb{G}, \mathbb{G}_T, e)$ được định nghĩa là
+				\[
+					\text{Adv}_{\mathcal{A}}^{\text{C-BDH}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, g^z \Big) = e(g, g)^{xyz} \ \bigg].
+				\] \indent
+				Ta nói giả định $(t, \varepsilon)$-C-BDH là đúng trong $(\mathbb{G}, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài C-BDH trong $(\mathbb{G}, \mathbb{G}_T, e)$.
+			\end{problem}
+			%
+			\begin{problem}{Computational Bilinear Diffie-Hellman Exponent}{C-BDHE}
+				Bài toán $\ell$-C-BDHE (phiên bản đối xứng) $(\ell \geq 1)$ trong $(\mathbb{G}, \mathbb{G}_T, e)$ được phát biểu như sau:
+				\vspace{-\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textit{Input:} $g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h$ \\
+					Trong đó: \vspace{-\baselineskip}
+					\begin{align*}
+						g, h 	&\xleftarrow{R} \mathbb{G}^* \\
+						\alpha 	&\xleftarrow{R} \mathbb{Z}_p^*
+					\end{align*}
+					\item[] \textit{Output:} $e(g, h)^{(\alpha^{\ell + 1})}$
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}\par
+				Lợi thế của thuật toán \algo trong việc giải bài $\ell$-C-BDHE trong $(\mathbb{G}, \mathbb{G}_T, e)$ được định nghĩa là
+				\[
+					\text{Adv}_{\mathcal{A}}^{\text{C-BDHE}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h \Big) = e(g, h)^{(\alpha^{\ell + 1})} \ \bigg].
+				\] \indent
+				Ta nói giả định $(t, \varepsilon, \ell)$-C-BDHE là đúng trong $(\mathbb{G}, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-C-BDHE trong $(\mathbb{G}, \mathbb{G}_T, e)$.
+			\end{problem}
+			%
+			\begin{problem}{Computational Bilinear Diffie-Hellman Inversion}{C-BDHI}
+				Bài toán $\ell$-C-BDHI (phiên bản đối xứng) $(\ell \geq 1)$ trong $(\mathbb{G}, \mathbb{G}_T, e)$ được phát biểu như sau:
+				\vspace{-\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textit{Input:} $g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h$ \\
+					Trong đó: \vspace{-\baselineskip}
+					\begin{align*}
+						g, h 	&\xleftarrow{R} \mathbb{G}^* \\
+						\alpha 	&\xleftarrow{R} \mathbb{Z}_p^*
+					\end{align*}
+					\item[] \textit{Output:} $e(g, h)^{1/\alpha}$
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}\par
+				Lợi thế của thuật toán \algo trong việc giải bài $\ell$-C-BDHI trong $(\mathbb{G}, \mathbb{G}_T, e)$ được định nghĩa là
+				\[
+					\text{Adv}_{\mathcal{A}}^{\text{C-BDHI}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h \Big) = e(g, h)^{1/\alpha} \ \bigg].
+				\] \indent
+				Ta nói giả định $(t, \varepsilon, \ell)$-C-BDHI là đúng trong $(\mathbb{G}, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-C-BDHI trong $(\mathbb{G}, \mathbb{G}_T, e)$.
+			\end{problem}
+		%
+		\subsection{Những bài toán trên cặp ghép bất đối xứng}
+			\begin{supposition}{cho bài toán BDH, coBDH, BDHE, BDHI phiên bản bất đối xứng}
+				Cho $\mathbb{G}_1$, $\mathbb{G}_2$, $\mathbb{G}_T$ là các nhóm cyclic hữu hạn thỏa $|\mathbb{G}_1| = |\mathbb{G}_2| = |\mathbb{G}_T| = p$ với $p$ là số nguyên tố, cặp ghép $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$.
+			\end{supposition}
+			%
+			\begin{problem}{Computational Bilinear Diffie-Hellman}{C-BDH}
+				Bài toán C-BDH (phiên bản bất đối xứng) trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được phát biểu như sau:
+				\vspace{-\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textit{Input:} $g, g^x, g^y, h, h^z$ \\
+					Trong đó: \vspace{-\baselineskip}
+					\begin{align*}
+						g 			&\xleftarrow{R} \mathbb{G}_1^* \\
+						h 			&\xleftarrow{R} \mathbb{G}_2^* \\
+						x, y, z 	&\xleftarrow{R} \mathbb{Z}_p
+					\end{align*}
+					\item[] \textit{Output:} $e(g, h)^{xyz}$
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}\par
+				Lợi thế của thuật toán \algo trong việc giải bài C-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa là
+				\[
+					\text{Adv}_{\mathcal{A}}^{\text{C-BDH}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, h, h^z \Big) = e(g, h)^{xyz} \ \bigg].
+				\] \indent
+				Ta nói giả định $(t, \varepsilon)$-C-BDH là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài C-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
+			\end{problem}
+			%
+			\begin{problem}{Computational co-Bilinear Diffie-Hellman}{C-coBDH}
+				Bài toán C-coBDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được phát biểu như sau:
+				\vspace{-\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textit{Input:} $g, g^x, g^y, h, h^x, h^z$ \\
+					Trong đó: \vspace{-\baselineskip}
+					\begin{align*}
+						g 			&\xleftarrow{R} \mathbb{G}_1^* \\
+						h 			&\xleftarrow{R} \mathbb{G}_2^* \\
+						x, y, z 	&\xleftarrow{R} \mathbb{Z}_p
+					\end{align*}
+					\item[] \textit{Output:} $e(g, h)^{xyz}$
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}\par
+				Lợi thế của thuật toán \algo trong việc giải bài C-coBDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa là
+				\[
+					\text{Adv}_{\mathcal{A}}^{\text{C-coBDH}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, h, h^x, h^z \Big) = e(g, h)^{xyz} \ \bigg].
+				\] \indent
+				Ta nói giả định $(t, \varepsilon)$-C-coBDH là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài C-coBDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
+			\end{problem}
+			%
+			\begin{problem}{Computational Bilinear Diffie-Hellman Exponent}{C-BDHE}
+				Bài toán $\ell$-C-BDHE (phiên bản bất đối xứng) $(\ell \geq 1)$ trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được phát biểu như sau:
+				\vspace{-\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textit{Input:} $g, g^\alpha, ..., g^{(\alpha^\ell)}, h, h^\alpha, ..., h^{(\alpha^\ell)}$ \\
+					Trong đó: \vspace{-\baselineskip}
+					\begin{align*}
+						g 		&\xleftarrow{R} \mathbb{G}_1^* \\
+						h 		&\xleftarrow{R} \mathbb{G}_2^* \\
+						\alpha 	&\xleftarrow{R} \mathbb{Z}_p^*
+					\end{align*}
+					\item[] \textit{Output:} $e(g, h)^{(\alpha^{2\ell + 1})}$
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}\par
+				Lợi thế của thuật toán \algo trong việc giải bài $\ell$-C-BDHE trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa là
+				\[
+					\text{Adv}_{\mathcal{A}}^{\text{C-BDHE}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, ..., g^{(\alpha^\ell)}, h, h^\alpha, ..., h^{(\alpha^\ell)} \Big) = e(g, h)^{(\alpha^{2\ell + 1})} \ \bigg].
+				\] \indent
+				Ta nói giả định $(t, \varepsilon, \ell)$-C-BDHE là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-C-BDHE trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
+			\end{problem}
+			%
+			\begin{problem}{Computational Bilinear Diffie-Hellman Inversion}{C-BDHI}
+				Bài toán $\ell$-C-BDHI (phiên bản bất đối xứng) $(\ell \geq 1)$ trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được phát biểu như sau:
+				\vspace{-\baselineskip}
+				\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
+					\item[] \textit{Input:} $g, g^\alpha, ..., g^{(\alpha^\ell)}, h, h^\alpha, ..., h^{(\alpha^\ell)}$ \\
+					Trong đó: \vspace{-\baselineskip}
+					\begin{align*}
+						g 		&\xleftarrow{R} \mathbb{G}_1^* \\
+						h 		&\xleftarrow{R} \mathbb{G}_2^* \\
+						\alpha 	&\xleftarrow{R} \mathbb{Z}_p^*
+					\end{align*}
+					\item[] \textit{Output:} $e(g, h)^{1/\alpha}$
+				\end{itemize}
+				%
+				\vspace{-\baselineskip}\par
+				Lợi thế của thuật toán \algo trong việc giải bài $\ell$-C-BDHI trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa là
+				\[
+					\text{Adv}_{\mathcal{A}}^{\text{C-BDHI}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, ..., g^{(\alpha^\ell)}, h, h^\alpha, ..., h^{(\alpha^\ell)} \Big) = e(g, h)^{1/\alpha} \ \bigg].
+				\] \indent
+				Ta nói giả định $(t, \varepsilon, \ell)$-C-BDHI là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-C-BDHI trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
+			\end{problem}
+		%
+		\subsection{Sơ đồ quy dẫn giữa các bài toán}
+			Phiên bản quyết định (decisional) của các bài toán BDH, coBDH, BDHE, BDHI có thể được xây dựng tương tự như bài Decisional Diffie-Hellman trước đó. Cụ thể hơn, gọi $\mathcal{T}$ là output phiên bản tính toán. Input phiên bản quyết định được cho thêm phần tử $u \in \mathbb{G}_T$. Trong đó $u$ hoặc bằng $\mathcal{T}$ hoặc bằng một phần tử ngẫu nhiên trong $\mathbb{G}_T$. Phiên bản quyết định yêu cầu phân biệt $\mathcal{T}$ với giá trị ngẫu nhiên, tức là output $1$ nếu $u = \mathcal{T}$ và $0$ nếu ngược lại. Lợi thế của thuật toán và giả định của bài toán cũng được định nghĩa tương tự bài toán D-DH.
 		
-		Cho $\mathbb{G}_1$, $\mathbb{G}_2$, $\mathbb{G}_T$ là các nhóm cyclic hữu hạn thỏa $|\mathbb{G}_1| = |\mathbb{G}_2| = |\mathbb{G}_T| = p$ với $p$ là số nguyên tố, cặp ghép $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$.
-		%
-		\newpage
-		\begin{problem}{Computational Bilinear Diffie-Hellman}{C-BDH}
-			Bài toán C-BDH (phiên bản bất đối xứng) trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được phát biểu như sau:
-			\vspace{-\baselineskip}
-			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
-				\item[] \textit{Input:} $g, g^x, g^y, h, h^x, h^z$ \\
-				Trong đó: \vspace{-\baselineskip}
-				\begin{align*}
-					g 			&\xleftarrow{R} \mathbb{G}_1^* \quad (\mathbb{G}_1 \setminus \{1\}) \\
-					h 			&\xleftarrow{R} \mathbb{G}_2^* 										\\
-					x, y, z 	&\xleftarrow{R} \mathbb{Z}_p
-				\end{align*}
-				\item[] \textit{Output:} $e(g, h)^{xyz}$
-			\end{itemize}
+			Hình \ref{fig:symmetric_reduction} và \ref{fig:assymmetric_reduction} bên dưới cho thấy mối quan hệ về độ khó giữa các bài toán nêu~trên. Bài toán phía đầu mũi tên khó bằng hoặc hơn bài toán phía đuôi mũi tên. Với các bài toán có hai phiên bản tính toán và quyết định thì dễ thấy là nếu giải được phiên bản tính toán thì giải được phiên bản quyết định. Vì vậy hai phiên bản của các bài toán được tách ra ở hai sơ đồ với mục đích dễ nhìn. Tất cả phép quy dẫn trong sơ đồ xin được chấp nhận và không trình bày chi tiết trong khóa luận này.
 			%
-			\vspace{-\baselineskip}\par
-			Lợi thế của thuật toán \algo trong việc giải bài C-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa là
-			\[
-				\text{Adv}_{\mathcal{A}}^{\text{C-BDH}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, h, h^x, h^z \Big) = e(g, h)^{xyz} \ \bigg].
-			\] \indent
-			Ta nói giả định $(t, \varepsilon)$-C-BDH là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài C-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
-		\end{problem}
-		%
-		\begin{problem}{Decisional Bilinear Diffie-Hellman}{D-BDH}
-			Bài toán D-BDH (phiên bản bất đối xứng) trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được phát biểu như sau:
-			\vspace{-\baselineskip}
-			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
-				\item[] \textit{Input:} $g, g^x, g^y, h, h^x, h^z, u$ \\
-				Trong đó: \vspace{-\baselineskip}
-				\begin{align*}
-					g 			&\xleftarrow{R} \mathbb{G}_1^* 	\\
-					h 			&\xleftarrow{R} \mathbb{G}_2^* 	\\
-					x, y, z 	&\xleftarrow{R} \mathbb{Z}_p 	\\
-					\sigma 		&\xleftarrow{R} \mathbb{G}_T 	\\
-					b 			&\xleftarrow{R} \{ 0, 1 \}
-				\end{align*}
-				\[
-					u = \begin{cases}
-						\sigma 			&\text{nếu}\quad b = 0 \\
-						e(g, h)^{xyz} 	&\text{nếu}\quad b = 1
-					\end{cases}
-				\]
-				\item[] \textit{Output:}
-				\[
-					\begin{cases}
-						0 &\text{nếu}\quad u \neq e(g, h)^{xyz} \\
-						1 &\text{nếu}\quad u = e(g, h)^{xyz}
-					\end{cases}
-				\]
-			\end{itemize}
+			\begin{figure}[h]
+				\captionsetup{font=normalsize}
+				\includegraphics[width=\textwidth]{symmetric_problem_reduction.jpg}
+				\centering
+				\caption{Sơ đồ quy dẫn giữa các bài toán trên cặp ghép đối xứng}
+				\label{fig:symmetric_reduction}
+			\end{figure}
 			%
-			\vspace{-\baselineskip}\par
-			Lợi thế của thuật toán \algo trong việc giải bài D-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa là
-			\begin{equation*}
-				\begin{split}
-					\text{Adv}_{\mathcal{A}}^{\text{D-BDH}} = \Bigg|\ &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, h, h^x, h^z, e(g, h)^{xyz} \Big) = 1 \ \bigg] \\
-					- &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, h, h^x, h^z, \sigma \Big) = 1 \ \bigg]\ \Bigg|.
-				\end{split}
-			\end{equation*} \indent
-			Ta nói giả định $(t, \varepsilon)$-D-BDH là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài D-BDH trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
-		\end{problem}
-		%
-		\begin{problem}{Computational Bilinear Diffie-Hellman Exponent}{C-BDHE}
-			Bài toán $\ell$-C-BDHE $(\ell \geq 1)$ trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được phát biểu như sau:
-			\vspace{-\baselineskip}
-			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
-				\item[] \textit{Input:} $g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h$ \\
-				Trong đó: \vspace{-\baselineskip}
-				\begin{align*}
-					g 		&\xleftarrow{R} \mathbb{G}_1^* \\
-					h 		&\xleftarrow{R} \mathbb{G}_2^* \\
-					\alpha 	&\xleftarrow{R} \mathbb{Z}_p^*
-				\end{align*}
-				\item[] \textit{Output:} $e(g, h)^{(\alpha^{\ell + 1})}$
-			\end{itemize}
+			\begin{figure}[h]
+				\captionsetup{font=normalsize}
+				\includegraphics[width=\textwidth]{assymmetric_problem_reduction.jpg}
+				\centering
+				\caption{Sơ đồ quy dẫn giữa các bài toán trên cặp ghép bất đối xứng}
+				\label{fig:assymmetric_reduction}
+			\end{figure}
 			%
-			\vspace{-\baselineskip}\par
-			Lợi thế của thuật toán \algo trong việc giải bài $\ell$-C-BDHE trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa là
-			\[
-				\text{Adv}_{\mathcal{A}}^{\text{C-BDHE}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h \Big) = e(g, h)^{(\alpha^{\ell + 1})} \ \bigg].
-			\] \indent
-			Ta nói giả định $(t, \varepsilon, \ell)$-C-BDHE là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-C-BDHE trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
-		\end{problem}
-		%
-		\newpage
-		\begin{problem}{Decisional Bilinear Diffie-Hellman Exponent}{D-BDHE}
-			Bài toán $\ell$-D-BDHE $(\ell \geq 1)$ trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được phát biểu như sau:
-			\vspace{-\baselineskip}
-			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
-				\item[] \textit{Input:} $g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, u$ \\
-				Trong đó: \vspace{-\baselineskip}
-				\begin{align*}
-					g 		&\xleftarrow{R} \mathbb{G}_1^* \\
-					h 		&\xleftarrow{R} \mathbb{G}_2^* \\
-					\alpha 	&\xleftarrow{R} \mathbb{Z}_p^* \\
-					\sigma 	&\xleftarrow{R} \mathbb{G}_T \\
-					b 		&\xleftarrow{R} \{ 0, 1 \}
-				\end{align*}
-				\[
-					u = \begin{cases}
-						\sigma 							&\text{nếu}\quad b = 0 \\
-						e(g, h)^{(\alpha^{\ell + 1})} 	&\text{nếu}\quad b = 1
-					\end{cases}
-				\]
-				\item[] \textit{Output:}
-				\[
-					\begin{cases}
-						0 &\text{nếu}\quad u \neq e(g, h)^{(\alpha^{\ell + 1})} \\
-						1 &\text{nếu}\quad u = e(g, h)^{(\alpha^{\ell + 1})}
-					\end{cases}
-				\] 
-			\end{itemize}
-			%
-			\vspace{-\baselineskip}\par
-			Lợi thế của thuật toán \algo trong việc giải bài $\ell$-D-BDHE trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa là
-			\begin{equation*}
-				\begin{split}
-					\text{Adv}_{\mathcal{A}}^{\text{D-BDHE}} = \Bigg|\ &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, e(g, h)^{(\alpha^{\ell + 1})} \Big) = 1 \ \bigg] \\
-					- &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, \sigma \Big) = 1 \ \bigg]\ \Bigg|.
-				\end{split}
-			\end{equation*} \indent
-			Ta nói giả định $(t, \varepsilon, \ell)$-D-BDHE là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-D-BDHE trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
-		\end{problem}
-		%
-		\begin{problem}{Computational Bilinear Diffie-Hellman Inversion}{C-BDHI}
-			Bài toán $\ell$-C-BDHI $(\ell \geq 1)$ trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được phát biểu như sau:
-			\vspace{-\baselineskip}
-			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
-				\item[] \textit{Input:} $g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h$ \\
-				Trong đó: \vspace{-\baselineskip}
-				\begin{align*}
-					g 		&\xleftarrow{R} \mathbb{G}_1^* \\
-					h 		&\xleftarrow{R} \mathbb{G}_2^* \\
-					\alpha 	&\xleftarrow{R} \mathbb{Z}_p^*
-				\end{align*}
-				\item[] \textit{Output:} $e(g, h)^{1/\alpha}$
-			\end{itemize}
-			%
-			\vspace{-\baselineskip}\par
-			Lợi thế của thuật toán \algo trong việc giải bài $\ell$-C-BDHI trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa là
-			\[
-				\text{Adv}_{\mathcal{A}}^{\text{C-BDHI}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h \Big) = e(g, h)^{1/\alpha} \ \bigg].
-			\] \indent
-			Ta nói giả định $(t, \varepsilon, \ell)$-C-BDHI là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-C-BDHI trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
-		\end{problem}
-		%
-		\begin{problem}{Decisional Bilinear Diffie-Hellman Inversion}{D-BDHI}
-			Bài toán $\ell$-D-BDHI $(\ell \geq 1)$ trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được phát biểu như sau:
-			\vspace{-\baselineskip}
-			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
-				\item[] \textit{Input:} $g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, u$ \\
-				Trong đó: \vspace{-\baselineskip}
-				\begin{align*}
-					g 		&\xleftarrow{R} \mathbb{G}_1^* \\
-					h 		&\xleftarrow{R} \mathbb{G}_2^* \\
-					\alpha 	&\xleftarrow{R} \mathbb{Z}_p^* \\
-					\sigma 	&\xleftarrow{R} \mathbb{G}_T \\
-					b 		&\xleftarrow{R} \{ 0, 1 \}
-				\end{align*}
-				\[
-					u = \begin{cases}
-						\sigma 							&\text{nếu}\quad b = 0 \\
-						e(g, h)^{1/\alpha} 	&\text{nếu}\quad b = 1
-					\end{cases}
-				\]
-				\item[] \textit{Output:}
-				\[
-					\begin{cases}
-						0 &\text{nếu}\quad u \neq e(g, h)^{1/\alpha} \\
-						1 &\text{nếu}\quad u = e(g, h)^{1/\alpha}
-					\end{cases}
-				\]
-			\end{itemize}
-			%
-			\vspace{-\baselineskip}\par
-			Lợi thế của thuật toán \algo trong việc giải bài $\ell$-D-BDHI trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ được định nghĩa là
-			\begin{equation*}
-				\begin{split}
-					\text{Adv}_{\mathcal{A}}^{\text{D-BDHI}} = \Bigg|\ &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, e(g, h)^{1/\alpha} \Big) = 1 \ \bigg] \\
-					- &\text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^\alpha, g^{(\alpha^2)}, ..., g^{(\alpha^\ell)}, h, \sigma \Big) = 1 \ \bigg]\ \Bigg|.
-				\end{split}
-			\end{equation*} \indent
-			Ta nói giả định $(t, \varepsilon, \ell)$-D-BDHI là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài $\ell$-D-BDHI trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$.
-		\end{problem}
-		%
-		Khi $e$ là cặp ghép đối xứng $(\mathbb{G}_1 = \mathbb{G}_2)$, hai bài toán BDHE và BDHI ở cả hai phiên bản tính toán và quyết định đều được phát biểu tương tự. Nhưng trong trường hợp này bài toán BDH được phát biểu ở trên không được dùng mà thay vào đó những nhà mật mã học sử dụng một phiên bản khác (vẫn gọi là BDH). Thực chất, phiên bản đối xứng được đề xuất trước, sau đó Boneh và Boyen \cite{DBLP:journals/joc/BonehB11} mới tổng quát hóa thành phiên bản bất đối xứng. Từ đây, sinh viên xin gọi phiên bản bất đối xứng của bài toán BDH được phát biểu trước đó là BDH$^*$, và giữ lại tên BDH cho phiên bản đối xứng. \\ \indent
-		Gọi $\mathbb{G} = \mathbb{G}_1 = \mathbb{G}_2$. Khi đó $e: \mathbb{G} \times \mathbb{G} \rightarrow \mathbb{G}_T$.
-		%
-		\begin{problem}{Computational Bilinear Diffie-Hellman}{C-BDH}
-			Bài toán C-BDH (phiên bản đối xứng) trong $(\mathbb{G}, \mathbb{G}_T, e)$ được phát biểu như sau:
-			\vspace{-\baselineskip}
-			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
-				\item[] \textit{Input:} $g, g^x, g^y, g^z$ \\
-				Trong đó: \vspace{-\baselineskip}
-				\begin{align*}
-					g 			&\xleftarrow{R} \mathbb{G}^* \\
-					x, y, z 	&\xleftarrow{R} \mathbb{Z}_p
-				\end{align*}
-				\item[] \textit{Output:} $e(g, g)^{xyz}$
-			\end{itemize}
-			%
-			\vspace{-\baselineskip}\par
-			Lợi thế của thuật toán \algo trong việc giải bài C-BDH trong $(\mathbb{G}, \mathbb{G}_T, e)$ được định nghĩa là
-			\[
-				\text{Adv}_{\mathcal{A}}^{\text{C-BDH}} = \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, g^z \Big) = e(g, g)^{xyz} \ \bigg].
-			\] \indent
-			Ta nói giả định $(t, \varepsilon)$-C-BDH là đúng trong $(\mathbb{G}, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài C-BDH trong $(\mathbb{G}, \mathbb{G}_T, e)$.
-		\end{problem}
-		%
-		\begin{problem}{Decisional Bilinear Diffie-Hellman}{D-BDH}
-			Bài toán D-BDH (phiên bản đối xứng) trong $(\mathbb{G}, \mathbb{G}_T, e)$ được phát biểu như sau:
-			\vspace{-\baselineskip}
-			\begin{itemize}[leftmargin=1.5cm, itemindent=-0.5cm]
-				\item[] \textit{Input:} $g, g^x, g^y, g^z, u$ \\
-				Trong đó: \vspace{-\baselineskip}
-				\begin{align*}
-					g 			&\xleftarrow{R} \mathbb{G}^* 	\\
-					x, y, z 	&\xleftarrow{R} \mathbb{Z}_p 	\\
-					\sigma 		&\xleftarrow{R} \mathbb{G}_T 	\\
-					b 			&\xleftarrow{R} \{ 0, 1 \}
-				\end{align*}
-				\[
-					u = \begin{cases}
-						\sigma 			&\text{nếu}\quad b = 0 \\
-						e(g, g)^{xyz} 	&\text{nếu}\quad b = 1
-					\end{cases}
-				\]
-				\item[] \textit{Output:}
-				\[
-					\begin{cases}
-						0 &\text{nếu}\quad u \neq e(g, g)^{xyz} \\
-						1 &\text{nếu}\quad u = e(g, g)^{xyz}
-					\end{cases}
-				\]
-			\end{itemize}
-			%
-			\vspace{-\baselineskip}\par
-			Lợi thế của thuật toán \algo trong việc giải bài D-BDH trong $(\mathbb{G}, \mathbb{G}_T, e)$ được định nghĩa là
-			\[
-					\text{Adv}_{\mathcal{A}}^{\text{D-BDH}} = \Bigg|\ \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, g^z, e(g, g)^{xyz} \Big) = 1 \ \bigg] - \text{Pr}\bigg[ \ \mathcal{A}\Big(g, g^x, g^y, g^z, \sigma \Big) = 1 \ \bigg]\ \Bigg|.
-			\] \indent
-			Ta nói giả định $(t, \varepsilon)$-D-BDH là đúng trong $(\mathbb{G}, \mathbb{G}_T, e)$ nếu mọi thuật toán chạy trong thời gian $t$ đều có lợi thế nhiều nhất là $\varepsilon$ trong việc giải bài D-BDH trong $(\mathbb{G}, \mathbb{G}_T, e)$.
-		\end{problem}
-		%
-		Giả sử ta có thuật toán giải bài toán $\mathcal{P}_1$, xem như một hộp đen. Trên đó ta xây dựng được một thuật toán giải bài toán $\mathcal{P}_2$ bằng một số lần gọi đủ ít (chặn trên bởi một hàm đa thức nào đó) hộp đen này. Sau đó nếu ta hiện thực hóa được hộp đen này bằng một thuật toán thời gian đa thức giải $\mathcal{P}_1$ thì đồng thời ta cũng nhận được một thuật toán thời gian đa thức giải $\mathcal{P}_2$. Thuật toán giải $\mathcal{P}_2$ từ hộp đen giải $\mathcal{P}_1$ ở trên, nói một cách phi hình thức, chính là một \textit{phép quy dẫn thời gian đa thức} từ $\mathcal{P}_2$ về $\mathcal{P}_1$. Song song việc đi tìm thuật toán hiệu quả giải một bài toán nào đó, các nhà khoa học máy tính luôn cố gắng xây dựng phép quy dẫn giữa các bài toán, với mục đích vẽ lên bức tranh toàn cảnh liên hệ độ khó của các bài toán. Nếu giải được $\mathcal{P}_1$ thì xem như ta làm được một công đôi việc -- giải được cả hai. Vì thế cũng có thể xem như rằng việc giải được $\mathcal{P}_1$ ít nhất khó bằng việc giải được $\mathcal{P}_2$. Nói cách khác, $\mathcal{P}_1$ khó giải hơn $\mathcal{P}_2$.
-
-		Bài toán càng khó thì lược đồ mật mã xây dựng dựa trên độ khó của nó càng an toàn. Một chứng minh an toàn cho lược đồ thực chất là một phép quy dẫn từ bài toán về lược đồ. Chứng minh nói rằng nếu phá được lược đồ thì giải được bài toán. Vì thế các nhà mật mã học luôn muốn xây dựng lược đồ trên bài toán càng khó càng tốt để lược đồ của mình khó bị phá.
-
-		Hình \ref{fig:computation_reduction} và \ref{fig:decision_reduction} bên dưới cho thấy mối quan hệ về độ khó giữa các bài toán nêu trên. Bài toán phía đầu mũi tên khó bằng hoặc hơn bài toán phía đuôi mũi tên. Với các bài toán có hai phiên bản tính toán và quyết định thì dễ thấy là nếu giải được phiên bản tính toán thì giải được phiên bản quyết định. Vì vậy hai phiên bản của các bài toán được tách ra ở hai sơ đồ với mục đích dễ nhìn. Tất cả phép quy dẫn trong sơ đồ xin được chấp nhận và không trình bày chi tiết trong khóa luận này.
-		%
-		\begin{figure}[h] 
-			\captionsetup{font=normalsize}
-			\includegraphics[width=0.85\textwidth]{computation_problem_reduction.jpg}
-			\centering
-			\caption{Sơ đồ quy dẫn giữa phiên bản tính toán của các bài toán}
-			\label{fig:computation_reduction}
-		\end{figure}
-		%
-		\begin{figure}[h]
-			\captionsetup{font=normalsize}
-			\includegraphics[width=0.75\textwidth]{decision_problem_reduction.jpg}
-			\centering
-			\caption{Sơ đồ quy dẫn giữa phiên bản quyết định của các bài toán}
-			\label{fig:decision_reduction}
-		\end{figure}
-		%
-		\newpage
-		\begin{remark}
-			Trong trường hợp $e$ là cặp ghép đối xứng với $\mathbb{G} = \mathbb{G}_1 = \mathbb{G}_2$ thì bài toán DDH \emph{ở trong $\mathbb{G}$} là dễ. Thật vậy, cho $g, g^x, g^y, u \in \mathbb{G}$, ta có thể kiểm tra các giá trị trên có tạo thành bộ Diffie-Hellman $(\text{tức}\ (g, g^x, g^y, g^{xy}))$ hay không bằng cách kiểm tra đẳng thức
-			%
-			\begin{equation}
-				e(g, u) = e(g^x, g^y). \tag{*}\label{eq:check_ddh_tuple}
-			\end{equation} \indent
-			%
-			Ta chứng minh \eqref{eq:check_ddh_tuple} thỏa khi và chỉ khi $u = g^{xy}$.
-			\vspace{-\baselineskip}
-			\begin{proof}[Chứng minh]
-				Chiều đảo là hiển nhiên do tính song tuyến tính. Đặt $u = g^t$ với $t$ nào đó thuộc $\mathbb{Z}_p$. Nếu \eqref{eq:check_ddh_tuple} thỏa thì ta có
-				\[
-					e(g, g)^{xy} = e(g^x, g^y) = e(g, u) = e(g, g^t) = e(g, g)^t.
-				\]
-				Theo nhận xét \ref{remark:pairing.2} ở trên thì $e(g, g)$ là phần tử sinh của $\mathbb{G}_T$, suy ra $t \equiv xy \pmod{p}$. Dẫn đến $u = g^t = g^{xy}$ (để ý rằng $\mathbb{G}$ và $\mathbb{G}_T$ đều là nhóm cyclic cấp $p$).
-			\end{proof}
-			%
-			\vspace{-\baselineskip}
-			Việc bài toán DDH trong $\mathbb{G}$ không còn khó nữa không những không làm mất nguồn bài toán khó hay làm các lược đồ xây dựng trên cặp ghép suy yếu, mà trái lại lại trở thành một công cụ tốt để thiết kế lược đồ mật mã. Ví dụ ta có thể kiểm tra bản mã có hợp lệ không bằng cách kiểm một bộ bốn (gồm phần tử trong bản mã và dữ liệu đã có) có là bộ Diffie-Hellman hay không. Và quan trọng hơn, bài toán CDH trong $\mathbb{G}$ và DDH trong $\mathbb{G}_T$ (được tin là) vẫn khó dù cho có cặp ghép đối xứng. Vì thế giả định độ khó của những bài toán trên vẫn còn đứng vững.
-		\end{remark}
+			\begin{remark}
+				Trong trường hợp $e$ là cặp ghép đối xứng với $\mathbb{G} = \mathbb{G}_1 = \mathbb{G}_2$ thì bài toán DDH \emph{ở trong $\mathbb{G}$} là dễ. Thật vậy, cho $g, g^x, g^y, u \in \mathbb{G}$, ta có thể kiểm tra các giá trị trên có tạo thành bộ Diffie-Hellman $(\text{tức}\ (g, g^x, g^y, g^{xy}))$ hay không bằng cách kiểm tra đẳng thức
+				%
+				\begin{equation}
+					e(g, u) = e(g^x, g^y). \tag{*}\label{eq:check_ddh_tuple}
+				\end{equation} \indent
+				%
+				Ta chứng minh \eqref{eq:check_ddh_tuple} thỏa khi và chỉ khi $u = g^{xy}$.
+				\vspace{-\baselineskip}
+				\begin{proof}[Chứng minh]
+					Chiều đảo là hiển nhiên do tính song tuyến tính. Đặt $u = g^t$ với $t$ nào đó thuộc $\mathbb{Z}_p$. Nếu \eqref{eq:check_ddh_tuple} thỏa thì ta có
+					\[
+						e(g, g)^{xy} = e(g^x, g^y) = e(g, u) = e(g, g^t) = e(g, g)^t.
+					\]
+					Theo nhận xét \ref{remark:pairing.2} ở trên thì $e(g, g)$ là phần tử sinh của $\mathbb{G}_T$, suy ra $t \equiv xy \pmod{p}$. Dẫn đến $u = g^t = g^{xy}$ (để ý rằng $\mathbb{G}$ và $\mathbb{G}_T$ đều là nhóm cyclic cấp $p$).
+				\end{proof}
+				%
+				\vspace{-\baselineskip}
+				Việc bài toán DDH trong $\mathbb{G}$ không còn khó nữa không những không làm mất nguồn bài toán khó hay làm các lược đồ xây dựng trên cặp ghép suy yếu, mà trái lại lại trở thành một công cụ tốt để thiết kế lược đồ mật mã. Ví dụ ta có thể kiểm tra bản mã có hợp lệ không bằng cách kiểm một bộ bốn (gồm phần tử trong bản mã và dữ liệu đã có) có là bộ Diffie-Hellman hay không. Và quan trọng hơn, bài toán CDH trong $\mathbb{G}$ và DDH trong $\mathbb{G}_T$ (được tin là) vẫn khó dù cho có cặp ghép đối xứng. Vì thế giả định độ khó của những bài toán trên vẫn còn đứng vững.
+			\end{remark}
 	%
 	\section{Tiêu chí đánh giá một hệ IBE}
 		\begin{figure}[h] 
