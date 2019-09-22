@@ -12,7 +12,7 @@
 	\section{Phiên bản IBE}
 		Định danh của hệ IBE này là một phần tử thuộc $\mathbb{Z}_p^*$ với $p$ là số nguyên tố. Bản rõ phải là một phần tử thuộc $\mathbb{G}_T$. Sinh viên bổ sung thêm thuật toán \textsf{SecretKeyVerify} vào hệ mã để cho phép chủ định danh kiểm tra khóa bí mật nhận từ PKG có hợp lệ không.
 		%
-		\vspace{-0.5\baselineskip}
+		\vspace{-1.5\baselineskip}
 		\begin{itemize}[leftmargin=1cm, itemindent=-1cm]
 			\item[] {\sffamily\bfseries Setup($\lambda$)} \\
 			Từ tham số an toàn $\lambda$, sinh các nhóm $\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T$ có cấp $p$ phù hợp và cặp ghép $e: \mathbb{G}_1 \times \mathbb{G}_2 \rightarrow \mathbb{G}_T$. Đặt $\Gamma = (p, \mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$, $\Gamma$ mang thông tin mô tả của ba nhóm và cặp ghép. Chọn ngẫu nhiên $g,\, u_0,\, u_1 \xleftarrow{R} \mathbb{G}_1^*,\ h \xleftarrow{R} \mathbb{G}_2^*,\ \alpha \xleftarrow{R} \mathbb{Z}_p^*$. \\
@@ -63,7 +63,7 @@
 				C_0 \cdot\ \frac{e \Big(H(ID),\ h \Big)^{rs}}{e \Big(g\,^\alpha,\ h \Big)^s\, e \Big(H(ID),\ h \Big)^{rs}} = M \cdot Z\,^s \cdot \frac{1}{Z\,^s} = M.
 			\end{align*}
 		\end{itemize}
-		%
+		
 		Sau đây là so sánh chi tiết về độ hiệu quả giữa các hệ mã BF, SK, BB$_1$, BB$_2$, Waters, BBG và Gentry.
 		%
 		\subimport{./}{ibe_time_comparison_table.tex}
@@ -128,7 +128,7 @@
 				sk_{ID', 2} &= sk_{ID, 2} = h^r, \\
 				sk_{ID', 3, j} &= sk_{ID, 3, j} = u_j^r \quad\quad\quad (\, j = \overline{k + 2, \ell}\,).
 			\end{align*}
-			Tại đây thuật toán có thể trả về $sk_{ID'}$ do nó đã là một khóa bí mật hợp lệ của $ID'$. Tuy nhiên nếu ta cần tính chất độc lập với lịch sử sinh khóa trong hệ HIBE, thực hiện tái tạo độ ngẫu nhiên là bắt buộc. Thuật toán tiếp tục như sau: \\
+			Tại đây thuật toán có thể trả về $sk_{ID'}$ do nó đã là một khóa bí mật hợp lệ của~$ID'$. Tuy nhiên nếu ta cần tính chất độc lập với lịch sử sinh khóa trong hệ HIBE, thực hiện tái tạo độ ngẫu nhiên là bắt buộc. Thuật toán tiếp tục như sau: \\
 			Lấy ngẫu nhiên $r' \xleftarrow{R} \mathbb{Z}_p$. Tính và gán
 			\begin{align*}
 				sk_{ID', 1} &\leftarrow
@@ -165,13 +165,14 @@
 			\end{align*}
 			Thuật toán trả về bản rõ $M$.
 		\end{itemize}
-
+		
 		Hệ mã BBG có thể được cài đặt trên cả hai loại cặp ghép: đối xứng và bất đối xứng. Tùy vào trường hợp mà hệ mã sẽ tương ứng dựa trên giả định D-BDHE phiên bản đối xứng hay bất đối xứng. Sau đây là định lý về độ an toàn của hệ mã BBG. Trên cặp ghép đối xứng, đặt $\mathbb{G} := \mathbb{G}_1 = \mathbb{G}_2$ Sinh viên không trình bày chứng minh trong khóa luận này. Chứng minh có thể được tham khảo tại \cite{DBLP:conf/eurocrypt/BonehBG05}. Kế tiếp độ hiệu quả của hệ mã BBG sẽ được so sánh với hệ mã GS, BB$_1$ qua bảng \ref{table:hibe_time_comparison} và \ref{table:hibe_space_comparison}.
+		%
+		\newpage
 		\begin{theorem}
 			Với mọi $\ell \geq 1$, nếu giả định $(t, \varepsilon, \ell)$-D-BDHE phiên bản đối xứng (tương ứng: bất đối xứng) là đúng trong $(\mathbb{G}, \mathbb{G}_T, e)$ (tương ứng: $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$) thì hệ HIBE vừa mô tả đạt mức an toàn $(t', q_{id}, \ell, \varepsilon)$-IND-sID-CPA. Trong đó $t' < t - \Theta\,(\tau\, \ell\, q_{id})$ với $\tau$ là thời gian tối đa của một phép tính lũy thừa trong $\mathbb{G}$ (tương ứng: $\mathbb{G}_2$).
 		\end{theorem}
 		%
-		\newpage
 		\subimport{./}{hibe_time_comparison_table.tex}
 		\subimport{./}{hibe_space_comparison_table.tex}
 	%
@@ -182,19 +183,20 @@
 			Trong khóa luận này, sinh viên cài đặt cụ thể bằng hàm BLAKE2b \cite{DBLP:conf/acns/AumassonNWW13} với chuỗi băm đầu ra có chiều dài bằng $\lceil \log_2 p \rceil$. Phần việc còn lại để nhúng (encode) một chuỗi thuộc $\{0, 1\}^{\lceil \log_2 p \rceil}$ vào $\mathbb{Z}_p$ là đơn giản. Để tiện gọi, kể từ đây hàm băm này được ký hiệu trừu tượng là $H_{in}: 	\ \{0, 1 \}^* \ \rightarrow \ \mathbb{Z}_p^*$ .
 		%
 		\subsection{Mã hóa trên bản rõ là chuỗi}
-			Hai phiên bản trên đều yêu cầu bản mã phải là một phần tử thuộc $\mathbb{G}_T$. Với cặp ghép được hiện thực bằng đường cong elliptic thì $\mathbb{G}_T$ là nhóm các căn bậc $p$ của đơn vị trong trường hữu hạn. Việc xây dựng một đơn ánh tính được cả hai chiều để nhúng một tập các chuỗi (chẳng hạn $\{0, 1\}^n$ với $n$ xấp xỉ $\lceil \log_2 p \rceil$) vào $\mathbb{G}_T$ và trở ngược lại là không đơn giản. Trong phạm vi hiểu biết của mình, sinh viên chưa tìm được ánh xạ nào như vậy, do đó quyết định sử dụng giải pháp khác. Đó là xem hệ IBE như một giao thức trao đổi khóa phục vụ cho mã hóa khóa đối xứng.
+			Hai phiên bản trên đều yêu cầu bản mã phải là một phần tử thuộc $\mathbb{G}_T$. Với cặp ghép được hiện thực bằng đường cong elliptic thì $\mathbb{G}_T$ là nhóm các căn bậc $p$ của đơn~vị trong trường hữu hạn. Việc xây dựng một đơn ánh tính được cả hai chiều để nhúng một tập các chuỗi (chẳng hạn $\{0, 1\}^n$ với $n$ xấp xỉ $\lceil \log_2 p \rceil$) vào $\mathbb{G}_T$ và trở ngược lại là không đơn giản. Trong phạm vi hiểu biết của mình, sinh viên chưa tìm được ánh xạ nào như vậy, do đó quyết định sử dụng giải pháp khác. Đó là xem hệ IBE như một giao thức trao đổi khóa phục vụ cho mã hóa khóa đối xứng.
 
-			Cụ thể, giá trị $Z\,^s$ trong mô tả ở trên là bí mật chung đã được thiết lập mà chỉ người gửi và người nhận biết, nên có thể xem như nguyên liệu tạo khóa đối xứng. Ta thực hiện băm nó thành chuỗi nhị phân có chiều dài bằng bản rõ rồi XOR hai chuỗi. Trong cài đặt, sinh viên dùng BLAKE2 băm $Z\,^s$ thành chuỗi 256 bit. Bản rõ phải ngắn hơn, khi kết hợp với padding sẽ bằng đúng 256 bit. Để tiện lợi ta gọi hàm băm được sử dụng ở đây là $H_{out}: \mathbb{G}_T \ \rightarrow \ \{0, 1 \}^n$.
+			Cụ thể, giá trị $Z\,^s$ trong mô tả ở trên là bí mật chung đã được thiết lập mà chỉ người gửi và người nhận biết, nên có thể xem như nguyên liệu tạo khóa đối xứng. Ta~thực hiện băm nó thành chuỗi nhị phân có chiều dài bằng bản rõ rồi XOR hai chuỗi. Trong~cài đặt, sinh viên dùng BLAKE2 băm $Z\,^s$ thành chuỗi 256 bit. Bản rõ phải ngắn hơn, khi kết hợp với padding sẽ bằng đúng 256 bit. Để tiện lợi ta gọi hàm băm được sử dụng ở đây là $H_{out}: \mathbb{G}_T \ \rightarrow \ \{0, 1 \}^n$.
 			
 			Xin nói thêm rằng sinh viên vẫn chưa chắc chắn về độ an toàn của giải pháp này. Lý do là để chứng minh an toàn được thì $H_{out}$ phải được giả sử là oracle ngẫu nhiên. Một giải pháp khác nữa được sinh viên tin là có độ tin cậy cao hơn là sử dụng \textit{bộ trích xuất ngẫu nhiên} (randomness extractor), ví dụ như ``leftover hash lemma''. Tuy nhiên khi áp dụng vào hệ mã trên cặp ghép thì số bit ngẫu nhiên trích xuất được là không nhiều, dẫn đến kích thước bản rõ bị giảm xuống.
 		%
 		\subsection{Tăng mức an toàn lên IND-ID-CCA}
-			Để có được độ an toàn CCA, biến đổi BMW được áp dụng cho hệ mã BBG. Với số cấp tối đa mong muốn cho hệ HIBE là $\ell$, ta xây dựng hệ BBG có số cấp tối đa $\ell + 1$. Chiều dài định danh tất nhiên phải bị giới hạn không lớn hơn $\ell$. Thêm nữa, khi thiết lập cần chọn một hàm băm kháng đụng độ có thể băm một chuỗi nhị phân bất kỳ thành một phần tử thuộc $\mathbb{Z}_p$. Ở đây ta tái sử dụng hàm $H_{in}$. Khi mã hóa trên định danh $ID$ có chiều dài $k$, trước hết thuật toán vẫn mã hóa như bình thường, tạo ra bộ ba $(C_0, C_1, C_2)$. Gọi $\sigma$ là nối các biểu diễn nhị phân của $C_0, C_1, C_2$. Sau đó, xem $\sigma$ như một định danh nguyên thủy, tính $C_3 = H_{k + 1}(ID, \sigma)^s$ và bản mã $C = (C_0, C_1, C_2, C_3)$.
+			Để có được độ an toàn CCA, biến đổi BMW được áp dụng cho hệ mã BBG. Với~số cấp tối đa mong muốn cho hệ HIBE là $\ell$, ta xây dựng hệ BBG có số cấp tối đa $\ell + 1$. Chiều dài định danh tất nhiên phải bị giới hạn không lớn hơn $\ell$. Thêm nữa, khi thiết lập cần chọn một hàm băm kháng đụng độ có thể băm một chuỗi nhị phân bất kỳ thành một phần tử thuộc $\mathbb{Z}_p$. Ở đây ta tái sử dụng hàm $H_{in}$. Khi mã hóa trên định danh $ID$ có chiều dài $k$, trước hết thuật toán vẫn mã hóa như bình thường, tạo ra bộ ba $(C_0, C_1, C_2)$. Gọi $\sigma$ là nối các biểu diễn nhị phân của $C_0, C_1, C_2$. Sau đó, xem $\sigma$ như một định danh nguyên thủy, tính $C_3 = H_{k + 1}(ID, \sigma)^s$ và bản mã $C = (C_0, C_1, C_2, C_3)$.
 			\newpage
 			Định danh nguyên thủy $\sigma$ ở cấp $k + 1$ có tác dụng như một giá trị ``checksum''. Nghĩa là nó cho ta một cách thức kiểm tra tính toàn vẹn và hợp lệ của bản mã, bằng cách kiểm
 			\[
 				\frac{e \Big(H_{k + 1}(ID, \sigma),\ C_1 \Big)}{e \Big(C_3,\ h \Big)} \overset{?}{=} 1.
 			\]
+			
 			Không khó để thấy rằng nếu bản mã toàn vẹn thì đẳng thức thỏa và ngược lại nếu bất kỳ giá trị nào trong $C_0, C_1, C_2, C_3$ bị thay đổi thì đẳng thức sai. Ta có thể chỉnh sửa chứng minh an toàn CCA trong \cite{DBLP:conf/ccs/BoyenMW05} để áp dụng với hệ mã BBG. Chứng minh xin không được trình bày tại đây.
 		%
 		\subsection{Hỗ trợ sinh khóa có ngưỡng phi tương tác}
@@ -227,30 +229,33 @@
 					\item[\textbullet] \textit{Output}: Khóa bí mật định danh $sk_{ID}$ của $ID$
 				\end{itemize}
 			\end{itemize}
-			%
+			
 			Để chia khóa bí mật chủ $g\,^\alpha$ với tham số $m, n$, ở pha thiết lập ta chọn ngẫu nhiên $\alpha_1, \dots, \alpha_{m - 1} \xleftarrow{R} \mathbb{Z}_p$. Để tiện ký hiệu ta đặt $\alpha_0 = \alpha$. Định nghĩa đa thức
 			\[
 				f(x) = \alpha_0 + \alpha_1x + \dots + \alpha_{m - 1}x\,^{m - 1}.
 			\]
-			Tiếp tục ta tính giá trị hàm $f$ tại $n$ giá trị khác nhau. Để đơn giản ta tính $f(i)$ với mọi $1 \leq i \leq n$. \\
+			\indent
+			Tiếp tục ta tính giá trị hàm $f$ tại $n$ giá trị khác nhau. Để đơn giản ta tính $f(i)$ với mọi $1 \leq i \leq n$. \\ \indent
 			Với $m$ bộ phân biệt bất kỳ $(x_1, f(x_1)), \dots, (x_m, f(x_m))$, theo nội suy Lagrange thì
 			\[
 				f(x) = \sum_{i = 1}^m \bigg(f(x_i) \prod_{j \neq i}\ \frac{x - x_j}{x_i - x_j} \bigg).
 			\]
+			\indent
 			Đặt $\lambda_i = \bigg(\displaystyle\prod_{j \neq i}\ \frac{-x_j}{x_i - x_j} \bigg)$. Suy ra $\alpha_0 = f(0) = \displaystyle\sum_{i = 1}^m f(x_i)\lambda_i$. Quan sát rằng tất cả $\lambda_i$ đều có thể tính được chỉ với các giá trị $x_1, \dots, x_m$. Hơn nữa ta có
 			\[
 				g\,^{\alpha_0} = g\,^{\sum_{i = 1}^m f(x_i)\lambda_i} = \prod_{i = 1}^m \ g\,^{f(x_i)\lambda_i} = \prod_{i = 1}^m \ \Big(\, g\,^{f(x_i)}\, \Big)^{\lambda_i}.
 			\]
-			Vì vậy cơ chế sinh khóa phi tương tác có thể được triển khai bằng cách cho thực thể thứ $i$ trong $n$ thực thể hội đồng PKG nhận $(i, g^{f(i)})$. Để ý rằng trong hai phiên bản trước thì khóa bí mật chủ $g\,^\alpha$ chỉ đóng góp vào thành phần thứ nhất của khóa bí mật định danh. Xét định danh $ID$ chiều dài $k$. Thành phần thứ nhất của khóa định danh thành phần thứ $i$ của $ID$ lúc này sẽ là $g^{f(i)} H_k(ID)^{r_i}$, với $r_i$ được thực thể thứ $i$ lấy ngẫu nhiên trong $\mathbb{Z}_p^*$. Để đơn giản, ta xem như chủ thể của $ID$ đã có được $(i,\ g^{f(i)} H_k(ID)^{r_i})$ với mọi $1 \leq i \leq m$. Sau đó chủ thể của $ID$ tính tất cả $\lambda_i$ từ 1 đến $m$. \\
+			\indent
+			Vì vậy cơ chế sinh khóa phi tương tác có thể được triển khai bằng cách cho thực thể thứ $i$ trong $n$ thực thể hội đồng PKG nhận $(i, g^{f(i)})$. Để ý rằng trong hai phiên bản trước thì khóa bí mật chủ $g\,^\alpha$ chỉ đóng góp vào thành phần thứ nhất của khóa bí mật định danh. Xét định danh $ID$ chiều dài $k$. Thành phần thứ nhất của khóa định danh thành phần thứ $i$ của $ID$ lúc này sẽ là $g^{f(i)} H_k(ID)^{r_i}$, với $r_i$ được thực thể thứ $i$ lấy ngẫu nhiên trong $\mathbb{Z}_p^*$. Để đơn giản, ta xem như chủ thể của $ID$ đã có được $(i,\ g^{f(i)} H_k(ID)^{r_i})$ với mọi $1 \leq i \leq m$. Sau đó chủ thể của $ID$ tính tất cả $\lambda_i$ từ 1 đến $m$. \\ \indent
 			Đặt $r = \sum_{i = 1}^m r_i \lambda_i$. Ta có
 			\[
 				\prod_{i = 1}^m \ \Big(g^{f(i)} H_k(ID)^{r_i} \Big)^{\lambda_i} =
 				\Big(\prod_{i = 1}^m \ g^{f(i)\lambda_i} \Big) \Big(\prod_{i = 1}^m \ H_k(ID)^{r_i \lambda_i} \Big) =
 				g\,^{\alpha_0} H_k(ID)^{r \lambda_i}.
 			\]
+			\indent
 			Giá trị trên có thể xem là một thành phần thứ nhất hợp lệ được tạo bởi lượng ngẫu nhiên $r$. Các thành phần còn lại trong khóa được tạo gần như tương tự. Vui lòng xem chi tiết bên dưới.
 	%
-	\newpage
 	\section{Phiên bản hoàn thiện}
 		\begin{itemize}[leftmargin=1cm, itemindent=-1cm]
 			\item[] {\sffamily\bfseries Setup($\lambda$, $\ell$, m, n)} \\
@@ -350,7 +355,9 @@
 			Như trước đó, ta cũng có $sk_{ID} \in \mathbb{G}_1 \times \mathbb{G}_2 \times \mathbb{G}_1^{\ell - k}$.
 			%
 			\item[] {\sffamily\bfseries Derive(params, sk\textsubscript{ID}, ID$'$)} \\
-			Thuật toán này tương tự như ở phiên bản HIBE và được trình bày lại vì mục đích đầy đủ. Giả sử $ID$ là tiền tố của $ID'$ và $ID, ID'$ có cấp trong hệ HIBE lần lượt là $k, k + 1$ ($k < \ell$). Đặt
+			Thuật toán này tương tự như ở phiên bản HIBE và được trình bày lại vì mục đích đầy đủ. Giả sử $ID$ là tiền tố của $ID'$ và $ID, ID'$ có cấp trong hệ HIBE lần lượt là $k, k + 1$ ($k < \ell$).
+			\newpage
+			Đặt:
 			\begin{flalign*}
 				ID &= (I_1, \dots,\ I_k), &\\
 				ID' &= (I_1, \dots,\ I_k,\ I_{k + 1}) \quad\quad (I_1, \dots, I_{k + 1} \in \{0, 1 \}^*), &\\
@@ -391,6 +398,7 @@
 			\]
 			rồi trả về kết quả theo cách tương tự như phiên bản IBE và HIBE.
 			%
+			\newpage
 			\item[] {\sffamily\bfseries Encrypt(params, ID, M)} \\
 			Thuật toán mã hóa nhận vào bản rõ $M$ là chuỗi nhị phân có chiều dài $\lceil \log_2 p \rceil$. Đặt $ID = (I_1, \dots, I_k) \in (\{0, 1 \}^*)^k \ (k \leq \ell)$. \\
 			Chọn ngẫu nhiên $s \xleftarrow{R} \mathbb{Z}_p^*$. Tính lần lượt các giá trị:
@@ -420,10 +428,6 @@
 			\end{align*}
 			Cuối cùng trả về bản rõ $M$.
 		\end{itemize}
-		%
-		% \begin{theorem}
-		% 	Với mọi $\ell \geq 1$, nếu giả định $(t, \varepsilon, \ell + 1)$-D-BDHE phiên bản bất đối xứng là đúng trong $(\mathbb{G}_1, \mathbb{G}_2, \mathbb{G}_T, e)$ thì hệ HIBE vừa mô tả đạt mức an toàn $(t', q_{id}, q_c, \ell, \varepsilon)$-IND-sID-CCA. Trong đó $t' < t - \Theta\,(\tau\, \ell\, q_{id})$ với $\tau$ là thời gian tối đa của một phép tính lũy thừa trong $\mathbb{G}$.
-		% \end{theorem}
 	%
 	\newpage
 	\section{Độ hiệu quả thực tế}	
